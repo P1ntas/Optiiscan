@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  optiiscan:
+    container_name: optiiscan
+    image: optiiscan
+    volumes:
+      - ./src:/app/src
+      - ./static:/app/static
+      - ./tailwind.config.js:/app/tailwind.config.js
+    build:
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 3000:3000
