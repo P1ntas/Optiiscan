@@ -1,4 +1,5 @@
 <script>
+	import { Spinner } from 'flowbite-svelte';
 	/**
 	 * @type ScanObject[]
 	 */
@@ -35,7 +36,9 @@
 >
 	<h1 class="mx-auto flex w-fit text-secondary">Here's the response:</h1>
 	{#if status === Status.loading}
-		<span class="loading loading-spinner loading-md m-auto text-accent" />
+		<div class="m-auto">
+			<Spinner class="fill-accent" />
+		</div>
 	{:else if data}
 		{#each data as scan}
 			<div class="m-auto flex w-fit flex-col gap-5 overflow-y-scroll py-5 text-center">
@@ -48,7 +51,6 @@
 	{:else}
 		<p class="text-center">Click the button</p>
 	{/if}
-	<button on:click={generate} class="btn btn-primary m-auto flex h-auto w-36 p-5"
-		>Generate response</button
+	<button on:click={generate} class="m-auto flex h-auto w-36 border p-5">Generate response</button
 	>
 </section>
