@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-	content: ['./src/**/*.{html,js,svelte}'],
+	content: [
+		'./src/**/*.{html,js,svelte}',
+		'./node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}'
+	],
 	theme: {
 		colors: {
 			primary: 'oklch(var(--primary))',
@@ -9,7 +12,7 @@ export default {
 		},
 		extend: {}
 	},
-	plugins: [require('daisyui')],
+	plugins: [require('daisyui'), require('flowbite/plugin')],
 	daisyui: {
 		themes: [
 			{

@@ -38,5 +38,10 @@
 	"lint-staged": {
 		"*.js": "eslint --cache --fix",
 		"*.{js,css,md,svelte}": "prettier --write"
+	},
+	"dependencies": {
+		"flowbite": "^2.3.0",
+		"flowbite-svelte": "^0.44.24",
+		"flowbite-svelte-icons": "^1.5.0"
 	}
 }
