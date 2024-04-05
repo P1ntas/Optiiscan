@@ -4,25 +4,17 @@ export default {
 		'./src/**/*.{html,js,svelte}',
 		'./node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}'
 	],
+
+	plugins: [require('flowbite/plugin')],
+
 	theme: {
-		colors: {
-			primary: 'oklch(var(--primary))',
-			secondary: 'oklch(var(--secondary))',
-			accent: 'oklch(var(--accent))'
-		},
-		extend: {}
-	},
-	plugins: [require('daisyui'), require('flowbite/plugin')],
-	daisyui: {
-		themes: [
-			{
-				custom: {
-					primary: '#222451',
-					secondary: '#B7352A',
-					accent: '#C7902A'
-				}
-			},
-			'custom'
-		]
+		extend: {
+			colors: {
+				// flowbite-svelte
+				primary: '#222451',
+				secondary: '#B7352A',
+				accent: '#C7902A'
+			}
+		}
 	}
 };
