@@ -11,7 +11,6 @@
 		console.log('Sending files to server');
 
 		//TODO: Add upload to backend here
-
 		files = [];
 	}
 
