@@ -4,10 +4,7 @@
 
 	let types = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf', 'application/zip'];
 
-	let files = [];
-	$: {
-		console.log(files);
-	}
+	export let files = [];
 
 	//uploading by drag
 	const dropHandle = (event) => {
@@ -82,11 +79,11 @@
 		{#each files as file, i}
 			<ListgroupItem key={i} class="border-1 flex">
 				{#if file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/jpg'}
-					<img alt="" class="h-11 w-11" src={URL.createObjectURL(file)} />
+					<img alt="upload preview" class="h-11 w-11" src={URL.createObjectURL(file)} />
 				{:else if file.type === 'application/pdf'}
-					<img alt="" src="" />
+					<img alt="upload preview" class="h-11 w-11" src="/pdfIcon.png" />
 				{:else if file.type === 'application/zip'}
-					<img alt="" src="" />
+					<img alt="upload preview" class="h-11 w-11" src="/zipIcon.png" />
 				{/if}
 				<div class="ml-2">
 					<p class="text-black">{file.name}</p>
