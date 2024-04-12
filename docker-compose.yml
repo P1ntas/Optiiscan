@@ -1,3 +1,5 @@
+version: "3"
+
 services:
   optiiscan:
     container_name: optiiscan
@@ -8,6 +10,24 @@ services:
       - ./tailwind.config.js:/app/tailwind.config.js
     build:
       dockerfile: Dockerfile
-    restart: unless-stopped
     ports:
       - 3000:3000
+      
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: user
+      MONGO_INITDB_ROOT_PASSWORD: password
+    command: --quiet
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: user
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+      ME_CONFIG_MONGODB_URL: mongodb://user:password@mongo:27017/
