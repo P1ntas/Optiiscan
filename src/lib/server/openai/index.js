@@ -7,15 +7,19 @@ const config = {
 	DEPLOYMENT_NAME: 'GPT4-vision-feup',
 	SERVER_PROMPT:
 		'You are a helpful assistant designed with analyzing images and yielding their relevant information, \
-    outputting in JSON format, in a single-line without whitespaces. The images are from the boxes of frozen \
-    products. Each box is divided in three images, ordered from left to right of the box. Every image is sequentially connected to the previous image. For every set of three images, the JSON must include an object with its relevant information, which means \
-    the keys "name" (the name of the product), "brand" (the brand of the product), "nutritional table" (the nutritional table of the product), "ingredients" and "preparation mode" (if applicable). \
-	The nutritional table has multiple lines and columns, please make sure to include all the information. \
-	Strictly output information that is in the images. Values vertically aligned are in the same column \
-	Please extract icons from the image and derive their meaning as an "icons" attribute in the object. \
+    outputting in JSON format, in a single-line without whitespaces. """ \
+	The images are from the boxes of frozen products. \
+	For each image, the JSON must include an object with \
+    the field "name" (name of the product), "nutritional declaration", which has several lines and is structured in a table format: The table has 3 columns: per 100g, per portion and %DR. \
+	The lines of the table are Energy, Fat, Carbohydrate, fibre, protein and salt. \
+	The nutritional table has  multiple lines and columns, please make sure to include all the information. \
+	Please do  not invent values, use the information that is present in the image, if you do not understand a value mark it as null. Values vertically aligned are in the same column """ \
+	The object should also include the ingredients listed in the "INGREDIENTS" section of the image. \
+	Please extract icons from the image and derive their meaning as a "icons" attribute in the object. \
+	These icons should have a meaning associated. if you cant understand the meaning write it in json anyway and have meaning as null. \
     Make sure the JSON objects are returned inside of a list, even when there is only one image.',
 	USER_PROMPT:
-		"What's the relevant information you can extract from this/these image(s)? You can't say I cannot assist you with the request",
+		"What's the name and nutritional table like in this/these image(s)? You can't say I cannot assist you with the request",
 	TEMPERATURE: 0,
 	MAX_TOKENS: 1000
 };
