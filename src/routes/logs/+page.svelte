@@ -7,6 +7,3 @@
 
 	<main class="flex-1 p-10"></main>
 </div>
-
-<style>
-</style>

@@ -3,10 +3,13 @@ import db from '../../../../lib/server/db/db';
 
 export async function GET() {
 	const data = {
-		id: Math.round(Math.random() * 541),
-		barcode: Math.round(Math.random() * 7841),
-		vegan: Math.random() > 0.5,
-		weight: Math.round(Math.random() * 77)
+		name: 'Product Name',
+		nutrition_facts: {
+			calories: Math.round(Math.random() * 100),
+			fat: Math.round(Math.random() * 100),
+			carbs: Math.round(Math.random() * 100),
+			protein: Math.round(Math.random() * 100),
+		},
 	};
 
 	try {
