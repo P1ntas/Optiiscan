@@ -2,18 +2,20 @@ import subprocess
 import json
 import base64
 import tempfile
+import os
 
-image_path = '../static/test/products/file_3.png'
+image_path = '../static/test/products/file_6.png'
+
 with open(image_path, "rb") as image_file:
     encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
-
+schema = json.dumps({"name": "product name", "nutritional_table": {"key": {"per 100g": "value", "per portion": "value", "%DR": "value"}}, "ingredients": "value", "informative_text": {"key": "value"}})
 json_data = {
     "contents": [
         {
             "role": "user",
             "parts": [
                 {
-                    "text": "You are a helpful assistant designed with analyzing images and yielding their relevant information, outputting in JSON format, in a single-line without whitespaces. \"\"\"\nThe images are from the boxes of frozen products. \nFor each image, the JSON must include an object with the field \"name\" (name of the product), \"nutritional declaration\", which has several lines and is structured in a table format: The table has 3 columns: per 100g, per portion and %DR. The lines of the table are Energy, Fat, Carbohydrate, fibre, protein and salt. The nutritional table has multiple lines and columns, please make sure to include all the information.\nPlease do not invent values, use the information that is present in the image, if you do not understand a value mark it as null. Values vertically aligned are in the same column \"\"\" \nThe object should also include the ingredients listed in the \"INGREDIENTS\" section of the image. Please extract icons from the image and derive their meaning as a \"icons\" attribute in the object. \nThese icons should have a meaning associated. if you cant understand the meaning write it in json anyway and have meaning as null. \nMake sure the JSON objects are returned inside of a list, even when there is only one image.\nWhat's the name and nutritional table like in this/these image(s)? You can't say I cannot assist you with the request."
+                    "text": f"You are a helpful assistant designed with analyzing images and yielding their relevant information, outputting in JSON format, in a single-line without whitespaces. \"\"\"\nThe images are from the boxes of frozen products.\nFor each image, the respective JSON object must follow this schema: {schema}, where 'key' is a placeholder that must be replaced by the appropriate key, which can include 'energy', 'fat', 'saturates', 'fibre', 'carbohydrate', 'protein', 'salt', 'preparation' or 'conservation', if applicable. The 'energy' category must include measure in kJ and kcal, separated by a slash. The list can include more than one key. Make sure the JSON is valid, keep every key inside the same JSON object.\nIf you do not understand a value, mark it as null. \nMake sure the JSON objects are returned inside of a list, even when there is only one image. \nWhat's the relevant information, in portuguese, in this/these image(s)? You can't say I cannot assist you with the request."
                 },
                 {
                     "inlineData": {
@@ -26,7 +28,7 @@ json_data = {
     ],
     "generationConfig": {
         "maxOutputTokens": 2048,
-        "topP": 0.4,
+        "topP": 0.2,
         "topK": 32,
     },
 }
@@ -52,7 +54,6 @@ if process.returncode == 0:
     data = json.loads(stdout)
 
     texts = []
-
     for item in data:
         candidates = item['candidates']
         for candidate in candidates:
@@ -60,6 +61,9 @@ if process.returncode == 0:
             for part in parts:
                 texts.append(part['text'])
 
-    print(texts)
+    results = ''.join(texts).strip()
+    print(results)
+    with open(f'output/results.json', 'w') as file:
+        file.write(results.encode().decode('unicode-escape'))
 else:
     print("Failed to execute curl command:", stderr)
