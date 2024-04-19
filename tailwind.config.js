@@ -13,7 +13,11 @@ export default {
 				// flowbite-svelte
 				primary: '#222451',
 				secondary: '#B7352A',
-				accent: '#C7902A'
+				accent: '#C7902A',
+				sonaeblue: '#222451',
+				inprogress: '#EFD237',
+				finish: '#2C702C',
+				error: '#B7352A'
 			}
 		}
 	}

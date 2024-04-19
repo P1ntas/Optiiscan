@@ -10,7 +10,7 @@
 	};
 	let status = Status.idle;
 	const dir = 'static/test/products';
-	const filePaths = [`${dir}/file_1.png`, `${dir}/file_2.png`];
+	const filePaths = [`${dir}/file_3.png`];
 	async function generate() {
 		if (status === Status.loading) return console.log('Loading, please wait.');
 		status = Status.loading;
@@ -42,9 +42,8 @@
 	{:else if data}
 		{#each data as scan}
 			<div class="m-auto flex w-fit flex-col gap-5 overflow-y-scroll py-5 text-center">
-				<p>Title: {scan.title}</p>
-				<p>Description: {scan.description}</p>
-				<p>Main color: {scan.color}</p>
+				<p>Title: {scan.name}</p>
+
 				<p class="break-words text-center">Raw data: {JSON.stringify(scan)}</p>
 			</div>
 		{/each}
