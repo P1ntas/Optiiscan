@@ -1,5 +1,6 @@
 <script>
 	import { Button } from 'flowbite-svelte';
+	import { Indicator, Avatar, Badge } from 'flowbite-svelte';
 </script>
 
 <div class="mycontainer">
