@@ -44,6 +44,6 @@
 		"flowbite-svelte": "^0.44.24",
 		"flowbite-svelte-icons": "^1.5.0",
 		"fs-extra": "^11.2.0",
-		"sharp": "^0.33.3"
+		"mongodb": "^6.5.0"
 	}
 }
