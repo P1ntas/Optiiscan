@@ -31,7 +31,7 @@
 			elapsedTime: '20 min',
 			numberImages: '10',
 			info: '2024-03-08 14:00:00 - INFO - Starting image processing task. 2024-03-08 14:00:05 - INFO - Loading image files for processing ...',
-			status: 'Finish'
+			status: 'In Progress'
 		},
 		{
 			id: 2,
@@ -40,7 +40,7 @@
 			elapsedTime: '20 min',
 			numberImages: '10',
 			info: '2024-03-08 14:00:00 - INFO - Starting image processing task. 2024-03-08 14:00:05 - INFO - Loading image files for processing ...',
-			status: 'Finish'
+			status: 'Error'
 		},
 		{
 			id: 3,
@@ -108,7 +108,15 @@
 						</TableBodyCell>
 						<TableBodyCell class="text-wrap font-light">{product.info}</TableBodyCell>
 						<TableBodyCell class="text-wrap font-light">
-							<Badge color="green" rounded class="px-2.5 py-0.5">
+							<Badge
+								rounded
+								class="h-10 w-28 px-2 py-1 text-center uppercase text-white {product.status ===
+								'In Progress'
+									? 'bg-inprogress'
+									: ''} {product.status === 'Error'
+									? 'bg-error'
+									: ''} {product.status === 'Finish' ? 'bg-finish' : ''}"
+							>
 								{product.status}
 							</Badge>
 						</TableBodyCell>
