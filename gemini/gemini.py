@@ -52,6 +52,7 @@ stdout, stderr = process.communicate()
 
 if process.returncode == 0:
     data = json.loads(stdout)
+    print(data)
 
     texts = []
     for item in data:
@@ -67,3 +68,4 @@ if process.returncode == 0:
         file.write(results.encode().decode('unicode-escape'))
 else:
     print("Failed to execute curl command:", stderr)
+    
