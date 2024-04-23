@@ -11,13 +11,12 @@ import { ObjectId } from 'mongodb';
  * --> POST
  *  Create a new log
  *  >> Expects in the body:
- *      description
  *      numImages
  *
  * --> PATCH
  *  Modify a existing log
  *  >> Expects in the body (both optional):
- *      status (-1: aborted / 0: running / 1: completed)
+ *      status (aborted / running / completed)
  *      info (new message to append to the log)
  *
  * --> DELETE
@@ -32,10 +31,13 @@ export async function GET() {
 
 export async function POST({ request }) {
 	const data = await request.json();
-	data['uploadDate'] = new Date().toLocaleString();
+	data['uploadDate'] = new Date().toISOString();
 	data['finishDate'] = null;
+	data['elapsedTime'] = null;
+	data['infoCorrect'] = null;
+	data['infoError'] = null;
 	data['info'] = [];
-	data['status'] = 0;
+	data['status'] = 'running';
 
 	await (await db).collection('logs').insertOne(data);
 	return json({ success: true, message: 'Document inserted successfully.' });
