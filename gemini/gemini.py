@@ -52,7 +52,6 @@ stdout, stderr = process.communicate()
 
 if process.returncode == 0:
     data = json.loads(stdout)
-    print(data)
 
     texts = []
     for item in data:
