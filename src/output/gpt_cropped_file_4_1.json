@@ -1,0 +1,34 @@
+[
+	{
+		"name": "Abacate em Cubos",
+		"brand": "Continente",
+		"barcode": "5601312512721",
+		"nutritional_table": {
+			"energy": {
+				"per 100": "744 kJ / 181 kcal",
+				"per portion": "465 kJ / 113 kcal",
+				"%DR": "6%"
+			},
+			"fat": { "per 100": "17,2 g", "per portion": "10,8 g", "%DR": "15%" },
+			"saturates": { "per 100": "4,6 g", "per portion": "2,9 g", "%DR": "14%" },
+			"carbohydrate": { "per 100": "3,2 g", "per portion": "2,0 g", "%DR": "1%" },
+			"sugars": { "per 100": "0 g", "per portion": "0 g", "%DR": "0%" },
+			"fibre": { "per 100": "4,3 g", "per portion": "2,7 g", "%DR": "-" },
+			"protein": { "per 100": "1,2 g", "per portion": "0,7 g", "%DR": "1%" },
+			"salt": { "per 100": "0,17 g", "per portion": "0,17 g", "%DR": "3%" }
+		},
+		"ingredients": "Abacate.",
+		"informative_text": {
+			"preparation": "Recomendamos descongelar o produto aproximadamente 1 hora antes do seu consumo.",
+			"conservation": "Conservar a -18 °C até ao limite do prazo de validade indicado na embalagem. Uma vez iniciado o processo de descongelação, não volte a congelar."
+		},
+		"icons": [
+			{ "icon": "Plástico", "meaning": "Recyclable plastic packaging" },
+			{ "icon": "EcoPonto Amarelo", "meaning": "Dispose in yellow recycling bin" },
+			{ "icon": "Observar", "meaning": null },
+			{ "icon": "Cheirar", "meaning": null },
+			{ "icon": "Provar", "meaning": null },
+			{ "icon": "ISO 9001", "meaning": "Quality management systems - Requirements" }
+		]
+	}
+]

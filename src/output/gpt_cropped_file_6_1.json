@@ -1,0 +1,30 @@
+[
+	{
+		"name": "Crepes Chineses",
+		"brand": "Continente",
+		"barcode": "5601006106155",
+		"nutritional_table": {
+			"energy": {
+				"per 100": "519 kJ/ 123 kcal",
+				"per portion": "415 kJ/ 98 kcal",
+				"%DR": "5%"
+			},
+			"fat": { "per 100": "1.6 g", "per portion": "1.3 g", "%DR": "2%" },
+			"saturates": { "per 100": "0.5 g", "per portion": "0.4 g", "%DR": "2%" },
+			"carbohydrate": { "per 100": "25 g", "per portion": "20 g", "%DR": "8%" },
+			"sugars": { "per 100": "5.8 g", "per portion": "4.6 g", "%DR": "5%" },
+			"fibre": { "per 100": "0.8 g", "per portion": "0.6 g", "%DR": "-" },
+			"protein": { "per 100": "2.9 g", "per portion": "2.3 g", "%DR": "5%" },
+			"salt": { "per 100": "1.4 g", "per portion": "1.1 g", "%DR": "18%" }
+		},
+		"ingredients": "Farinha de TRIGO, água, sal, óleo de SOJA, preparado de OVOS (OVOS, sal, açúcar), carne de PORCO (8%), repolho, cebola, cenoura, molho de SOJA (água, SOJA, TRIGO, sal), açúcar, amido modificado, especiarias, sal, realçador de sabor (E621), conservante (E202).",
+		"informative_text": {
+			"preparation": "Retirar do congelador a quantidade de Crepes Chineses que deseja preparar. Numa frigideira antiaderente, adicionar um fio de óleo e aquecer. Colocar os Crepes Chineses e deixar cozinhar em lume brando durante aproximadamente 15 minutos, virando regularmente.",
+			"conservation": "Conservar a -18ºC. Uma vez iniciado o processo de descongelação, não voltar a congelar."
+		},
+		"icons": [
+			{ "image": "Recycling symbol", "meaning": "Recyclable packaging" },
+			{ "image": "Temperature symbol", "meaning": "Keep frozen at -18ºC" }
+		]
+	}
+]
