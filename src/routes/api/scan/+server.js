@@ -1,11 +1,11 @@
 import { scanPrompt } from '$lib/server/openai';
-import { divideImage } from '$lib/server/utils';
+import { pdfToPng } from '$lib/server/utils';
 
 export async function POST({ request }) {
 	const params = await request.json();
 	return Promise.all(
 		params.filePaths.map(async (/**@type string*/ path) => {
-			return await divideImage(path, 3);
+			return await pdfToPng(path);
 		})
 	)
 		.then(async (filepaths) => {
