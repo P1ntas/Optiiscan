@@ -5,17 +5,24 @@ import tempfile
 import os
 
 image_path = '../static/test/products/file_6.png'
+schema = json.dumps({"name": "product name", "brand": "brand name", "barcode": "numeric code", "nutritional_table": {"key": {"per 100": "value", "per portion": "value", "%DR": "value"}}, "ingredients": "value", "informative_text": {"key": "value"}})
+prompt = f"You are a helpful assistant designed with analyzing images and yielding their relevant information, outputting in JSON format, in a single-line without whitespaces. \
+    \nThe images are from the boxes of frozen products.\nFor each image, the respective JSON object must follow this schema: {schema}, where 'key' is a placeholder that must be \
+        replaced by the appropriate key, which can include 'energy' (which must include measure both in kJ and kcal, separated by a slash), 'fat', 'saturates', 'fibre', 'carbohydrate', 'protein', 'salt', 'preparation' or 'conservation', if applicable. \
+            When reading the nutritional table, separate the values from 100, portion and %DR columns in the JSON object, for all keys related to the table, strictly following the JSON schema.\
+                The list can include more than one key. Make sure the JSON is valid, keep every key inside the same \
+                    JSON object.\nIf you do not understand a value, mark it as null. \nMake sure the JSON objects are returned inside of a list, even when there is only one image.\
+                        \nWhat's the relevant information, in portuguese, in this/these image(s)? You can't say I cannot assist you with the request."
 
 with open(image_path, "rb") as image_file:
     encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
-schema = json.dumps({"name": "product name", "nutritional_table": {"key": {"per 100g": "value", "per portion": "value", "%DR": "value"}}, "ingredients": "value", "informative_text": {"key": "value"}})
 json_data = {
     "contents": [
         {
             "role": "user",
             "parts": [
                 {
-                    "text": f"You are a helpful assistant designed with analyzing images and yielding their relevant information, outputting in JSON format, in a single-line without whitespaces. \"\"\"\nThe images are from the boxes of frozen products.\nFor each image, the respective JSON object must follow this schema: {schema}, where 'key' is a placeholder that must be replaced by the appropriate key, which can include 'energy', 'fat', 'saturates', 'fibre', 'carbohydrate', 'protein', 'salt', 'preparation' or 'conservation', if applicable. The 'energy' category must include measure in kJ and kcal, separated by a slash. The list can include more than one key. Make sure the JSON is valid, keep every key inside the same JSON object.\nIf you do not understand a value, mark it as null. \nMake sure the JSON objects are returned inside of a list, even when there is only one image. \nWhat's the relevant information, in portuguese, in this/these image(s)? You can't say I cannot assist you with the request."
+                    "text": prompt
                 },
                 {
                     "inlineData": {
@@ -61,9 +68,10 @@ if process.returncode == 0:
             for part in parts:
                 texts.append(part['text'])
 
+    print(texts)
     results = ''.join(texts).strip()
     print(results)
-    with open(f'output/results.json', 'w') as file:
+    with open(f'../src/output/gemini_{os.path.basename(image_path).replace("png", "json")}', 'w') as file:
         file.write(results.encode().decode('unicode-escape'))
 else:
     print("Failed to execute curl command:", stderr)
