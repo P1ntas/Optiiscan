@@ -31,10 +31,7 @@
 		console.error('Error uploading files:', error);
 	  }
 	}
-  
-	$: {
-	  console.log(files);
-	}
+
   </script>
   
   <div class="flex-column flex">

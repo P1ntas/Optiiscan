@@ -5,46 +5,42 @@ export async function POST({ request }) {
 
   const body = await request.formData();
 
-  const files = body.get('files');
+  const files = body.getAll('files');
 
-  console.log('Files:', files);
-
-  if (!files) {
-    return {
-      status: 400,
-      body: { error: 'No files were uploaded' }
-    };
+  if (!files || files.length === 0) {
+    let response = new Response(JSON.stringify({status: 400,  message: 'No files were uploaded' }), {
+      headers: { 'Content-Type': 'application/json' }
+    });
+    return response;
   }
-
-  const filesArray = Array.from(files);
-
-  console.log('Uploading files:', filesArray);
 
   const uploadDir = 'static/test/products/'
   const fileInfos = [];
 
-  for (const file of filesArray) {
+  for (const file of files) {
     const filename = `${Date.now()}-${file.name}`;
     const filePath = join(uploadDir, filename);
 
     try {
-      await writeFile(filePath, file.data);
+      // Read file content as ArrayBuffer
+      const arrayBuffer = await file.arrayBuffer();
+      // Convert ArrayBuffer to Buffer
+      const buffer = Buffer.from(arrayBuffer);
+      // Write Buffer to file
+      await writeFile(filePath, buffer);
       fileInfos.push({ filename, filePath });
     } catch (error) {
       console.error('Error saving file:', error);
-      return {
-        status: 500,
-        body: { error: 'Failed to save file' }
-      };
+      let response = new Response(JSON.stringify({status: 500,  message: 'Failed to save file' }), {
+        headers: { 'Content-Type': 'application/json' }
+      });
+      return response;
     }
   }
 
-  // Process uploaded files here (e.g., save to database, move to permanent storage, etc.)
+  let response = new Response(JSON.stringify({status: 200,  message: 'Files uploaded successfully', files: fileInfos }), {
+    headers: { 'Content-Type': 'application/json' }
+  });
 
-  console.log('Files uploaded:', fileInfos);
-
-  return {
-    status: 200,
-    body: { message: 'Files uploaded successfully', files: fileInfos }
-  };
+  return response;
 }
