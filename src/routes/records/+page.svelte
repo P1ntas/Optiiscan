@@ -1,4 +1,5 @@
 <script>
+	import { onMount, setContext } from 'svelte';
 	import Nav from '../../components/Nav.svelte';
 	import SearchBar from '../../components/SearchBar.svelte';
 	import { Heading, P, Button } from 'flowbite-svelte';
@@ -14,105 +15,72 @@
 		Checkbox
 	} from 'flowbite-svelte';
 
-	//Filled just for test purposes
-	let products = [
-		{
-			id: 0,
-			uploadTime: '2021-09-01 12:00',
-			code: '22455532456',
-			name: 'Sea Salt Almonds',
-			description:
-				'Sea salt almonds offer a tantalizing fusion of natural goodness and savory satisfaction. Each almond is delicately roasted to perfection, enhancing its rich nutty flavor while ensuring a satisfying crunch in every bite. The addition of sea salt adds a delightful contrast, elevating the taste profile with a subtle yet distinct saline essence that perfectly complements the almonds inherent sweetness.',
-			labels: 'Vegan, Gluten-Free, Non-GMO'
-		},
-		{
-			id: 1,
-			uploadTime: '2021-09-01 12:00',
-			code: '22455532456',
-			name: 'Sea Salt Almonds',
-			description:
-				'Sea salt almonds offer a tantalizing fusion of natural goodness and savory satisfaction. Each almond is delicately roasted to perfection, enhancing its rich nutty flavor while ensuring a satisfying crunch in every bite. The addition of sea salt adds a delightful contrast, elevating the taste profile with a subtle yet distinct saline essence that perfectly complements the almonds inherent sweetness.',
-			labels: 'Vegan, Gluten-Free, Non-GMO'
-		},
-		{
-			id: 2,
-			uploadTime: '2021-09-01 12:00',
-			code: '22455532456',
-			name: 'Sea Salt Almonds',
-			description:
-				'Sea salt almonds offer a tantalizing fusion of natural goodness and savory satisfaction. Each almond is delicately roasted to perfection, enhancing its rich nutty flavor while ensuring a satisfying crunch in every bite. The addition of sea salt adds a delightful contrast, elevating the taste profile with a subtle yet distinct saline essence that perfectly complements the almonds inherent sweetness.',
-			labels: 'Vegan, Gluten-Free, Non-GMO'
-		},
-		{
-			id: 3,
-			uploadTime: '2021-09-01 12:00',
-			code: '22455532456',
-			name: 'Sea Salt Almonds',
-			description:
-				'Sea salt almonds offer a tantalizing fusion of natural goodness and savory satisfaction. Each almond is delicately roasted to perfection, enhancing its rich nutty flavor while ensuring a satisfying crunch in every bite. The addition of sea salt adds a delightful contrast, elevating the taste profile with a subtle yet distinct saline essence that perfectly complements the almonds inherent sweetness.',
-			labels: 'Vegan, Gluten-Free, Non-GMO'
-		},
-		{
-			id: 4,
-			uploadTime: '2021-09-01 12:00',
-			code: '22455532456',
-			name: 'Sea Salt Almonds',
-			description:
-				'Sea salt almonds offer a tantalizing fusion of natural goodness and savory satisfaction. Each almond is delicately roasted to perfection, enhancing its rich nutty flavor while ensuring a satisfying crunch in every bite. The addition of sea salt adds a delightful contrast, elevating the taste profile with a subtle yet distinct saline essence that perfectly complements the almonds inherent sweetness.',
-			labels: 'Vegan, Gluten-Free, Non-GMO'
-		},
-		{
-			id: 5,
-			uploadTime: '2021-09-01 12:00',
-			code: '22455532456',
-			name: 'Sea Salt Almonds',
-			description:
-				'Sea salt almonds offer a tantalizing fusion of natural goodness and savory satisfaction. Each almond is delicately roasted to perfection, enhancing its rich nutty flavor while ensuring a satisfying crunch in every bite. The addition of sea salt adds a delightful contrast, elevating the taste profile with a subtle yet distinct saline essence that perfectly complements the almonds inherent sweetness.',
-			labels: 'Vegan, Gluten-Free, Non-GMO'
-		},
-		{
-			id: 6,
-			uploadTime: '2021-09-01 12:00',
-			code: '22455532456',
-			name: 'Sea Salt Almonds',
-			description:
-				'Sea salt almonds offer a tantalizing fusion of natural goodness and savory satisfaction. Each almond is delicately roasted to perfection, enhancing its rich nutty flavor while ensuring a satisfying crunch in every bite. The addition of sea salt adds a delightful contrast, elevating the taste profile with a subtle yet distinct saline essence that perfectly complements the almonds inherent sweetness.',
-			labels: 'Vegan, Gluten-Free, Non-GMO'
-		},
-		{
-			id: 7,
-			uploadTime: '2021-09-01 12:00',
-			code: '22455532456',
-			name: 'Sea Salt Almonds',
-			description:
-				'Sea salt almonds offer a tantalizing fusion of natural goodness and savory satisfaction. Each almond is delicately roasted to perfection, enhancing its rich nutty flavor while ensuring a satisfying crunch in every bite. The addition of sea salt adds a delightful contrast, elevating the taste profile with a subtle yet distinct saline essence that perfectly complements the almonds inherent sweetness.',
-			labels: 'Vegan, Gluten-Free, Non-GMO'
-		},
-		{
-			id: 8,
-			uploadTime: '2021-09-01 12:00',
-			code: '22455532456',
-			name: 'Sea Salt Almonds',
-			description:
-				'Sea salt almonds offer a tantalizing fusion of natural goodness and savory satisfaction. Each almond is delicately roasted to perfection, enhancing its rich nutty flavor while ensuring a satisfying crunch in every bite. The addition of sea salt adds a delightful contrast, elevating the taste profile with a subtle yet distinct saline essence that perfectly complements the almonds inherent sweetness.',
-			labels: 'Vegan, Gluten-Free, Non-GMO'
+	// Initialize selectedFilters with an empty array
+	let selectedFilters = [];
+
+	/**
+	 * @type {any[]}
+	 */
+	let products = [];
+
+	async function fetchProducts() {
+		return await fetch('/api/products').then((res) => res.json());
+	}
+
+	async function applyFilters() {
+		// Retrieve the original list of products from the database
+		products = await fetchProducts();
+
+		// Filter products based on selected labels or ingredients
+		const filteredProducts = products.filter((product) => {
+			// Check if product matches all selected labels or ingredients
+			const labelMatch = selectedFilters.every((filter) => product.labels.includes(filter));
+			const ingredientMatch = selectedFilters.every((filter) =>
+				product.ingredients.includes(filter)
+			);
+
+			// Include the product if it matches all selected labels or ingredients
+			return labelMatch || ingredientMatch;
+		});
+
+		// Update the displayed products
+		products = filteredProducts;
+
+		// Close the filter popup after applying filters
+		isFilterPopupOpen = false;
+	}
+
+	onMount(async () => {
+		products = await fetchProducts();
+	});
+
+	// Function to toggle the filter popup
+	let isFilterPopupOpen = false;
+
+	function toggleFilterPopup() {
+		isFilterPopupOpen = !isFilterPopupOpen;
+	}
+
+	// Function to toggle a filter
+	function toggleFilter(filter) {
+		const isSelected = selectedFilters.includes(filter);
+		if (isSelected) {
+			selectedFilters = selectedFilters.filter((f) => f !== filter);
+		} else {
+			selectedFilters.push(filter);
 		}
-	];
+	}
 
-	$: numProducts = products.length;
-
-	let headerChecked = true;
-
+	// Function to handle search
 	function search(event) {
 		let searchText = event.detail.searchText;
 		let category = event.detail.category;
-
 		console.log('Searching for:', searchText, 'in category:', category);
-
-		//TODO: Add search call to backend here
-		//products = ...
+		// TODO: Add search call to backend here
+		// products = ...
 	}
 
+	// Function to download CSV
 	function downloadCSV() {
 		let selectedProductsIds = [];
 		document.querySelectorAll('input[type=checkbox].lineCheckBox').forEach((checkbox) => {
@@ -121,40 +89,43 @@
 				selectedProductsIds.push(id);
 			}
 		});
-
 		console.log('SelectedProducts: ', selectedProductsIds);
-
-		//TODO: Add here call to backend to download CSV (dont forget to send the selected products)
-
+		// TODO: Add here call to backend to download CSV (dont forget to send the selected products)
 		const fileUrl = '';
 		const filename = 'output.csv';
-
 		// Create a temporary anchor element
 		const link = document.createElement('a');
 		link.href = fileUrl;
 		link.setAttribute('download', 'output.csv');
-
 		// Programmatically click the anchor element to trigger the download
 		document.body.appendChild(link);
 		link.click();
 		document.body.removeChild(link);
 	}
 
+	// Function to toggle all checkboxes
+	let headerChecked = true;
+
 	function toggleAll() {
-		console.log('toggleAll!!');
-
 		headerChecked = !headerChecked;
-
 		document.querySelectorAll('.lineCheckBox').forEach((checkbox) => {
 			checkbox.checked = headerChecked;
 		});
 	}
 
+	// Function to toggle a single checkbox
 	function toggleCheckbox(event) {
 		if (!event.target.checked) {
 			headerChecked = false;
 		}
 	}
+
+	// Default label and ingredient filters
+	let labelFilters = ['Vegan', 'Gluten-Free', 'Non- GMO'];
+	let ingredientFilters = ['Ingredient 1', 'Ingredient 2', 'Ingredient 3'];
+
+	// Context API to share data between components
+	setContext('selectedFilters', selectedFilters);
 </script>
 
 <div class="flex-column flex">
@@ -162,17 +133,26 @@
 	<main class="flex-1 overflow-x-hidden p-10">
 		<SearchBar on:search={search} />
 		<hr class="my-7 h-px border-0 bg-black bg-opacity-10" />
-
-		<div class="flex">
-			<Heading tag="h3" class="text-black">Products</Heading>
-			<Button on:click={downloadCSV} color="red" size="md" class="w-40">
-				<DownloadSolid class="me-2 h-4 w-4" />
-				Export CSV
-			</Button>
+		<div class="flex flex-wrap">
+			<Heading tag="h3" class="w-full text-black">Products</Heading><br />
+			<div class="mt-2 flex">
+				<button
+					on:click={toggleFilterPopup}
+					style="background-color: #f5f5f5; border: none; padding: 5px 20px; border-radius: 40px; cursor: pointer;"
+				>
+					<span style="margin-right: 5px;">+</span>
+					Add Filter
+				</button>
+			</div>
+			<div class="ml-auto mt-2 flex">
+				<Button on:click={downloadCSV} color="red" size="md" class="w-40">
+					<DownloadSolid class="me-2 h-4 w-4" />
+					Export CSV
+				</Button>
+			</div>
 		</div>
-
-		<p>Showing <span class="font-bold">{numProducts} products</span></p>
-
+		<br />
+		<p>Showing <span class="font-bold">{products.length} products</span></p>
 		<Table hoverable={true} class="mt-10">
 			<TableHead class="text-neutral-600">
 				<TableHeadCell class="!p-3">
@@ -194,21 +174,20 @@
 				</TableHeadCell>
 			</TableHead>
 			<TableBody>
-				{#each products as product (product.id)}
+				{#each products as product (product._id)}
 					<TableBodyRow>
 						<TableBodyCell class="!p-3">
 							<Checkbox
 								checked={true}
 								on:click={toggleCheckbox}
-								id="checkbox-{product.id}"
+								id="checkbox-{product._id._id}"
 								class="lineCheckBox  text-primary focus:outline-primary"
 							/>
 						</TableBodyCell>
 						<TableBodyCell class="font-light">
-							<div class="font-bold">{product.uploadTime.split(' ')[0]}</div>
-							{product.uploadTime.split(' ')[1]}
+							<div class="font-bold">...</div>
 						</TableBodyCell>
-						<TableBodyCell class="font-light">{product.code}</TableBodyCell>
+						<TableBodyCell class="font-light">{product.barcode}</TableBodyCell>
 						<TableBodyCell class="text-wrap font-light">{product.name}</TableBodyCell>
 						<TableBodyCell class="font-light">
 							<div class="text-wrap">
@@ -219,7 +198,7 @@
 						<TableBodyCell class="font-light">
 							<button
 								on:click={() => {
-									console.log('Edit product:', product.id);
+									console.log('Edit product:', product._id);
 								}}
 								class="text-primary-600"
 							>
@@ -230,5 +209,58 @@
 				{/each}
 			</TableBody>
 		</Table>
+		<div
+			class="fixed left-0 top-0 z-50 h-full w-full bg-black bg-opacity-50"
+			hidden={!isFilterPopupOpen}
+		>
+			<div
+				class="absolute left-1/2 top-1/2 w-full max-w-md -translate-x-1/2 -translate-y-1/2 transform rounded bg-white p-5 shadow-lg"
+			>
+				<h2 class="mb-4 text-xl font-bold">Filters</h2>
+				<!-- Categories -->
+				<div class="mb-4">
+					<h3 class="mb-2 text-lg font-bold">Labels</h3>
+					{#each labelFilters as label}
+						<label for={`filter-${label}`} class="mr-4 flex items-center">
+							<Checkbox
+								type="checkbox"
+								id={`filter-${label}`}
+								class="mr-2 text-primary focus:outline-primary"
+								checked={selectedFilters.includes(label)}
+								on:change={() => toggleFilter(label)}
+							/>
+							{label}
+						</label>
+					{/each}
+				</div>
+				<div class="mb-4">
+					<h3 class="mb-2 text-lg font-bold">Ingredients</h3>
+					{#each ingredientFilters as ingredient}
+						<label for={`filter-${ingredient}`} class="mr-4 flex items-center">
+							<Checkbox
+								type="checkbox"
+								id={`filter-${ingredient}`}
+								class="mr-2 text-primary focus:outline-primary"
+								checked={selectedFilters.includes(ingredient)}
+								on:change={() => toggleFilter(ingredient)}
+							/>
+							{ingredient}
+						</label>
+					{/each}
+				</div>
+				<!-- Apply and Cancel Buttons -->
+				<div class="flex justify-end">
+					<button class="mr-2 text-gray-500 hover:underline" on:click={toggleFilterPopup}>
+						Cancel
+					</button>
+					<button
+						class="text-primary-600 bg-primary-100 rounded px-3 py-2 hover:underline"
+						on:click={applyFilters}
+					>
+						Apply Filters
+					</button>
+				</div>
+			</div>
+		</div>
 	</main>
 </div>
