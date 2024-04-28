@@ -48,10 +48,6 @@ export async function PATCH({ request }) {
 		labels: data['labels'] ?? ''
 	};
 
-	if (Object.keys(updateFields).length === 0) {
-		return json({ success: false, message: 'No valid fields provided for update.' }, 400);
-	}
-
 	const result = await (await db)
 		.collection('products')
 		.updateOne({ _id: id }, { $set: updateFields });
