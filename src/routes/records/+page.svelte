@@ -2,6 +2,7 @@
 	import Nav from '../../components/Nav.svelte';
 	import SearchBar from '../../components/SearchBar.svelte';
 	import { Heading, P, Button } from 'flowbite-svelte';
+	import { onMount } from 'svelte';
 	import { DownloadSolid, EditOutline } from 'flowbite-svelte-icons';
 
 	import {
@@ -15,89 +16,11 @@
 	} from 'flowbite-svelte';
 
 	//Filled just for test purposes
-	let products = [
-		{
-			id: 0,
-			uploadTime: '2021-09-01 12:00',
-			code: '22455532456',
-			name: 'Sea Salt Almonds',
-			description:
-				'Sea salt almonds offer a tantalizing fusion of natural goodness and savory satisfaction. Each almond is delicately roasted to perfection, enhancing its rich nutty flavor while ensuring a satisfying crunch in every bite. The addition of sea salt adds a delightful contrast, elevating the taste profile with a subtle yet distinct saline essence that perfectly complements the almonds inherent sweetness.',
-			labels: 'Vegan, Gluten-Free, Non-GMO'
-		},
-		{
-			id: 1,
-			uploadTime: '2021-09-01 12:00',
-			code: '22455532456',
-			name: 'Sea Salt Almonds',
-			description:
-				'Sea salt almonds offer a tantalizing fusion of natural goodness and savory satisfaction. Each almond is delicately roasted to perfection, enhancing its rich nutty flavor while ensuring a satisfying crunch in every bite. The addition of sea salt adds a delightful contrast, elevating the taste profile with a subtle yet distinct saline essence that perfectly complements the almonds inherent sweetness.',
-			labels: 'Vegan, Gluten-Free, Non-GMO'
-		},
-		{
-			id: 2,
-			uploadTime: '2021-09-01 12:00',
-			code: '22455532456',
-			name: 'Sea Salt Almonds',
-			description:
-				'Sea salt almonds offer a tantalizing fusion of natural goodness and savory satisfaction. Each almond is delicately roasted to perfection, enhancing its rich nutty flavor while ensuring a satisfying crunch in every bite. The addition of sea salt adds a delightful contrast, elevating the taste profile with a subtle yet distinct saline essence that perfectly complements the almonds inherent sweetness.',
-			labels: 'Vegan, Gluten-Free, Non-GMO'
-		},
-		{
-			id: 3,
-			uploadTime: '2021-09-01 12:00',
-			code: '22455532456',
-			name: 'Sea Salt Almonds',
-			description:
-				'Sea salt almonds offer a tantalizing fusion of natural goodness and savory satisfaction. Each almond is delicately roasted to perfection, enhancing its rich nutty flavor while ensuring a satisfying crunch in every bite. The addition of sea salt adds a delightful contrast, elevating the taste profile with a subtle yet distinct saline essence that perfectly complements the almonds inherent sweetness.',
-			labels: 'Vegan, Gluten-Free, Non-GMO'
-		},
-		{
-			id: 4,
-			uploadTime: '2021-09-01 12:00',
-			code: '22455532456',
-			name: 'Sea Salt Almonds',
-			description:
-				'Sea salt almonds offer a tantalizing fusion of natural goodness and savory satisfaction. Each almond is delicately roasted to perfection, enhancing its rich nutty flavor while ensuring a satisfying crunch in every bite. The addition of sea salt adds a delightful contrast, elevating the taste profile with a subtle yet distinct saline essence that perfectly complements the almonds inherent sweetness.',
-			labels: 'Vegan, Gluten-Free, Non-GMO'
-		},
-		{
-			id: 5,
-			uploadTime: '2021-09-01 12:00',
-			code: '22455532456',
-			name: 'Sea Salt Almonds',
-			description:
-				'Sea salt almonds offer a tantalizing fusion of natural goodness and savory satisfaction. Each almond is delicately roasted to perfection, enhancing its rich nutty flavor while ensuring a satisfying crunch in every bite. The addition of sea salt adds a delightful contrast, elevating the taste profile with a subtle yet distinct saline essence that perfectly complements the almonds inherent sweetness.',
-			labels: 'Vegan, Gluten-Free, Non-GMO'
-		},
-		{
-			id: 6,
-			uploadTime: '2021-09-01 12:00',
-			code: '22455532456',
-			name: 'Sea Salt Almonds',
-			description:
-				'Sea salt almonds offer a tantalizing fusion of natural goodness and savory satisfaction. Each almond is delicately roasted to perfection, enhancing its rich nutty flavor while ensuring a satisfying crunch in every bite. The addition of sea salt adds a delightful contrast, elevating the taste profile with a subtle yet distinct saline essence that perfectly complements the almonds inherent sweetness.',
-			labels: 'Vegan, Gluten-Free, Non-GMO'
-		},
-		{
-			id: 7,
-			uploadTime: '2021-09-01 12:00',
-			code: '22455532456',
-			name: 'Sea Salt Almonds',
-			description:
-				'Sea salt almonds offer a tantalizing fusion of natural goodness and savory satisfaction. Each almond is delicately roasted to perfection, enhancing its rich nutty flavor while ensuring a satisfying crunch in every bite. The addition of sea salt adds a delightful contrast, elevating the taste profile with a subtle yet distinct saline essence that perfectly complements the almonds inherent sweetness.',
-			labels: 'Vegan, Gluten-Free, Non-GMO'
-		},
-		{
-			id: 8,
-			uploadTime: '2021-09-01 12:00',
-			code: '22455532456',
-			name: 'Sea Salt Almonds',
-			description:
-				'Sea salt almonds offer a tantalizing fusion of natural goodness and savory satisfaction. Each almond is delicately roasted to perfection, enhancing its rich nutty flavor while ensuring a satisfying crunch in every bite. The addition of sea salt adds a delightful contrast, elevating the taste profile with a subtle yet distinct saline essence that perfectly complements the almonds inherent sweetness.',
-			labels: 'Vegan, Gluten-Free, Non-GMO'
-		}
-	];
+	let products = [];
+
+	onMount(async () => {
+		products = await fetch('/api/products').then((res) => res.json());
+	});
 
 	$: numProducts = products.length;
 
@@ -194,19 +117,19 @@
 				</TableHeadCell>
 			</TableHead>
 			<TableBody>
-				{#each products as product (product.id)}
+				{#each products as product}
 					<TableBodyRow>
 						<TableBodyCell class="!p-3">
 							<Checkbox
 								checked={true}
 								on:click={toggleCheckbox}
-								id="checkbox-{product.id}"
+								id="checkbox-{product._id}"
 								class="lineCheckBox  text-primary focus:outline-primary"
 							/>
 						</TableBodyCell>
 						<TableBodyCell class="font-light">
-							<div class="font-bold">{product.uploadTime.split(' ')[0]}</div>
-							{product.uploadTime.split(' ')[1]}
+							<div class="font-bold">{product.uploadTime.substring(0, 10)}</div>
+							{product.uploadTime.substring(11, 16)}
 						</TableBodyCell>
 						<TableBodyCell class="font-light">{product.code}</TableBodyCell>
 						<TableBodyCell class="text-wrap font-light">{product.name}</TableBodyCell>
@@ -219,7 +142,7 @@
 						<TableBodyCell class="font-light">
 							<button
 								on:click={() => {
-									console.log('Edit product:', product.id);
+									console.log('Edit product:', product._id);
 								}}
 								class="text-primary-600"
 							>
@@ -230,5 +153,10 @@
 				{/each}
 			</TableBody>
 		</Table>
+		{#if !products.length}
+			<Heading tag="h5" class="w-100 mt-5 text-center"
+				>No products found, try to upload a image...</Heading
+			>
+		{/if}
 	</main>
 </div>
