@@ -20,6 +20,8 @@ RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - && \
     node --version && \
     npm --version
 
+RUN npm ci
+
 ENV GOOGLE_APPLICATION_CREDENTIALS=/app/gemini/engaged-hash-420315-b905aaec82f9.json
 
 EXPOSE 8080

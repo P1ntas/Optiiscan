@@ -9,7 +9,7 @@ node_modules
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .eslintcache
-gemini/
+/gemini/
 !gemini/gemini.py
 !gemini/gemini_response.txt
 !gemini/output/

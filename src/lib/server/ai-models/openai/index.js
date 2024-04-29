@@ -34,6 +34,7 @@ const client = new OpenAIClient(config.ENDPOINT, new AzureKeyCredential(OPENAI_A
 const buildImageContent = (imagepath) => {
 	const base64 = fs.readFileSync(imagepath, 'base64');
 	const url = `data:image/png;base64,${base64}`;
+	console.log(base64);
 	return {
 		type: 'image_url',
 		imageUrl: {
