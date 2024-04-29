@@ -57,15 +57,16 @@ export async function divideImage(path, divisions) {
  * @returns a promise which, when resolved, yields the path to the created PNG image.
  */
 export async function pdfToPng(filepath) {
+	const fileInfo = path.parse(filepath);
 	console.log('converting pdf ', filepath);
-	console.log('save path: ', path.dirname(filepath));
+	console.log('save path: ', fileInfo.dir);
 	const options = {
 		quality: 100,
 		width: 3347,
 		height: 3347,
 		preserveAspectRatio: true,
-		saveFilename: path.parse(filepath).name,
-		savePath: path.dirname(filepath),
+		saveFilename: fileInfo.name,
+		savePath: fileInfo.dir,
 		density: 150,
 		format: 'png',
 		compression: 'Lossless'
@@ -74,13 +75,15 @@ export async function pdfToPng(filepath) {
 	const convert = fromPath(filepath, options);
 
 	return new Promise((resolve) => {
-		convert(1)
-			.then((response) => {
-				console.log(response);
-				resolve(response.path);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+		if (['.jpeg', '.jpg', '.png'].includes(fileInfo.ext.toLowerCase())) resolve(filepath);
+		else
+			convert(1)
+				.then((response) => {
+					console.log(response);
+					resolve(response.path);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
 	});
 }
