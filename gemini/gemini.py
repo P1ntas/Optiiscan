@@ -4,7 +4,7 @@ import base64
 import tempfile
 import os
 
-image_path = '../static/test/products/file_6.png'
+image_path = '../static/test/products/file_3.png'
 schema = json.dumps({"name": "product name", "brand": "brand name", "barcode": "numeric code", "nutritional_table": {"key": {"per 100": "value", "per portion": "value", "%DR": "value"}}, "ingredients": "value", "informative_text": {"key": "value"}})
 prompt = f"You are a helpful assistant designed with analyzing images and yielding their relevant information, outputting in JSON format, in a single-line without whitespaces. \
     \nThe images are from the boxes of frozen products.\nFor each image, the respective JSON object must follow this schema: {schema}, where 'key' is a placeholder that must be \
