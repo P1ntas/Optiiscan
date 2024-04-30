@@ -286,6 +286,11 @@
                 {/each}
             </TableBody>
         </Table>
+        {#if !products.length}
+			<Heading tag="h5" class="w-100 mt-5 text-center"
+				>No products found, try to upload a image...</Heading
+			>
+		{/if}
         <div
             class="fixed left-0 top-0 z-50 h-full w-full bg-black bg-opacity-50"
             hidden={!isFilterPopupOpen}
