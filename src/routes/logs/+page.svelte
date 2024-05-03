@@ -1,10 +1,12 @@
 <script>
 	import Nav from '../../components/Nav.svelte';
 	import SearchBar from '../../components/SearchBar.svelte';
-	import { Heading, Badge, Button, P } from 'flowbite-svelte';
+	import { Heading, Badge, Button, P, Textarea } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
 	import { BadgeCheckSolid, CloseCircleSolid } from 'flowbite-svelte-icons';
 	import { Modal } from 'flowbite-svelte';
+
+	import { Input, Label } from 'flowbite-svelte';
 
 	import {
 		Table,
@@ -34,6 +36,17 @@
 
 		//TODO: Add search call to backend here
 		//logs = ...
+	}
+
+	function toggleModal(index) {
+		modalIndex = index;
+		showModal = true;
+		document.body.style.overflow = 'hidden';
+	}
+
+	function closeModal() {
+		showModal = false;
+		document.body.style.overflow = '';
 	}
 </script>
 
@@ -75,13 +88,13 @@
 						</TableBodyCell>
 						<TableBodyCell class="text-wrap font-light">
 							{#if log.elapsedTime}
-								<div class="font-bold">{log.elapsedTime}</div>
+								<div>{log.elapsedTime}</div>
 							{:else}
-								<div class="font-bold">-</div>
+								<div>-</div>
 							{/if}
 						</TableBodyCell>
 						<TableBodyCell class="font-light">
-							<div class="font-bold">
+							<div>
 								{log.numImages}
 							</div>
 						</TableBodyCell>
@@ -90,21 +103,22 @@
 								class="text-black"
 								style="display: block;"
 								on:click={() => {
-									modalIndex = index;
-									showModal = true;
+									toggleModal(index);
 								}}
 							>
 								<div style="display: flex;">
 									{#if log.infoCorrect}
 										<BadgeCheckSolid class="text-green-700"></BadgeCheckSolid>
-										<span class="mr-2 font-bold">{log.infoCorrect}</span>
+										<span class="mr-2 font-light">{log.infoCorrect}</span>
 									{/if}
 									{#if log.infoError}
 										<CloseCircleSolid class="text-red-700"></CloseCircleSolid>
-										<span class="font-bold">{log.infoError}</span>
+										<span class="font-light">{log.infoError}</span>
 									{/if}
 								</div>
-								<div style="display: flex;">Click to see details</div>
+								<div class="font-light" style="display: flex;">
+									Click to see details
+								</div>
 							</Button>
 						</TableBodyCell>
 						<TableBodyCell class="text-wrap font-light">
@@ -125,15 +139,104 @@
 			</TableBody>
 		</Table>
 		{#if !logs.length}
-			<Heading tag="h5" class="w-100 mt-5 text-center"
+			<Heading tag="h6" class="w-100 mt-5 text-center"
 				>No logs found, try to upload a image...</Heading
 			>
 		{/if}
 
-		<Modal title="Info" bind:open={showModal} autoclose outsideclose>
-			{#each logs[modalIndex]['info'] as info}
-				<P>{info}</P>
-			{/each}
+		<Modal
+			size="lg"
+			title="Log #{modalIndex}"
+			bind:open={showModal}
+			autoclose
+			outsideclose
+			on:close={closeModal}
+		>
+			<div class="mb-6 grid gap-6 md:grid-cols-3">
+				<div>
+					<Label class="mb-2">Upload Time</Label>
+					<Input
+						class="disabled:opacity-1 focus:border-gray-300"
+						style="box-shadow:none"
+						type="text"
+						disabled
+						value="{logs[modalIndex].uploadDate
+							? logs[modalIndex]['uploadDate'].substring(0, 10)
+							: '-'}  {logs[modalIndex].uploadDate
+							? logs[modalIndex]['uploadDate'].substring(11, 16)
+							: ''}"
+					/>
+				</div>
+
+				<div>
+					<Label class="mb-2">Finish Time</Label>
+					<Input
+						class="disabled:opacity-1 focus:border-gray-300"
+						style="box-shadow:none"
+						type="text"
+						disabled
+						value="{logs[modalIndex].finishDate
+							? logs[modalIndex].finishDate.substring(0, 10)
+							: '-'}  {logs[modalIndex].finishDate
+							? logs[modalIndex].finishDate.substring(11, 16)
+							: ''}"
+					/>
+				</div>
+
+				<div>
+					<Label class="mb-2">Elapsed Time</Label>
+					<Input
+						class="disabled:opacity-1 focus:border-gray-300"
+						style="box-shadow:none"
+						type="text"
+						disabled
+						value={logs[modalIndex].elapsedTime ? logs[modalIndex].elapsedTime : '-'}
+					/>
+				</div>
+			</div>
+
+			<div>
+				<Label class="mb-2">Info</Label>
+				<Textarea
+					class="disabled:opacity-1 focus:border-gray-300"
+					style="box-shadow:none"
+					type="text"
+					rows="10"
+					disabled
+					value={logs[modalIndex].info.join('\n')}
+				/>
+			</div>
+
+			<div class="mb-6 grid gap-6 md:grid-cols-2">
+				<div>
+					<Label class="mb-2">Number images</Label>
+					<Input
+						class="disabled:opacity-1 focus:border-gray-300"
+						style="box-shadow:none"
+						type="text"
+						disabled
+						value={logs[modalIndex].numImages}
+					/>
+				</div>
+
+				<div>
+					<Label class="mb-2">Status</Label>
+					<Badge
+						rounded
+						class="h-10 w-28 px-2 py-1 text-center uppercase text-white {logs[
+							modalIndex
+						].status === 'running'
+							? 'bg-inprogress'
+							: ''} {logs[modalIndex].status === 'aborted' ? 'bg-error' : ''} {logs[
+							modalIndex
+						].status === 'completed'
+							? 'bg-finish'
+							: ''}"
+					>
+						{logs[modalIndex].status}
+					</Badge>
+				</div>
+			</div>
 		</Modal>
 	</main>
 </div>
