@@ -25,8 +25,8 @@ const config = {
     replaced by the appropriate key, which can include 'energy' (which must include measure both in kJ and kcal, separated by a slash), 'fat', 'saturates', 'fibre', 'carbohydrate', 'protein', 'salt', 'preparation' or 'conservation', if applicable. \
     When reading the nutritional table, separate the values from 100, portion and %DR columns in the JSON object, for all keys related to the table, strictly following the JSON schema.\
     The list can include more than one key. Make sure the JSON is valid, keep every key inside the same \
-    JSON object.\nIf you do not understand a value, mark it as null. \nMake sure the JSON objects are returned inside of a list, even when there is only one image.\
-    \nWhat's the relevant information, in portuguese, in this/these image(s)? You can't say I cannot assist you with the request.`
+    JSON object.\nThe informative text must be in portuguese. If you do not understand a value, mark it as null. \nMake sure the JSON objects are returned inside of a list, even when there is only one image.\
+    \nWhat's the relevant information, in portuguese, in this/these image(s)?`
 };
 
 /**
