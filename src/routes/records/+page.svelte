@@ -16,9 +16,11 @@
 	} from 'flowbite-svelte';
 
 	let modalIndex;
+	let modalMode = 'view'; // 'view' or 'edit'
 	let showModal = null;
 
-	function toggleModal(index) {
+	function toggleModal(index, mode) {
+		modalMode = mode;
 		modalIndex = index;
 		showModal = true;
 		document.body.style.overflow = 'hidden';
@@ -181,6 +183,11 @@
 		}
 	}
 
+	function editProduct(info) {
+		console.log(info);
+		//TODO: Add here call to backend to edit product - info is an object with the following fields: id, code, name, description, labels
+	}
+
 	// Default label and ingredient filters
 	let labelFilters = [];
 	let ingredientFilters = [];
@@ -275,7 +282,7 @@
 			</TableHead>
 			<TableBody>
 				{#each products as product, index}
-					<TableBodyRow on:click={() => toggleModal(index)}>
+					<TableBodyRow on:click={() => toggleModal(index, 'view')}>
 						<TableBodyCell class="!p-3">
 							<Checkbox
 								checked={true}
@@ -298,7 +305,7 @@
 						<TableBodyCell class="font-light">
 							<button
 								on:click={() => {
-									console.log('Edit product:', product._id);
+									toggleModal(index, 'edit');
 								}}
 								class="text-primary-600"
 							>
@@ -353,6 +360,7 @@
 						</label>
 					{/each}
 				</div>
+
 				<!-- Apply and Cancel Buttons -->
 				<div class="flex justify-end">
 					<button class="mr-2 text-gray-500 hover:underline" on:click={toggleFilterPopup}>
@@ -369,67 +377,140 @@
 		</div>
 
 		<Modal size="lg" bind:open={showModal} autoclose outsideclose on:close={closeModal}>
-			<Heading tag="h5" class="flex">
-				View Product #{modalIndex}
+			{#if modalMode === 'view'}
+				<Heading tag="h5" class="flex justify-start">
+					View Product #{modalIndex}
 
-				<button
-					class="text-primary-600 pl-3"
-					on:click={() => {
-						console.log('Edit product:', modalIndex);
-					}}
-				>
-					<EditOutline class="h-6 w-6" />
-				</button>
-			</Heading>
+					<button
+						class="text-primary-600 pl-3"
+						on:click={() => {
+							modalMode = 'edit';
+						}}
+					>
+						<EditOutline class="h-6 w-6" />
+					</button>
+				</Heading>
 
-			<hr />
+				<hr />
 
-			<div class="mb-6 grid gap-6 md:grid-cols-2">
+				<div class="mb-6 grid gap-6 md:grid-cols-2">
+					<div>
+						<Label class="mb-2">Code</Label>
+						<Input
+							class="disabled:opacity-1 focus:border-gray-300"
+							style="box-shadow:none"
+							type="text"
+							disabled
+							value={products[modalIndex].code}
+						/>
+					</div>
+
+					<div>
+						<Label class="mb-2">Name</Label>
+						<Input
+							class="disabled:opacity-1 focus:border-gray-300"
+							style="box-shadow:none"
+							type="text"
+							disabled
+							value={products[modalIndex].name}
+						/>
+					</div>
+				</div>
+
 				<div>
-					<Label class="mb-2">Code</Label>
+					<Label class="mb-2">Description</Label>
+					<Textarea
+						class="disabled:opacity-1 focus:border-gray-300"
+						style="box-shadow:none"
+						type="text"
+						rows="10"
+						disabled
+						value={products[modalIndex].description}
+					/>
+				</div>
+
+				<div>
+					<Label class="mb-2">Labels</Label>
 					<Input
 						class="disabled:opacity-1 focus:border-gray-300"
 						style="box-shadow:none"
 						type="text"
 						disabled
-						value={products[modalIndex].code}
+						value={products[modalIndex].labels.join(', ')}
+					/>
+				</div>
+			{:else}
+				<Heading tag="h5" class="flex justify-start">
+					Edit Product #{modalIndex}
+				</Heading>
+
+				<hr />
+				<div class="mb-6 grid gap-6 md:grid-cols-2">
+					<div>
+						<Label class="mb-2">Code</Label>
+						<Input
+							id="editCode"
+							class="disabled:opacity-1 focus:border-gray-300"
+							style="box-shadow:none"
+							type="text"
+							value={products[modalIndex].code}
+						/>
+					</div>
+
+					<div>
+						<Label class="mb-2">Name</Label>
+						<Input
+							id="editName"
+							class="disabled:opacity-1 focus:border-gray-300"
+							style="box-shadow:none"
+							type="text"
+							value={products[modalIndex].name}
+						/>
+					</div>
+				</div>
+
+				<div>
+					<Label class="mb-2">Description</Label>
+					<Textarea
+						id="editDescription"
+						class="disabled:opacity-1 focus:border-gray-300"
+						style="box-shadow:none"
+						type="text"
+						rows="10"
+						value={products[modalIndex].description}
 					/>
 				</div>
 
 				<div>
-					<Label class="mb-2">Name</Label>
+					<Label class="mb-2">Labels</Label>
 					<Input
+						id="editLabels"
 						class="disabled:opacity-1 focus:border-gray-300"
 						style="box-shadow:none"
 						type="text"
-						disabled
-						value={products[modalIndex].name}
+						value={products[modalIndex].labels.join(', ')}
 					/>
 				</div>
-			</div>
 
-			<div>
-				<Label class="mb-2">Description</Label>
-				<Textarea
-					class="disabled:opacity-1 focus:border-gray-300"
-					style="box-shadow:none"
-					type="text"
-					rows="10"
-					disabled
-					value={products[modalIndex].description}
-				/>
-			</div>
-
-			<div>
-				<Label class="mb-2">Labels</Label>
-				<Input
-					class="disabled:opacity-1 focus:border-gray-300"
-					style="box-shadow:none"
-					type="text"
-					disabled
-					value={products[modalIndex].labels.join(', ')}
-				/>
-			</div>
+				<div class="flex justify-center">
+					<Button
+						on:click={() => {
+							editProduct({
+								id: modalIndex,
+								code: document.getElementById('editCode').value,
+								name: document.getElementById('editName').value,
+								description: document.getElementById('editDescription').value,
+								labels: document.getElementById('editLabels').value.split(', ')
+							});
+						}}
+						color="red"
+						size="md"
+						class="w-40"
+					>
+						Save
+					</Button>
+				</div>
+			{/if}
 		</Modal>
 	</main>
 </div>
