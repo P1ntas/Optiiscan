@@ -1,0 +1,26 @@
+[
+	{
+		"name": "Crepes Chineses",
+		"brand": "Continente",
+		"barcode": "5601312508489",
+		"nutritional_table": {
+			"energy": {
+				"per 100": "519 kJ / 123 kcal",
+				"per portion": "415 kJ / 98 kcal",
+				"%DR": null
+			},
+			"fat": { "per 100": "2,0 g", "per portion": "1,6 g", "%DR": "2" },
+			"saturates": { "per 100": "0,6 g", "per portion": "0,5 g", "%DR": "2" },
+			"carbohydrate": { "per 100": "21 g", "per portion": "17 g", "%DR": "6" },
+			"sugars": { "per 100": "7,3 g", "per portion": "5,8 g", "%DR": "6" },
+			"fibre": { "per 100": "2,8 g", "per portion": "2,2 g", "%DR": null },
+			"protein": { "per 100": "3,7 g", "per portion": "3,0 g", "%DR": "6" },
+			"salt": { "per 100": "1,07 g", "per portion": "0,86 g", "%DR": "14" }
+		},
+		"ingredients": "Crepe com mistura de produtos hortícolas (93%) [couve (27%), água, farinha de trigo, cebola, cenoura (6%), rebentos de feijão-mungo (4,7%), intensificador de sabor (E621), sal, alho-francês (1,2%), óleo de girassol, molho de soja, vinho, especiarias, aroma, açúcar, caldo de galinha concentrado], molho agridoce (7%) [tomate, açúcar, xarope de glicose-frutose, vinagre, água, sal, amido modificado de milho, sal, estabilizadores (E412, E415), mistura de especiarias (contém aipo), conservantes (E202, E211)]. Pode conter vestígios de mostarda, leite, ovos, peixes, crustáceos, moluscos e frutos de casca rija.",
+		"informative_text": {
+			"preparation": "Frite o produto, sem descongelar, diretamente numa fritadeira ou frigideira, em óleo quente abundante (180ºC) durante aproximadamente 7-8 minutos. O tempo de confeção pode variar consoante o equipamento utilizado.",
+			"conservation": "Conservar a -18ºC até ao limite do prazo de validade indicado na embalagem. Uma vez iniciado o processo de descongelação, não volte a congelar."
+		}
+	}
+]

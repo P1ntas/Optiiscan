@@ -40,6 +40,7 @@
 	},
 	"dependencies": {
 		"@azure/openai": "^1.0.0-beta.11",
+		"@google-cloud/vertexai": "^1.1.0",
 		"flowbite": "^2.3.0",
 		"flowbite-svelte": "^0.44.24",
 		"flowbite-svelte-icons": "^1.5.0",

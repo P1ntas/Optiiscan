@@ -1,0 +1,22 @@
+[
+	{
+		"name": "Abacate em Cubos",
+		"brand": "Continente",
+		"barcode": "5601312512721",
+		"nutritional_table": {
+			"energy": { "per 100": "744kJ/181kcal", "per portion": "465kJ/113kcal", "%DR": "6" },
+			"fat": { "per 100": "17,2g", "per portion": "10,8g", "%DR": "15" },
+			"saturates": { "per 100": "4,6g", "per portion": "2,9g", "%DR": "14" },
+			"carbohydrate": { "per 100": "3,2g", "per portion": "2g", "%DR": "1" },
+			"sugars": { "per 100": "0g", "per portion": "0g", "%DR": "0" },
+			"fibre": { "per 100": "4,3g", "per portion": "2,7g", "%DR": null },
+			"protein": { "per 100": "1,2g", "per portion": "0,7g", "%DR": "1" },
+			"salt": { "per 100": "0,28g", "per portion": "0,17g", "%DR": "3" }
+		},
+		"ingredients": "Abacate",
+		"informative_text": {
+			"preparation": "Recomendamos descongelar o produto aproximadamente 1 hora antes do seu consumo.",
+			"conservation": "Conservar a -18 °C até ao limite do prazo de validade indicado na embalagem. Uma vez iniciado o processo de descongelação, não volte a congelar."
+		}
+	}
+]

@@ -1,0 +1,26 @@
+[
+	{
+		"name": "Espargos de Espinafres",
+		"brand": "Continente",
+		"barcode": "5601312509714",
+		"nutritional_table": {
+			"energy": {
+				"per 100": "481 kJ / 115 kcal",
+				"per portion": "602 kJ / 144 kcal",
+				"%DR": null
+			},
+			"fat": { "per 100": "5,9 g", "per portion": "7,4 g", "%DR": "11" },
+			"saturates": { "per 100": "1,1 g", "per portion": "1,4 g", "%DR": "7" },
+			"carbohydrate": { "per 100": "11 g", "per portion": "13,8 g", "%DR": "5" },
+			"sugars": { "per 100": "4,9 g", "per portion": "6,1 g", "%DR": "7" },
+			"fibre": { "per 100": "2,5 g", "per portion": "3,1 g", "%DR": "13" },
+			"protein": { "per 100": "3 g", "per portion": "4 g", "%DR": "8" },
+			"salt": { "per 100": "0,7 g", "per portion": "0,88 g", "%DR": "35" }
+		},
+		"ingredients": "Espinafres (50%), leite em pó reconstituído, farinha de trigo, azeite, amido de milho, sal e alho (contém sulfitos). Pode conter vestígios de crustáceos, ovos, peixe, amendoins, soja, frutos de casca rija, aipo, mostarda, sementes de sésamo, tremoço e moluscos.",
+		"informative_text": {
+			"preparation": "Fogo: Coloque o esparregado num tacho ou frigideira em lume brando. Junte uma ou duas colheres de sopa de água ou azeite, mexendo frequentemente. Micro-ondas: Retire da cuvete e coloque o produto num recipiente apropriado e cubra com tampa própria. Aqueça durante 6 minutos a 750W. Mexa vigorosamente e volte a aquecer durante 2 minutos, voltando a mexer. O tempo de confeção pode variar de acordo com a potência do equipamento. Deve acompanhar a evolução da confeção do produto.",
+			"conservation": "Conservar a -18 ºC até ao limite do prazo de validade indicado na embalagem. Uma vez iniciado o processo de descongelação, não volte a congelar."
+		}
+	}
+]
