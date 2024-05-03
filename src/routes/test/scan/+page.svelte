@@ -10,7 +10,7 @@
 	};
 	let status = Status.idle;
 	const dir = 'static/test/products';
-	const filePaths = [`${dir}/file_3.png`];
+	const filePaths = [`${dir}/file_3.pdf`];
 	async function generate() {
 		if (status === Status.loading) return console.log('Loading, please wait.');
 		status = Status.loading;
