@@ -1,0 +1,26 @@
+[
+	{
+		"name": "Espargado de Espinafres",
+		"brand": "Continente",
+		"barcode": "5607312501747",
+		"nutritional_table": {
+			"energy": { "per 100": "60 kcal", "per portion": "74 kcal", "%DR": "9%" },
+			"fat": { "per 100": "1 g", "per portion": "1.4 g", "%DR": "6%" },
+			"saturates": { "per 100": "0.1 g", "per portion": "0.1 g", "%DR": "1%" },
+			"carbohydrate": { "per 100": "6.7 g", "per portion": "8.3 g", "%DR": "9%" },
+			"sugars": { "per 100": "0.5 g", "per portion": "0.6 g", "%DR": "2%" },
+			"fibre": { "per 100": "2.5 g", "per portion": "3.1 g", "%DR": "null" },
+			"protein": { "per 100": "4.5 g", "per portion": "5.6 g", "%DR": "30%" },
+			"salt": { "per 100": "0.6 g", "per portion": "0.88 g", "%DR": "35%" }
+		},
+		"ingredients": "Espinafres (89%), água, sal, alho, cebola, especiarias.",
+		"informative_text": {
+			"preparation": "Pronto a cozinhar",
+			"conservation": "Conservar a -18ºC"
+		},
+		"icons": [
+			{ "image": "recycle symbol", "meaning": "Recyclable packaging" },
+			{ "image": "leaf symbol", "meaning": "Vegetarian" }
+		]
+	}
+]

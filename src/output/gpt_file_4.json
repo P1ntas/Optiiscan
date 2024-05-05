@@ -1,0 +1,29 @@
+[
+	{
+		"name": "CONTINENTE Abacate em Cubos",
+		"nutritional_table": {
+			"energy": {
+				"per 100": "665 kJ / 161 kcal",
+				"per portion": "416 kJ / 101 kcal",
+				"%DR": "5%"
+			},
+			"fat": { "per 100": "14g", "per portion": "8.8g", "%DR": "13%" },
+			"saturates": { "per 100": "2.9g", "per portion": "1.8g", "%DR": "9%" },
+			"carbohydrate": { "per 100": "0.9g", "per portion": "0.6g", "%DR": "<1%" },
+			"sugars": { "per 100": "0.7g", "per portion": "0.4g", "%DR": "<1%" },
+			"fibre": { "per 100": "6.7g", "per portion": "4.2g", "%DR": "null" },
+			"protein": { "per 100": "1.9g", "per portion": "1.2g", "%DR": "2%" },
+			"salt": { "per 100": "0g", "per portion": "0g", "%DR": "0%" }
+		},
+		"ingredients": "Abacate.",
+		"informative_text": {
+			"preparation": "Recomendamos descongelar no frigorífico.",
+			"conservation": "Conservar a -18ºC. Uma vez iniciado o processo de descongelação não voltar a congelar."
+		},
+		"icons": [
+			{ "image": "PLASTICO", "meaning": "Recyclable plastic" },
+			{ "image": "ISO 9001", "meaning": "Quality management systems" },
+			{ "image": "FONTE DE FIBRA", "meaning": "Source of fiber" }
+		]
+	}
+]

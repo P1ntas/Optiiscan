@@ -1,4 +1,6 @@
 import sharp from 'sharp';
+import { fromPath } from 'pdf2pic';
+import path from 'path';
 
 /**
  * Read an image and divide it into equal parts along the width/length, whichever is bigger.
@@ -47,4 +49,41 @@ export async function divideImage(path, divisions) {
 				});
 			})
 	);
+}
+
+/**
+ * Convert a PDF file to a PNG image, with the best quality possible.
+ * @param {string} filepath the path to the PDF file
+ * @returns a promise which, when resolved, yields the path to the created PNG image.
+ */
+export async function pdfToPng(filepath) {
+	const fileInfo = path.parse(filepath);
+	console.log('converting pdf ', filepath);
+	console.log('save path: ', fileInfo.dir);
+	const options = {
+		quality: 100,
+		width: 3347,
+		height: 3347,
+		preserveAspectRatio: true,
+		saveFilename: fileInfo.name,
+		savePath: fileInfo.dir,
+		density: 150,
+		format: 'png',
+		compression: 'Lossless'
+	};
+
+	const convert = fromPath(filepath, options);
+
+	return new Promise((resolve) => {
+		if (['.jpeg', '.jpg', '.png'].includes(fileInfo.ext.toLowerCase())) resolve(filepath);
+		else
+			convert(1)
+				.then((response) => {
+					console.log(response);
+					resolve(response.path);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+	});
 }

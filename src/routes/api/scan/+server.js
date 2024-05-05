@@ -1,22 +1,22 @@
-import { scanPrompt } from '$lib/server/openai';
+import { pdfToPng } from '$lib/server/utils';
+import { scanPrompt } from '$lib/server/ai-models/gemini';
 import { divideImage } from '$lib/server/utils';
 
 export async function POST({ request }) {
 	const params = await request.json();
 	return Promise.all(
 		params.filePaths.map(async (/**@type string*/ path) => {
-			return await divideImage(path, 3);
+			return await pdfToPng(path);
 		})
 	)
 		.then(async (filepaths) => {
-			filepaths = filepaths.flat();
-			const batchSize = 5;
+			filepaths = params.filePaths;
 			console.log('after promise: ', filepaths);
 			/**@type {Array<ScanObject>}*/
 			let response = [];
-			for (let i = 0; i < filepaths.length; i += batchSize) {
+			for (let i = 0; i < filepaths.length; i++) {
 				try {
-					await scanPrompt(filepaths.slice(i, i + batchSize)).then((res) => {
+					await scanPrompt(filepaths[i]).then((res) => {
 						if (!res) throw TypeError('Response is null');
 						response.push(...res);
 					});

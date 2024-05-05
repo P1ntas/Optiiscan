@@ -1,0 +1,33 @@
+[
+	{
+		"name": "Batatas Steakhouse",
+		"nutritional_table": {
+			"energy": {
+				"per 100": "750 kJ/179 kcal",
+				"per portion": "1125 kJ/268 kcal",
+				"%DR": "13"
+			},
+			"fat": { "per 100": "6.1 g", "per portion": "9.2 g", "%DR": "13" },
+			"saturates": { "per 100": "0.5 g", "per portion": "0.8 g", "%DR": "4" },
+			"carbohydrate": { "per 100": "28 g", "per portion": "42 g", "%DR": "16" },
+			"sugars": { "per 100": "0.5 g", "per portion": "0.8 g", "%DR": "1" },
+			"fibre": { "per 100": "2.5 g", "per portion": "null", "%DR": "null" },
+			"protein": { "per 100": "2.5 g", "per portion": "3.8 g", "%DR": "8" },
+			"salt": { "per 100": "0.5 g", "per portion": "0.8 g", "%DR": "13" }
+		},
+		"ingredients": "Batatas, óleo de girassol.",
+		"informative_text": {
+			"preparation": "Fritar em óleo bem quente (175º C) durante 3 a 5 minutos.",
+			"conservation": "Conservar a -18ºC ou em local mais frio. Uma vez descongelado, não voltar a congelar."
+		},
+		"icons": [
+			{
+				"image": "frying_pan",
+				"meaning": "Fritar em óleo bem quente (175º C) durante 3 a 5 minutos."
+			},
+			{ "image": "sunflower_oil", "meaning": "Contém óleo de girassol." },
+			{ "image": "recycle", "meaning": "Embalagem reciclável." },
+			{ "image": "frozen", "meaning": "Conservar a -18ºC ou em local mais frio." }
+		]
+	}
+]

@@ -1,0 +1,29 @@
+[
+	{
+		"name": "Crepes Chineses",
+		"nutritional_table": {
+			"energy": {
+				"per 100": "858 kJ/204 kcal",
+				"per portion": "1483 kJ/353 kcal",
+				"%DR": "18%"
+			},
+			"fat": { "per 100": "6.4 g", "per portion": "11 g", "%DR": "16%" },
+			"saturates": { "per 100": "2.8 g", "per portion": "4.8 g", "%DR": "24%" },
+			"carbohydrate": { "per 100": "30 g", "per portion": "52 g", "%DR": "20%" },
+			"sugars": { "per 100": "3.1 g", "per portion": "5.4 g", "%DR": "6%" },
+			"fibre": { "per 100": "1.9 g", "per portion": "3.3 g", "%DR": null },
+			"protein": { "per 100": "6.9 g", "per portion": "12 g", "%DR": "24%" },
+			"salt": { "per 100": "1.3 g", "per portion": "2.2 g", "%DR": "37%" }
+		},
+		"ingredients": "Recheio (56%): repolho, carne de porco (12%), cenoura, cebola, vermicelli (água, farinha de feijão mungo, sal), proteína de soja, óleo de girassol, sal, açúcar, alho, pimenta branca, realçador de sabor (glutamato monossódico), conservante (sorbato de potássio). Massa (44%): farinha de trigo, água, sal, óleo de girassol.",
+		"informative_text": {
+			"preparation": "Retirar os crepes da embalagem e colocar numa frigideira antiaderente. Aquecer em lume brando durante 8 minutos, virando ocasionalmente.",
+			"conservation": "Conservar a -18°C. Uma vez iniciado o processo de descongelação, não voltar a congelar."
+		},
+		"icons": [
+			{ "image": "recycle_symbol", "meaning": "Reciclável" },
+			{ "image": "wheat_ear_symbol", "meaning": "Contém glúten" },
+			{ "image": "snowflake_symbol", "meaning": "Conservar a -18°C" }
+		]
+	}
+]

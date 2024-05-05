@@ -1,0 +1,28 @@
+[
+	{
+		"name": "Espargado de Espinafres",
+		"nutritional_table": {
+			"energy": {
+				"per 100": "184 kJ / 44 kcal",
+				"per portion": "552 kJ / 132 kcal",
+				"%DR": "6.6%"
+			},
+			"fat": { "per 100": "2.6 g", "per portion": "7.8 g", "%DR": "11.1%" },
+			"saturates": { "per 100": "0.4 g", "per portion": "1.2 g", "%DR": "6%" },
+			"carbohydrate": { "per 100": "2.0 g", "per portion": "6.0 g", "%DR": "2.3%" },
+			"sugars": { "per 100": "0.5 g", "per portion": "1.5 g", "%DR": "1.7%" },
+			"fibre": { "per 100": "2.1 g", "per portion": "6.3 g", "%DR": "null" },
+			"protein": { "per 100": "2.8 g", "per portion": "8.4 g", "%DR": "16.8%" },
+			"salt": { "per 100": "0.75 g", "per portion": "2.25 g", "%DR": "37.5%" }
+		},
+		"ingredients": "Espinafres (89%), água, creme de LEITE, amido modificado de milho, sal, alho, noz-moscada.",
+		"informative_text": {
+			"preparation": "null",
+			"conservation": "Conservar a -18°C. Uma vez descongelado, não voltar a congelar."
+		},
+		"icons": [
+			{ "image": "recycle symbol", "meaning": "Recyclable packaging" },
+			{ "image": "leaf symbol", "meaning": "Vegetarian" }
+		]
+	}
+]
