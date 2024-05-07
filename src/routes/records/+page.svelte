@@ -78,6 +78,8 @@
         return ingredients;
     }
 
+    
+
     // Function to toggle the filter popup
     let isFilterPopupOpen = false;
 
@@ -94,6 +96,28 @@
             appliedFilters.push(filter);
         }
     }
+
+    async function fetchProductsByCode(codes) {
+        try {
+            const response = await fetch('/api/products/by-code', {
+            method: 'POST', // Using POST to send the list of codes
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ codes: codes.join(',') }), // Pass the codes as a comma-separated list
+            });
+
+            if (response.ok) {
+            const products = await response.json();
+            console.log('Products with given codes:', products);
+            return products;
+            } else {
+            console.error('Failed to fetch products by code:', response.status);
+            }
+        } catch (error) {
+            console.error('Error fetching products by code:', error);
+        }
+        }
 
     // Function to toggle a filter
     function toggleFilterButton(filter) {
@@ -139,28 +163,78 @@
 
 
 
-    // Function to download CSV
-    function downloadCSV() {
-        let selectedProductsIds = [];
+    function convertToCSV(data) {
+        if (!data.length) {
+            return '';
+        }
+
+        const headers = Object.keys(data[0]); // Get CSV headers from the object keys
+        const csvRows = [];
+
+        // Add headers to the CSV
+        csvRows.push(headers.join(','));
+
+        // Add rows
+        data.forEach((row) => {
+            const values = headers.map((header) => {
+            const val = row[header];
+            return (typeof val === 'string') ? `"${val.replace(/"/g, '""')}"` : val; // Escape double quotes
+            });
+            csvRows.push(values.join(','));
+        });
+
+        return csvRows.join('\n'); // Join rows with newline characters
+        }
+
+    async function downloadCSV() {
+        let selectedProductsCodes = [];
         document.querySelectorAll('input[type=checkbox].lineCheckBox').forEach((checkbox) => {
             if (checkbox.checked) {
                 const id = checkbox.id.substring(checkbox.id.indexOf('-') + 1);
-                selectedProductsIds.push(id);
+                selectedProductsCodes.push(id);
             }
         });
-        console.log('SelectedProducts: ', selectedProductsIds);
-        // TODO: Add here call to backend to download CSV (dont forget to send the selected products)
-        const fileUrl = '';
-        const filename = 'output.csv';
-        // Create a temporary anchor element
+        console.log('SelectedProducts: ', selectedProductsCodes);
+        // TODO: Add here code to download CSV (dont forget to send the selected products)
+
+        if (selectedProductsCodes.length === 0) {
+            console.log('No products selected.');
+            return; // Nothing to download
+        }
+
+        // Fetch the products by their codes
+        const products = await fetchProductsByCode(selectedProductsCodes);
+
+        if (!products.length) {
+            console.log('No products found.');
+            return;
+        }
+
+        // Convert product data to CSV format
+        const csvData = convertToCSV(products);
+
+        if (csvData === '') {
+            console.log('No data to create CSV.');
+            return;
+        }
+
+        // Create a Blob with CSV data
+        const csvBlob = new Blob([csvData], { type: 'text/csv' });
+
+        // Create a temporary anchor element to trigger download
+        const fileUrl = URL.createObjectURL(csvBlob); // Create a downloadable URL
         const link = document.createElement('a');
         link.href = fileUrl;
-        link.setAttribute('download', 'output.csv');
-        // Programmatically click the anchor element to trigger the download
+        link.setAttribute('download', 'output.csv'); // Set the download filename
+
+        // Trigger the download
         document.body.appendChild(link);
-        link.click();
+        link.click(); // Simulate a click to download
         document.body.removeChild(link);
-    }
+
+        // Clean up the object URL to avoid memory leaks
+        URL.revokeObjectURL(fileUrl);
+        }
 
     // Function to toggle all checkboxes
     let headerChecked = true;
@@ -265,20 +339,20 @@
                 </TableHeadCell>
             </TableHead>
             <TableBody>
-                {#each products as product (product._id)}
+                {#each products as product}
                     <TableBodyRow>
                         <TableBodyCell class="!p-3">
                             <Checkbox
                                 checked={true}
                                 on:click={toggleCheckbox}
-                                id="checkbox-{product._id._id}"
+                                id="checkbox-{product.code}"
                                 class="lineCheckBox  text-primary focus:outline-primary"
                             />
                         </TableBodyCell>
                         <TableBodyCell class="font-light">
-                            <div class="font-bold">...</div>
+                            <div class="font-light">{product.uploadTime}</div>
                         </TableBodyCell>
-                        <TableBodyCell class="font-light">{product.barcode}</TableBodyCell>
+                        <TableBodyCell class="font-light">{product.code}</TableBodyCell>
                         <TableBodyCell class="text-wrap font-light">{product.name}</TableBodyCell>
                         <TableBodyCell class="font-light">
                             <div class="text-wrap">
