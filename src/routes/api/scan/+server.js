@@ -1,5 +1,6 @@
 import { pdfToPng } from '$lib/server/utils';
 import { scanPrompt } from '$lib/server/ai-models/gemini';
+import db from '$lib/server/db/db';
 
 export async function POST({ request }) {
 	const params = await request.json();
@@ -15,8 +16,11 @@ export async function POST({ request }) {
 			let response = [];
 			for (let i = 0; i < filepaths.length; i++) {
 				try {
-					await scanPrompt(filepaths[i]).then((res) => {
+					await scanPrompt(filepaths[i]).then(async (res) => {
 						if (!res) throw TypeError('Response is null');
+						console.log(res);
+						res[0]['uploadTime'] = new Date().toISOString();
+						await (await db).collection('products').insertOne(res[0]);
 						response.push(...res);
 					});
 				} catch (err) {
