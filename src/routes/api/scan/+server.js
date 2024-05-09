@@ -1,16 +1,15 @@
 import { pdfToPng } from '$lib/server/utils';
 import { scanPrompt } from '$lib/server/ai-models/gemini';
-import { divideImage } from '$lib/server/utils';
 
 export async function POST({ request }) {
 	const params = await request.json();
+	console.log(params);
 	return Promise.all(
 		params.filePaths.map(async (/**@type string*/ path) => {
 			return await pdfToPng(path);
 		})
 	)
 		.then(async (filepaths) => {
-			filepaths = params.filePaths;
 			console.log('after promise: ', filepaths);
 			/**@type {Array<ScanObject>}*/
 			let response = [];
