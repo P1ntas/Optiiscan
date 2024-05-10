@@ -162,27 +162,36 @@
 	}
 
 	function convertToCSV(data) {
-		if (!data.length) {
-			return '';
-		}
+        if (!data.length) {
+            return '';
+        }
 
-		const headers = Object.keys(data[0]); // Get CSV headers from the object keys
-		const csvRows = [];
+        const headers = Object.keys(data[0]); // Get CSV headers from the first object
+        const csvRows = [];
 
-		// Add headers to the CSV
-		csvRows.push(headers.join(','));
+        // Add headers to the CSV
+        csvRows.push(headers.join(','));
 
-		// Add rows
-		data.forEach((row) => {
-			const values = headers.map((header) => {
-				const val = row[header];
-				return typeof val === 'string' ? `"${val.replace(/"/g, '""')}"` : val; // Escape double quotes
-			});
-			csvRows.push(values.join(','));
-		});
+        // Add rows
+        data.forEach((row) => {
+            const values = headers.map((header) => {
+            const val = row[header];
 
-		return csvRows.join('\n'); // Join rows with newline characters
-	}
+            // If the value is an object, convert it to a JSON string
+            if (typeof val === 'object' && val !== null) {
+                return `"${JSON.stringify(val).replace(/"/g, '""')}"`; // Escape double quotes
+            }
+
+            // Otherwise, handle as a normal value
+            return (typeof val === 'string') ? `"${val.replace(/"/g, '""')}"` : val; // Escape double quotes
+            });
+
+            csvRows.push(values.join(',')); // Join values with commas
+        });
+
+        return csvRows.join('\n'); // Join rows with newline characters
+        }
+
 
 	async function downloadCSV() {
 		let selectedProductsCodes = [];
