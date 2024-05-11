@@ -14,7 +14,7 @@ const generativeVisionModel = vertexAI.getGenerativeModel({
 const schema = JSON.stringify({
 	name: 'product name',
 	brand: 'brand name',
-	barcode: 'numeric code',
+	code: 'numeric code',
 	nutritional_table: { key: { 'per 100': 'value', 'per portion': 'value', '%DR': 'value' } },
 	ingredients: 'value',
 	informative_text: { key: 'value' }

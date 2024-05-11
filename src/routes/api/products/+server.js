@@ -35,27 +35,23 @@ export async function PATCH({ request }) {
 		return json({ success: false, message: 'No data provided for update.' }, 400);
 	}
 
-	const id = new ObjectId(data['id']);
+	const id = new ObjectId(data['_id']);
 	const existingProduct = await (await db).collection('products').findOne({ _id: id });
 	if (!existingProduct) {
-		return json({ success: false, message: 'Log not found.' }, 404);
+		return json({ success: false, message: 'Product not found.' }, 404);
 	}
 
-	const updateFields = {
-		code: data['code'],
-		name: data['name'],
-		description: data['description'] ?? '',
-		labels: data['labels'] ?? ''
-	};
+	if ('nutritional_table' in data)
+		data['nutritional_table'] = JSON.parse(data['nutritional_table']);
+	if ('informative_text' in data) data['informative_text'] = JSON.parse(data['informative_text']);
 
-	const result = await (await db)
-		.collection('products')
-		.updateOne({ _id: id }, { $set: updateFields });
+	delete data['_id'];
+	const result = await (await db).collection('products').updateOne({ _id: id }, { $set: data });
 
 	if (result.modifiedCount === 1) {
-		return json({ success: true, message: 'Log updated successfully.' });
+		return json({ success: true, message: 'Product updated successfully.' });
 	} else {
-		return json({ success: false, message: 'Log not found or no updates made.' }, 404);
+		return json({ success: false, message: 'Product not found or no updates made.' }, 404);
 	}
 }
 
