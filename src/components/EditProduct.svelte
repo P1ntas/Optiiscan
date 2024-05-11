@@ -28,7 +28,6 @@
 			await response.json();
 			success('Record changed succesfully.');
 			dispatch('refreshProducts');
-			//products = await fetchProducts();
 		} catch {
 			error('Something went wrong!');
 		}
