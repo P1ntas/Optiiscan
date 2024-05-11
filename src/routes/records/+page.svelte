@@ -58,15 +58,12 @@
 
 		// Filter products based on selected labels or ingredients
 		const filteredProducts = products.filter((product) => {
-			// Check if product matches all selected labels or ingredients
-			const labelMatch = selectedFilters.every((filter) => product.labels.includes(filter));
-			const ingredientMatch = selectedFilters.every((filter) =>
-				product.ingredients.includes(filter)
-			);
+            const labelMatch = product.labels && selectedFilters.every((filter) => product.labels.includes(filter));
+            const ingredientMatch = product.ingredients && selectedFilters.every((filter) => product.ingredients.includes(filter));
 
-			// Include the product if it matches all selected labels or ingredients
-			return labelMatch || ingredientMatch;
-		});
+            // Include the product if it matches all selected labels or ingredients
+            return labelMatch || ingredientMatch;
+        });
 
 		// Update the displayed products
 		products = filteredProducts;
@@ -94,10 +91,11 @@
 	function fetchIngredientFilters(products) {
 		let ingredients = [];
 		products.forEach((product) => {
-			ingredients = ingredients.concat(
-				product.ingredients.filter((ingredient) => !ingredients.includes(ingredient))
-			);
-		});
+            if (product.ingredients) {
+                const productIngredients = product.ingredients.split(',').map(ingredient => ingredient.trim());
+                ingredients = ingredients.concat(productIngredients);
+            }
+        });
 		return ingredients;
 	}
 
@@ -418,7 +416,13 @@
 						<TableBodyCell class="font-light">{product.code}</TableBodyCell>
 						<TableBodyCell class="text-wrap font-light">{product.name}</TableBodyCell>
 						<TableBodyCell class="font-light">
-							<div class="text-wrap">{product.brand}</div>
+							<div class="text-wrap">
+                                {#if product.brand && product.brand.length > 0}
+                                {product.brand}
+                                {:else}
+                                    No brand available
+                                {/if}
+                            </div>
 						</TableBodyCell>
 						<TableBodyCell class="font-light">
 							<Button
@@ -430,10 +434,15 @@
 							>
 						</TableBodyCell>
 						<TableBodyCell class="font-light">
-							<div class="text-wrap">
-								{product.ingredients ? product.ingredients.substring(0, 100) : '-'}
-							</div>
-						</TableBodyCell>
+                            <div class="text-wrap">
+                                {#if product.ingredients && product.ingredients.length > 0}
+                                {product.ingredients ? product.ingredients.split(',').map(ingredient => ingredient.trim()).join(', ') : '-'}
+                                {:else}
+                                    No ingredients available
+                                {/if}
+                            </div>
+                        </TableBodyCell>
+                        
 						<TableBodyCell class="font-light">
 							<Button
 								class="text-black"
