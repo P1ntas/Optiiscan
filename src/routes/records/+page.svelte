@@ -2,7 +2,7 @@
 	import { onMount, setContext } from 'svelte';
 	import Nav from '../../components/Nav.svelte';
 	import SearchBar from '../../components/SearchBar.svelte';
-	import { Heading, P, Button } from 'flowbite-svelte';
+	import { Heading, Button } from 'flowbite-svelte';
 	import { DownloadSolid, EditOutline } from 'flowbite-svelte-icons';
 
 	import {
@@ -14,6 +14,9 @@
 		TableHeadCell,
 		Checkbox
 	} from 'flowbite-svelte';
+	import NutritionTable from '../../components/NutritionTable.svelte';
+	import EditProduct from '../../components/EditProduct.svelte';
+	import InformativeText from '../../components/InformativeText.svelte';
 
 	// Initialize selectedFilters with an empty array
 	let selectedFilters = [];
@@ -23,6 +26,24 @@
 	 * @type {any[]}
 	 */
 	let products = [];
+
+	let nutritionTable = {
+		show: false,
+		product: '',
+		data: {}
+	};
+
+	let othersModal = {
+		show: false,
+		product: '',
+		data: {}
+	};
+
+	let editModal = {
+		show: false,
+		product: '',
+		data: {}
+	};
 
 	async function fetchProducts() {
 		return await fetch('/api/products').then((res) => res.json());
@@ -162,36 +183,35 @@
 	}
 
 	function convertToCSV(data) {
-        if (!data.length) {
-            return '';
-        }
+		if (!data.length) {
+			return '';
+		}
 
-        const headers = Object.keys(data[0]); // Get CSV headers from the first object
-        const csvRows = [];
+		const headers = Object.keys(data[0]); // Get CSV headers from the first object
+		const csvRows = [];
 
-        // Add headers to the CSV
-        csvRows.push(headers.join(','));
+		// Add headers to the CSV
+		csvRows.push(headers.join(','));
 
-        // Add rows
-        data.forEach((row) => {
-            const values = headers.map((header) => {
-            const val = row[header];
+		// Add rows
+		data.forEach((row) => {
+			const values = headers.map((header) => {
+				const val = row[header];
 
-            // If the value is an object, convert it to a JSON string
-            if (typeof val === 'object' && val !== null) {
-                return `"${JSON.stringify(val).replace(/"/g, '""')}"`; // Escape double quotes
-            }
+				// If the value is an object, convert it to a JSON string
+				if (typeof val === 'object' && val !== null) {
+					return `"${JSON.stringify(val).replace(/"/g, '""')}"`; // Escape double quotes
+				}
 
-            // Otherwise, handle as a normal value
-            return (typeof val === 'string') ? `"${val.replace(/"/g, '""')}"` : val; // Escape double quotes
-            });
+				// Otherwise, handle as a normal value
+				return typeof val === 'string' ? `"${val.replace(/"/g, '""')}"` : val; // Escape double quotes
+			});
 
-            csvRows.push(values.join(',')); // Join values with commas
-        });
+			csvRows.push(values.join(',')); // Join values with commas
+		});
 
-        return csvRows.join('\n'); // Join rows with newline characters
-        }
-
+		return csvRows.join('\n'); // Join rows with newline characters
+	}
 
 	async function downloadCSV() {
 		let selectedProductsCodes = [];
@@ -258,6 +278,33 @@
 		if (!event.target.checked) {
 			headerChecked = false;
 		}
+	}
+
+	/**
+	 * @param {number} index
+	 */
+	function openNutritionTable(index) {
+		nutritionTable['product'] = products[index].name;
+		nutritionTable['data'] = products[index].nutritional_table;
+		nutritionTable['show'] = true;
+	}
+
+	/**
+	 * @param {number} index
+	 */
+	function openOthersModal(index) {
+		othersModal['product'] = products[index].name;
+		othersModal['data'] = products[index].informative_text;
+		othersModal['show'] = true;
+	}
+
+	/**
+	 * @param {number} index
+	 */
+	function openEditModal(index) {
+		editModal['product'] = products[index].name;
+		editModal['data'] = products[index];
+		editModal['show'] = true;
 	}
 
 	// Default label and ingredient filters
@@ -341,7 +388,6 @@
 						bind:checked={headerChecked}
 					/>
 				</TableHeadCell>
-				<!-- <TableHeadCell class="font-medium">Upload time</TableHeadCell> -->
 				<TableHeadCell class="font-medium">Code</TableHeadCell>
 				<TableHeadCell class="font-medium">Name</TableHeadCell>
 				<!--
@@ -359,7 +405,7 @@
 				</TableHeadCell>
 			</TableHead>
 			<TableBody>
-				{#each products as product}
+				{#each products as product, index}
 					<TableBodyRow>
 						<TableBodyCell class="!p-3">
 							<Checkbox
@@ -369,41 +415,41 @@
 								class="lineCheckBox  text-primary focus:outline-primary"
 							/>
 						</TableBodyCell>
-						<!--
-                        <TableBodyCell class="font-light">
-                            <div class="font-light">{product.uploadTime}</div>
-                        </TableBodyCell>
-						-->
 						<TableBodyCell class="font-light">{product.code}</TableBodyCell>
 						<TableBodyCell class="text-wrap font-light">{product.name}</TableBodyCell>
-						<!--
-                        <TableBodyCell class="font-light">
-                            <div class="text-wrap">
-                                {product.description.substring(0, 100)}...
-                            </div>
-                        </TableBodyCell>
-						-->
 						<TableBodyCell class="font-light">
 							<div class="text-wrap">{product.brand}</div>
 						</TableBodyCell>
 						<TableBodyCell class="font-light">
+							<Button
+								class="text-black"
+								style="display: block;"
+								on:click={() => {
+									openNutritionTable(index);
+								}}>Show</Button
+							>
+						</TableBodyCell>
+						<TableBodyCell class="font-light">
 							<div class="text-wrap">
-								{JSON.stringify(product.nutritional_table).substring(0, 100)}...
+								{product.ingredients ? product.ingredients.substring(0, 100) : '-'}
 							</div>
 						</TableBodyCell>
 						<TableBodyCell class="font-light">
-							<div class="text-wrap">{product.ingredients.substring(0, 100)}...</div>
+							<Button
+								class="text-black"
+								style="display: block;"
+								on:click={() => {
+									openOthersModal(index);
+								}}>Show</Button
+							>
 						</TableBodyCell>
-						<TableBodyCell class="font-light">
-							<div class="text-wrap">
-								{JSON.stringify(product.informative_text).substring(0, 100)}...
-							</div>
-						</TableBodyCell>
-						<TableBodyCell class="text-wrap font-light">{product.labels}</TableBodyCell>
+						<TableBodyCell class="text-wrap font-light"
+							>{product.labels ? product.labels : '-'}</TableBodyCell
+						>
 						<TableBodyCell class="font-light">
 							<button
 								on:click={() => {
-									console.log('Edit product:', product._id);
+									openEditModal(index);
 								}}
 								class="text-primary-600"
 							>
@@ -414,11 +460,34 @@
 				{/each}
 			</TableBody>
 		</Table>
+
 		{#if !products.length}
-			<Heading tag="h5" class="w-100 mt-5 text-center"
-				>No products found, try to upload a image...</Heading
-			>
+			<Heading tag="h5" class="w-100 mt-5 text-center">
+				No products found, try to upload a image...
+			</Heading>
 		{/if}
+
+		<NutritionTable
+			bind:show={nutritionTable.show}
+			bind:product={nutritionTable.product}
+			bind:data={nutritionTable.data}
+		/>
+
+		<InformativeText
+			bind:show={othersModal.show}
+			bind:product={othersModal.product}
+			bind:data={othersModal.data}
+		/>
+
+		<EditProduct
+			bind:show={editModal.show}
+			bind:product={editModal.product}
+			bind:data={editModal.data}
+			on:refreshProducts={async () => {
+				products = await fetchProducts();
+			}}
+		/>
+
 		<div
 			class="fixed left-0 top-0 z-50 h-full w-full bg-black bg-opacity-50"
 			hidden={!isFilterPopupOpen}
