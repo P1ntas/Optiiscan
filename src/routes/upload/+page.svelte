@@ -2,6 +2,7 @@
 	import Dropzone from '../../components/Dropzone.svelte';
 	import Nav from '../../components/Nav.svelte';
 	import { Heading, P, Button } from 'flowbite-svelte';
+	import { success } from '../../toasts';
 
 	let files = [];
 
@@ -37,6 +38,7 @@
 					body: JSON.stringify({ filePaths })
 				};
 				fetch(scanUrl, scanOptions);
+				success('Scanning started with success...');
 			} else {
 				console.error('Failed to upload files');
 			}
