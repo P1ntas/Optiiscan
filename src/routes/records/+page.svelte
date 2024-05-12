@@ -58,12 +58,16 @@
 
 		// Filter products based on selected labels or ingredients
 		const filteredProducts = products.filter((product) => {
-            const labelMatch = product.labels && selectedFilters.every((filter) => product.labels.includes(filter));
-            const ingredientMatch = product.ingredients && selectedFilters.every((filter) => product.ingredients.includes(filter));
+			const labelMatch =
+				product.labels &&
+				selectedFilters.every((filter) => product.labels.includes(filter));
+			const ingredientMatch =
+				product.ingredients &&
+				selectedFilters.every((filter) => product.ingredients.includes(filter));
 
-            // Include the product if it matches all selected labels or ingredients
-            return labelMatch || ingredientMatch;
-        });
+			// Include the product if it matches all selected labels or ingredients
+			return labelMatch || ingredientMatch;
+		});
 
 		// Update the displayed products
 		products = filteredProducts;
@@ -83,7 +87,9 @@
 	function fetchLabelFilters(products) {
 		let labels = [];
 		products.forEach((product) => {
-			labels = labels.concat(product.labels.filter((label) => !labels.includes(label)));
+			if (product.labels) {
+				labels = labels.concat(product.labels.filter((label) => !labels.includes(label)));
+			}
 		});
 		return labels;
 	}
@@ -91,11 +97,25 @@
 	function fetchIngredientFilters(products) {
 		let ingredients = [];
 		products.forEach((product) => {
-            if (product.ingredients) {
-                const productIngredients = product.ingredients.split(',').map(ingredient => ingredient.trim());
-                ingredients = ingredients.concat(productIngredients);
-            }
-        });
+			if (product.ingredients) {
+				const productIngredients = product.ingredients
+					.split(/,|:|\.|\(|\)|\[|\]|\b\d+\b|%|\bcontém\b|\bPode conter\b|(?<!\S)e(?!\S)/)
+					.map((ingredient) => ingredient.trim());
+				productIngredients.forEach((ingredient) => {
+					if (
+						ingredient !== '' &&
+						ingredient.toLowerCase() !== 'contém' &&
+						ingredient.toLowerCase() !== 'pode conter' &&
+						ingredient.toLowerCase() !== 'e'
+					) {
+						// Exclude empty strings, "contém", "Pode conter", and "e"
+						if (!ingredients.includes(ingredient)) {
+							ingredients.push(ingredient);
+						}
+					}
+				});
+			}
+		});
 		return ingredients;
 	}
 
@@ -417,12 +437,12 @@
 						<TableBodyCell class="text-wrap font-light">{product.name}</TableBodyCell>
 						<TableBodyCell class="font-light">
 							<div class="text-wrap">
-                                {#if product.brand && product.brand.length > 0}
-                                {product.brand}
-                                {:else}
-                                    No brand available
-                                {/if}
-                            </div>
+								{#if product.brand && product.brand.length > 0}
+									{product.brand}
+								{:else}
+									No brand available
+								{/if}
+							</div>
 						</TableBodyCell>
 						<TableBodyCell class="font-light">
 							<Button
@@ -434,15 +454,20 @@
 							>
 						</TableBodyCell>
 						<TableBodyCell class="font-light">
-                            <div class="text-wrap">
-                                {#if product.ingredients && product.ingredients.length > 0}
-                                {product.ingredients ? product.ingredients.split(',').map(ingredient => ingredient.trim()).join(', ') : '-'}
-                                {:else}
-                                    No ingredients available
-                                {/if}
-                            </div>
-                        </TableBodyCell>
-                        
+							<div class="text-wrap">
+								{#if product.ingredients && product.ingredients.length > 0}
+									{product.ingredients
+										? product.ingredients
+												.split(',')
+												.map((ingredient) => ingredient.trim())
+												.join(', ')
+										: '-'}
+								{:else}
+									No ingredients available
+								{/if}
+							</div>
+						</TableBodyCell>
+
 						<TableBodyCell class="font-light">
 							<Button
 								class="text-black"
@@ -523,19 +548,25 @@
 				</div>
 				<div class="mb-4">
 					<h3 class="mb-2 text-lg font-bold">Ingredients</h3>
-					{#each ingredientFilters as ingredient}
-						<label for={`filter-${ingredient}`} class="mr-4 flex items-center">
-							<Checkbox
-								type="checkbox"
-								id={`filter-${ingredient}`}
-								class="mr-2 text-primary focus:outline-primary"
-								checked={selectedFilters.includes(ingredient)}
-								on:change={() => toggleFilter(ingredient)}
-							/>
-							{ingredient}
-						</label>
-					{/each}
+					<div class="max-h-48 overflow-y-auto">
+						<!-- Add overflow and max height -->
+						{#each ingredientFilters as ingredient}
+							<label for={`filter-${ingredient}`} class="mr-4 flex items-center">
+								<Checkbox
+									type="checkbox"
+									id={`filter-${ingredient}`}
+									class="mr-2 text-primary focus:outline-primary"
+									checked={selectedFilters.includes(ingredient)}
+									on:change={() => toggleFilter(ingredient)}
+								/>
+								{ingredient}
+							</label>
+						{:else}
+							<p>No ingredients available</p>
+						{/each}
+					</div>
 				</div>
+
 				<!-- Apply and Cancel Buttons -->
 				<div class="flex justify-end">
 					<button class="mr-2 text-gray-500 hover:underline" on:click={toggleFilterPopup}>
