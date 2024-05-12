@@ -1,6 +1,7 @@
 import sharp from 'sharp';
 import { fromPath } from 'pdf2pic';
 import path from 'path';
+import fs from 'fs-extra';
 
 /**
  * Read an image and divide it into equal parts along the width/length, whichever is bigger.
@@ -86,4 +87,27 @@ export async function pdfToPng(filepath) {
 					console.log(error);
 				});
 	});
+}
+
+export function deleteScanFile(filepath) {
+	const formats = ['.png', '.pdf', '.jpg'];
+
+	for (const format of formats) {
+		const filename =
+			path.basename(filepath).endsWith('.1.png') && format === '.pdf'
+				? path.basename(filepath).replace('.1.png', '')
+				: path.parse(filepath).name;
+		const fullFilePath = `${path.dirname(filepath)}/${filename}${format}`;
+
+		try {
+			console.log(`File being deleted: ${fullFilePath}`);
+			fs.unlinkSync(fullFilePath);
+		} catch (err) {
+			if (err.code === 'ENOENT') {
+				console.log(`File not found: ${fullFilePath}`);
+			} else {
+				throw err;
+			}
+		}
+	}
 }

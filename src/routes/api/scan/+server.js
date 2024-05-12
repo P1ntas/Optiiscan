@@ -1,4 +1,4 @@
-import { pdfToPng } from '$lib/server/utils';
+import { pdfToPng, deleteScanFile } from '$lib/server/utils';
 import { scanPrompt } from '$lib/server/ai-models/gemini';
 import db from '$lib/server/db/db';
 
@@ -45,7 +45,7 @@ export async function POST({ request }) {
 					await scanPrompt(filepaths[i]).then(async (res) => {
 						if (!res) throw TypeError('Response is null');
 						console.log(res);
-
+						deleteScanFile(filepaths[i]);
 						res[0]['uploadTime'] = new Date().toISOString();
 						_db.collection('products').insertOne(res[0]);
 
