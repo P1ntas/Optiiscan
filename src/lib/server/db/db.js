@@ -8,4 +8,8 @@ let dbPromise = new Promise((resolve, reject) => {
 		.catch(reject);
 });
 
+dbPromise.then((con) => {
+	con.collection('logs').updateMany({ status: 'running' }, { $set: { status: 'aborted' } });
+});
+
 export default dbPromise;
