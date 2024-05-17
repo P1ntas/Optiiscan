@@ -26,3 +26,14 @@ Generative AI tool to automate the extraction of a product's information based o
 - Frontend: Add pop-ups in logs and records page to see and edit elements
 - Backend: Filter, search, upload and logs features
 - Gemini prompt improvement and model integration
+
+## Sprint 4
+
+### Workload estimate: 46
+
+- Integration of front-end, backend and model
+- Integration of the logs
+- Integration of the upload images in the app with the database
+- Exportation of the records to CSV
+- Edition of the records
+- Comparison of different AI Models
