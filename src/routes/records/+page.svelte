@@ -335,7 +335,7 @@
 
 <div class="flex-column flex">
 	<Nav page="records" />
-	<main class="flex-1 overflow-x-hidden p-10">
+	<main class="flex-1 p-10">
 		<SearchBar on:search={search} />
 		<hr class="my-7 h-px border-0 bg-black bg-opacity-10" />
 		<div class="flex flex-wrap">
@@ -397,103 +397,160 @@
 		</div>
 		<br />
 		<p>Showing <span class="font-bold">{products.length} products</span></p>
-		<Table hoverable={true} class="mt-10">
-			<TableHead class="text-neutral-600">
-				<TableHeadCell class="!p-3">
-					<Checkbox
-						on:click={toggleAll}
-						class="text-primary  focus:outline-primary"
-						bind:checked={headerChecked}
-					/>
-				</TableHeadCell>
-				<TableHeadCell class="font-medium">Code</TableHeadCell>
-				<TableHeadCell class="font-medium">Name</TableHeadCell>
-				<!--
-                <TableHeadCell class="font-medium">Description</TableHeadCell>
-				-->
-				<TableHeadCell class="font-medium">Brand</TableHeadCell>
-				<TableHeadCell class="font-medium">Nutrition Table</TableHeadCell>
-				<TableHeadCell class="font-medium">Ingredients</TableHeadCell>
-				<TableHeadCell class="font-medium">Others</TableHeadCell>
-				<TableHeadCell class="font-medium">Labels</TableHeadCell>
-				<TableHeadCell>
-					<span class="sr-only">
-						<EditOutline class="h-6 w-6" />
-					</span>
-				</TableHeadCell>
-			</TableHead>
-			<TableBody>
-				{#each products as product, index}
-					<TableBodyRow>
-						<TableBodyCell class="!p-3">
-							<Checkbox
-								checked={true}
-								on:click={toggleCheckbox}
-								id="checkbox-{product.code}"
-								class="lineCheckBox  text-primary focus:outline-primary"
-							/>
-						</TableBodyCell>
-						<TableBodyCell class="font-light">{product.code}</TableBodyCell>
-						<TableBodyCell class="text-wrap font-light">{product.name}</TableBodyCell>
-						<TableBodyCell class="font-light">
-							<div class="text-wrap">
-								{#if product.brand && product.brand.length > 0}
-									{product.brand}
-								{:else}
-									No brand available
-								{/if}
-							</div>
-						</TableBodyCell>
-						<TableBodyCell class="font-light">
-							<Button
-								class="text-black"
-								style="display: block;"
-								on:click={() => {
-									openNutritionTable(index);
-								}}>Show</Button
-							>
-						</TableBodyCell>
-						<TableBodyCell class="font-light">
-							<div class="text-wrap">
-								{#if product.ingredients && product.ingredients.length > 0}
-									{product.ingredients
-										? product.ingredients
-												.split(',')
-												.map((ingredient) => ingredient.trim())
-												.join(', ')
-										: '-'}
-								{:else}
-									No ingredients available
-								{/if}
-							</div>
-						</TableBodyCell>
 
-						<TableBodyCell class="font-light">
-							<Button
-								class="text-black"
-								style="display: block;"
-								on:click={() => {
-									openOthersModal(index);
-								}}>Show</Button
-							>
-						</TableBodyCell>
-						<TableBodyCell class="text-wrap font-light"
-							>{product.labels ? product.labels : '-'}</TableBodyCell
+		<div class="table-container" style="overflow-x: visible;">
+			<table class="mt-10 w-full text-left text-sm text-gray-500 dark:text-gray-400">
+				<thead
+					class="styled-thead"
+					style="background-color: #f8fafc; position: sticky; top: 0; z-index: 10;"
+				>
+					<tr>
+						<th
+							class="whitespace-nowrap !p-3 px-6 py-4 font-medium text-gray-900 dark:text-white"
+							style="border-bottom: 1px solid #d2d6dc;"
 						>
-						<TableBodyCell class="font-light">
-							<button
-								on:click={() => {
-									openEditModal(index);
-								}}
-								class="text-primary-600"
-							>
+							<Checkbox
+								on:click={toggleAll}
+								class="text-primary  focus:outline-primary"
+								bind:checked={headerChecked}
+							/>
+						</th>
+						<th
+							class="font-light; whitespace-nowrap px-6 py-4 text-gray-900 dark:text-white"
+							style="font-size: 0.75rem;font-weight: 500;color: #4b5563;text-transform: uppercase;border-bottom: 1px solid #d2d6dc;"
+							>Code</th
+						>
+						<th
+							class="font-light; whitespace-nowrap px-6 py-4 text-gray-900 dark:text-white"
+							style="font-size: 0.75rem;font-weight: 500;color: #4b5563;text-transform: uppercase;border-bottom: 1px solid #d2d6dc;"
+							>Name</th
+						>
+						<th
+							class="font-light; whitespace-nowrap px-6 py-4 text-gray-900 dark:text-white"
+							style="font-size: 0.75rem;font-weight: 500;color: #4b5563;text-transform: uppercase;border-bottom: 1px solid #d2d6dc;"
+							>Brand</th
+						>
+						<th
+							class="font-light; whitespace-nowrap px-6 py-4 text-gray-900 dark:text-white"
+							style="font-size: 0.75rem;font-weight: 500;color: #4b5563;text-transform: uppercase;border-bottom: 1px solid #d2d6dc;"
+							>Nutrition Table</th
+						>
+						<th
+							class="font-light; whitespace-nowrap px-6 py-4 text-gray-900 dark:text-white"
+							style="font-size: 0.75rem;font-weight: 500;color: #4b5563;text-transform: uppercase;border-bottom: 1px solid #d2d6dc;"
+							>Ingredients</th
+						>
+						<th
+							class="font-light; whitespace-nowrap px-6 py-4 text-gray-900 dark:text-white"
+							style="font-size: 0.75rem;font-weight: 500;color: #4b5563;text-transform: uppercase;border-bottom: 1px solid #d2d6dc;"
+							>Others</th
+						>
+						<th
+							class="font-light; whitespace-nowrap px-6 py-4 text-gray-900 dark:text-white"
+							style="font-size: 0.75rem;font-weight: 500;color: #4b5563;text-transform: uppercase;border-bottom: 1px solid #d2d6dc;"
+							>Labels</th
+						>
+						<th
+							class="font-light; whitespace-nowrap px-6 py-4 text-gray-900 dark:text-white"
+							style="font-size: 0.75rem;font-weight: 500;color: #4b5563;text-transform: uppercase;border-bottom: 1px solid #d2d6dc;"
+						>
+							<span class="sr-only">
 								<EditOutline class="h-6 w-6" />
-							</button>
-						</TableBodyCell>
-					</TableBodyRow>
-				{/each}
-			</TableBody>
-		</Table>
+							</span>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{#each products as product, index}
+						<tr
+							class="border-b bg-white last:border-b-0 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
+						>
+							<td
+								class="whitespace-nowrap !p-3 px-6 py-4 font-medium text-gray-900 dark:text-white"
+							>
+								<Checkbox
+									on:click={toggleAll}
+									class="text-primary  focus:outline-primary"
+									bind:checked={headerChecked}
+								/>
+							</td>
+							<td
+								class="whitespace-nowrap px-6 py-4 font-light text-gray-900 dark:text-white"
+								>{product.code}</td
+							>
+							<td
+								class="whitespace-nowrap text-wrap px-6 py-4 font-light text-gray-900 dark:text-white"
+								>{product.name}</td
+							>
+							<td
+								class="whitespace-nowrap px-6 py-4 font-light text-gray-900 dark:text-white"
+							>
+								<div class="text-wrap">
+									{#if product.brand && product.brand.length > 0}
+										{product.brand}
+									{:else}
+										No brand available
+									{/if}
+								</div></td
+							>
+							<td
+								class="whitespace-nowrap px-6 py-4 font-light text-gray-900 dark:text-white"
+							>
+								<Button
+									class="text-black"
+									style="display: block;"
+									on:click={() => {
+										openNutritionTable(index);
+									}}>Show</Button
+								>
+							</td>
+							<td
+								class="whitespace-nowrap px-6 py-4 font-light text-gray-900 dark:text-white"
+							>
+								<div class="text-wrap">
+									{#if product.ingredients && product.ingredients.length > 0}
+										{product.ingredients
+											? product.ingredients
+													.split(',')
+													.map((ingredient) => ingredient.trim())
+													.join(', ')
+											: '-'}
+									{:else}
+										No ingredients available
+									{/if}
+								</div></td
+							>
+							<td
+								class="whitespace-nowrap px-6 py-4 font-light text-gray-900 dark:text-white"
+							>
+								<Button
+									class="text-black"
+									style="display: block;"
+									on:click={() => {
+										openOthersModal(index);
+									}}>Show</Button
+								>
+							</td>
+							<td
+								class="whitespace-nowrap text-wrap px-6 py-4 font-light text-gray-900 dark:text-white"
+								>{product.labels ? product.labels : '-'}</td
+							>
+							<td
+								class="whitespace-nowrap px-6 py-4 font-light text-gray-900 dark:text-white"
+								><button
+									on:click={() => {
+										openEditModal(index);
+									}}
+									class="text-primary-600"
+								>
+									<EditOutline class="h-6 w-6" />
+								</button></td
+							>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		</div>
 
 		{#if !products.length}
 			<Heading tag="h5" class="w-100 mt-5 text-center">
@@ -549,7 +606,6 @@
 				<div class="mb-4">
 					<h3 class="mb-2 text-lg font-bold">Ingredients</h3>
 					<div class="max-h-48 overflow-y-auto">
-						<!-- Add overflow and max height -->
 						{#each ingredientFilters as ingredient}
 							<label for={`filter-${ingredient}`} class="mr-4 flex items-center">
 								<Checkbox
