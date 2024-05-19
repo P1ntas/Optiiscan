@@ -19,7 +19,9 @@
 	<Sidebar asideClass="w-48">
 		<SidebarWrapper divClass="overflow-y-auto py-4 bg-[#222451] h-screen">
 			<SidebarGroup ulClass="">
-				<img src="/logo.png" class="m-auto h-6 sm:h-16" alt="OptiiScan" />
+				<a href="/">
+					<img src="/logo.png" class="m-auto h-6 sm:h-16" alt="OptiiScan" />
+				</a>
 				<hr class="my-7 h-px border-0 bg-white bg-opacity-30" />
 				<SidebarItem
 					href="/upload"
