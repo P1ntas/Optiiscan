@@ -485,9 +485,10 @@
 								class="whitespace-nowrap !p-3 px-6 py-4 font-medium text-gray-900 dark:text-white"
 							>
 								<Checkbox
-									on:click={toggleAll}
-									class="text-primary  focus:outline-primary"
-									bind:checked={headerChecked}
+									checked={true}
+									on:click={toggleCheckbox}
+									id="checkbox-{product.code}"
+									class="lineCheckBox  text-primary focus:outline-primary"
 								/>
 							</td>
 							<td
