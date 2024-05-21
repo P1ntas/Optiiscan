@@ -3,7 +3,7 @@
 	import SearchBar from '../../components/SearchBar.svelte';
 	import { Heading, Badge, Button, P, Textarea } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
-	import { BadgeCheckSolid, CloseCircleSolid } from 'flowbite-svelte-icons';
+	import { BadgeCheckSolid, CloseCircleSolid, SortOutline } from 'flowbite-svelte-icons';
 	import { Modal } from 'flowbite-svelte';
 
 	import { Input, Label } from 'flowbite-svelte';
@@ -48,6 +48,18 @@
 		showModal = false;
 		document.body.style.overflow = '';
 	}
+
+	let logsOrder = 0;
+	function sortLogs() {
+		console.log('Sorting logs');
+		if (logsOrder === 0) {
+			logsOrder = 1;
+			logs = logs.sort((a, b) => new Date(a.uploadDate) - new Date(b.uploadDate));
+		} else {
+			logsOrder = 0;
+			logs = logs.sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate));
+		}
+	}
 </script>
 
 <div class="flex-column flex">
@@ -64,7 +76,14 @@
 
 		<Table hoverable={true} class="mt-10">
 			<TableHead class="text-neutral-600">
-				<TableHeadCell class="font-medium">Upload time</TableHeadCell>
+				<TableHeadCell class="font-medium">
+					<div class="flex gap-2 align-middle">
+						Upload time
+						<button type="button" on:click={sortLogs}>
+							<SortOutline class="h-5 w-5" />
+						</button>
+					</div>
+				</TableHeadCell>
 				<TableHeadCell class="font-medium">Finish time</TableHeadCell>
 				<TableHeadCell class="font-medium">Elapsed time</TableHeadCell>
 				<TableHeadCell class="font-medium">Number images</TableHeadCell>
