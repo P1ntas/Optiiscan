@@ -275,8 +275,11 @@
 			return;
 		}
 
-		// Create a Blob with CSV data
-		const csvBlob = new Blob([csvData], { type: 'text/csv' });
+		const bom = "\uFEFF"; // This represents the UTF-8 BOM
+		const csvWithBom = bom + csvData;
+
+		// Now create a Blob with the modified CSV data that includes the UTF-8 BOM
+		const csvBlob = new Blob([csvWithBom], { type: 'text/csv;charset=utf-8;' });
 
 		// Create a temporary anchor element to trigger download
 		const fileUrl = URL.createObjectURL(csvBlob); // Create a downloadable URL
