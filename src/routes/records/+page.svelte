@@ -17,6 +17,7 @@
 	import NutritionTable from '../../components/NutritionTable.svelte';
 	import EditProduct from '../../components/EditProduct.svelte';
 	import InformativeText from '../../components/InformativeText.svelte';
+	import Ingredients from '../../components/Ingredients.svelte';
 
 	// Initialize selectedFilters with an empty array
 	let selectedFilters = [];
@@ -37,6 +38,12 @@
 		show: false,
 		product: '',
 		data: {}
+	};
+
+	let ingredientsModal = {
+		show: false,
+		product: '',
+		data: ''
 	};
 
 	let editModal = {
@@ -319,6 +326,15 @@
 	/**
 	 * @param {number} index
 	 */
+	function openIngredientsModal(index) {
+		ingredientsModal['product'] = products[index].name;
+		ingredientsModal['data'] = products[index].ingredients;
+		ingredientsModal['show'] = true;
+	}
+
+	/**
+	 * @param {number} index
+	 */
 	function openEditModal(index) {
 		editModal['product'] = products[index].name;
 		editModal['data'] = products[index];
@@ -507,19 +523,14 @@
 							<td
 								class="whitespace-nowrap px-6 py-4 font-light text-gray-900 dark:text-white"
 							>
-								<div class="text-wrap">
-									{#if product.ingredients && product.ingredients.length > 0}
-										{product.ingredients
-											? product.ingredients
-													.split(',')
-													.map((ingredient) => ingredient.trim())
-													.join(', ')
-											: '-'}
-									{:else}
-										No ingredients available
-									{/if}
-								</div></td
-							>
+								<Button
+									class="text-black"
+									style="display: block;"
+									on:click={() => {
+										openIngredientsModal(index);
+									}}>Show</Button
+								>
+							</td>
 							<td
 								class="whitespace-nowrap px-6 py-4 font-light text-gray-900 dark:text-white"
 							>
@@ -568,6 +579,12 @@
 			bind:show={othersModal.show}
 			bind:product={othersModal.product}
 			bind:data={othersModal.data}
+		/>
+
+		<Ingredients
+			bind:show={ingredientsModal.show}
+			bind:product={ingredientsModal.product}
+			bind:data={ingredientsModal.data}
 		/>
 
 		<EditProduct
