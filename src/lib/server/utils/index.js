@@ -91,7 +91,7 @@ export async function pdfToPng(filepath) {
 
 export function deleteScanFile(filepath) {
 	const formats = ['.png', '.pdf', '.jpg'];
-
+	console.log('deleting ', filepath);
 	for (const format of formats) {
 		const filename =
 			path.basename(filepath).endsWith('.1.png') && format === '.pdf'
