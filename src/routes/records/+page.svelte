@@ -262,8 +262,13 @@
 			return;
 		}
 
+		const uniqueProducts = products.filter((product, index, self) =>
+			index === self.findIndex((t) => t.code === product.code)
+		).map(product => product);
+
+
 		// Convert product data to CSV format
-		const csvData = convertToCSV(products);
+		const csvData = convertToCSV(uniqueProducts);
 
 		if (csvData === '') {
 			console.log('No data to create CSV.');
