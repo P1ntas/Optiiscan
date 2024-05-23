@@ -74,93 +74,116 @@
 
 		<p>Showing <span class="font-bold">{numLogs} logs</span></p>
 
-		<Table hoverable={true} class="mt-10">
-			<TableHead class="text-neutral-600">
-				<TableHeadCell class="font-medium">
-					<div class="flex gap-2 align-middle">
-						Upload time
-						<button type="button" on:click={sortLogs}>
-							<SortOutline class="h-5 w-5" />
-						</button>
-					</div>
-				</TableHeadCell>
-				<TableHeadCell class="font-medium">Finish time</TableHeadCell>
-				<TableHeadCell class="font-medium">Elapsed time</TableHeadCell>
-				<TableHeadCell class="font-medium">Number images</TableHeadCell>
-				<TableHeadCell class="font-medium">Info</TableHeadCell>
-				<TableHeadCell class="font-medium">Status</TableHeadCell>
-			</TableHead>
-			<TableBody>
-				{#each logs as log, index}
-					<TableBodyRow>
-						<TableBodyCell class="font-light">
-							<div class="font-bold">{log.uploadDate.substring(0, 10)}</div>
-							{log.uploadDate.substring(11, 16)}
-						</TableBodyCell>
-						<TableBodyCell class="font-light">
-							{#if log.finishDate}
-								<div class="font-bold">{log.finishDate.substring(0, 10)}</div>
-								{log.finishDate.substring(11, 16)}
-							{:else}
-								<div class="font-bold">-</div>
-							{/if}
-						</TableBodyCell>
-						<TableBodyCell class="text-wrap font-light">
-							{#if log.elapsedTime}
-								<div>{log.elapsedTime}</div>
-							{:else}
-								<div>-</div>
-							{/if}
-						</TableBodyCell>
-						<TableBodyCell class="font-light">
-							<div>
-								{log.numImages}
+		<div class="table-container" style="overflow-y: auto; max-height: 600px;">
+			<table class="mt-10 w-full text-left text-sm text-gray-500 dark:text-gray-400">
+				<thead
+					class="styled-thead"
+					style="background-color: #f8fafc; position: sticky; top: 0; z-index: 10;"
+				>
+					<tr>
+						<th class="px-6 py-3 font-medium">
+							<div class="flex gap-2 align-middle">
+								Upload time
+								<button type="button" on:click={sortLogs}>
+									<SortOutline class="h-5 w-5" />
+								</button>
 							</div>
-						</TableBodyCell>
-						<TableBodyCell class="text-wrap font-light">
-							<Button
-								class="text-black"
-								style="display: block;"
-								on:click={() => {
-									toggleModal(index);
-								}}
+						</th>
+						<th class="px-6 py-3 font-medium">Finish time</th>
+						<th class="px-6 py-3 font-medium">Elapsed time</th>
+						<th class="px-6 py-3 font-medium">Number images</th>
+						<th class="px-6 py-3 font-medium">Info</th>
+						<th class="px-6 py-3 font-medium">Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					{#each logs as log, index}
+						<tr
+							class="border-b bg-white last:border-b-0 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
+						>
+							<td
+								class="whitespace-nowrap px-6 py-4 font-light text-gray-900 dark:text-white"
 							>
-								<div style="display: flex;">
-									{#if log.infoCorrect}
-										<BadgeCheckSolid class="text-green-700"></BadgeCheckSolid>
-										<span class="mr-2 font-light">{log.infoCorrect}</span>
-									{/if}
-									{#if log.infoError}
-										<CloseCircleSolid class="text-red-700"></CloseCircleSolid>
-										<span class="font-light">{log.infoError}</span>
-									{/if}
-								</div>
-								<div class="font-light" style="display: flex;">
-									Click to see details
-								</div>
-							</Button>
-						</TableBodyCell>
-						<TableBodyCell class="text-wrap font-light">
-							<Badge
-								rounded
-								class="h-10 w-28 px-2 py-1 text-center uppercase text-white {log.status ===
-								'running'
-									? 'bg-inprogress'
-									: ''} {log.status === 'aborted'
-									? 'bg-error'
-									: ''} {log.status === 'completed' ? 'bg-finish' : ''}"
+								<div class="font-bold">{log.uploadDate.substring(0, 10)}</div>
+								{log.uploadDate.substring(11, 16)}
+							</td>
+							<td
+								class="whitespace-nowrap px-6 py-4 font-light text-gray-900 dark:text-white"
 							>
-								{log.status}
-							</Badge>
-						</TableBodyCell>
-					</TableBodyRow>
-				{/each}
-			</TableBody>
-		</Table>
+								{#if log.finishDate}
+									<div class="font-bold">{log.finishDate.substring(0, 10)}</div>
+									{log.finishDate.substring(11, 16)}
+								{:else}
+									<div class="font-bold">-</div>
+								{/if}
+							</td>
+							<td
+								class="whitespace-nowrap text-wrap px-6 py-4 font-light text-gray-900 dark:text-white"
+							>
+								{#if log.elapsedTime}
+									<div>{log.elapsedTime}</div>
+								{:else}
+									<div>-</div>
+								{/if}
+							</td>
+							<td
+								class="whitespace-nowrap px-6 py-4 font-light text-gray-900 dark:text-white"
+							>
+								<div>
+									{log.numImages}
+								</div>
+							</td>
+							<td
+								class="whitespace-nowrap text-wrap px-6 py-4 font-light text-gray-900 dark:text-white"
+							>
+								<Button
+									class="text-black"
+									style="display: block;"
+									on:click={() => {
+										toggleModal(index);
+									}}
+								>
+									<div style="display: flex;">
+										{#if log.infoCorrect}
+											<BadgeCheckSolid class="text-green-700"
+											></BadgeCheckSolid>
+											<span class="mr-2 font-light">{log.infoCorrect}</span>
+										{/if}
+										{#if log.infoError}
+											<CloseCircleSolid class="text-red-700"
+											></CloseCircleSolid>
+											<span class="font-light">{log.infoError}</span>
+										{/if}
+									</div>
+									<div class="font-light" style="display: flex;">
+										Click to see details
+									</div>
+								</Button>
+							</td>
+							<td
+								class="whitespace-nowrap text-wrap px-6 py-4 font-light text-gray-900 dark:text-white"
+							>
+								<Badge
+									rounded
+									class="h-10 w-28 px-2 py-1 text-center uppercase text-white {log.status ===
+									'running'
+										? 'bg-inprogress'
+										: ''} {log.status === 'aborted'
+										? 'bg-error'
+										: ''} {log.status === 'completed' ? 'bg-finish' : ''}"
+								>
+									{log.status}
+								</Badge>
+							</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		</div>
 		{#if !logs.length}
-			<Heading tag="h6" class="w-100 mt-5 text-center"
-				>No logs found, try to upload a image...</Heading
-			>
+			<Heading tag="h6" class="w-100 mt-5 text-center">
+				No logs found, try to upload an image...
+			</Heading>
 		{/if}
 
 		<Modal
