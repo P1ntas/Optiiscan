@@ -65,15 +65,41 @@
 
 		// Filter products based on selected labels or ingredients
 		const filteredProducts = products.filter((product) => {
-			const labelMatch =
-				product.labels &&
-				selectedFilters.every((filter) => product.labels.includes(filter));
-			const ingredientMatch =
-				product.ingredients &&
-				selectedFilters.every((filter) => product.ingredients.includes(filter));
+			if (selectedFilters.length === 0) {
+				return true; // Show all products if no filters are selected
+			} else if (selectedFilters.length === 1) {
+				const labelMatch =
+					product.labels &&
+					selectedFilters.every((filter) => product.labels.includes(filter));
+				const ingredientMatch =
+					product.ingredients &&
+					selectedFilters.every((filter) => product.ingredients.includes(filter));
+				const brandMatch =
+					product.brand &&
+					selectedFilters.every((filter) => product.brand.includes(filter));
+				// Include the product if it matches all selected labels or ingredients or brands
+				return labelMatch || ingredientMatch || brandMatch;
+			} else {
+				// Check if the product matches all selected filters
+				const match = selectedFilters.every((filter) => {
+					// Check if the filter matches the product's labels, ingredients, or brand
+					const labelMatch = !product.labels || product.labels.includes(filter);
+					const ingredientMatch =
+						!product.ingredients || product.ingredients.includes(filter);
+					const brandMatch = !product.brand || product.brand.includes(filter);
 
-			// Include the product if it matches all selected labels or ingredients
-			return labelMatch || ingredientMatch;
+					// Return true if the product matches the current filter
+					return labelMatch || ingredientMatch || brandMatch;
+				});
+
+				// Check if the product matches both brand and ingredient filters
+				const brandFilterApplied = selectedFilters.includes(product.brand);
+				const ingredientFilterApplied = selectedFilters.some((filter) =>
+					product.ingredients.includes(filter)
+				);
+
+				return match && brandFilterApplied && ingredientFilterApplied;
+			}
 		});
 
 		// Update the displayed products
@@ -89,6 +115,7 @@
 		products = await fetchProducts();
 		labelFilters = fetchLabelFilters(products);
 		ingredientFilters = fetchIngredientFilters(products);
+		brandFilters = fetchBrandFilters(products);
 	});
 
 	function fetchLabelFilters(products) {
@@ -124,6 +151,16 @@
 			}
 		});
 		return ingredients;
+	}
+
+	function fetchBrandFilters(products) {
+		let brands = [];
+		products.forEach((product) => {
+			if (product.brand && !brands.includes(product.brand)) {
+				brands.push(product.brand);
+			}
+		});
+		return brands;
 	}
 
 	// Function to toggle the filter popup
@@ -262,10 +299,11 @@
 			return;
 		}
 
-		const uniqueProducts = products.filter((product, index, self) =>
-			index === self.findIndex((t) => t.code === product.code)
-		).map(product => product);
-
+		const uniqueProducts = products
+			.filter(
+				(product, index, self) => index === self.findIndex((t) => t.code === product.code)
+			)
+			.map((product) => product);
 
 		// Convert product data to CSV format
 		const csvData = convertToCSV(uniqueProducts);
@@ -275,7 +313,7 @@
 			return;
 		}
 
-		const bom = "\uFEFF"; // This represents the UTF-8 BOM
+		const bom = '\uFEFF'; // This represents the UTF-8 BOM
 		const csvWithBom = bom + csvData;
 
 		// Now create a Blob with the modified CSV data that includes the UTF-8 BOM
@@ -352,6 +390,7 @@
 	// Default label and ingredient filters
 	let labelFilters = [];
 	let ingredientFilters = [];
+	let brandFilters = [];
 
 	// Context API to share data between components
 	setContext('selectedFilters', selectedFilters);
@@ -645,6 +684,25 @@
 							</label>
 						{:else}
 							<p>No ingredients available</p>
+						{/each}
+					</div>
+				</div>
+				<div class="mb-4">
+					<h3 class="mb-2 text-lg font-bold">Brand</h3>
+					<div class="max-h-48 overflow-y-auto">
+						{#each brandFilters as brand}
+							<label for={`filter-${brand}`} class="mr-4 flex items-center">
+								<Checkbox
+									type="checkbox"
+									id={`filter-${brand}`}
+									class="mr-2 text-primary focus:outline-primary"
+									checked={selectedFilters.includes(brand)}
+									on:change={() => toggleFilter(brand)}
+								/>
+								{brand}
+							</label>
+						{:else}
+							<p>No brands available</p>
 						{/each}
 					</div>
 				</div>
