@@ -13,7 +13,10 @@
 	function parseObject(obj, prefix) {
 		let fields = {};
 		Object.keys(obj).forEach((k) => {
-			if (typeof obj[k] === 'object') {
+			if (k === 'labels') {
+				const input = document.getElementById(prefix + k);
+				if (input) fields[k] = input.value.split(',').map((x) => x.trim());
+			} else if (typeof obj[k] === 'object') {
 				fields[k] = JSON.stringify(parseObject(obj[k], prefix + k));
 			} else {
 				const input = document.getElementById(prefix + k);
@@ -56,7 +59,7 @@
 >
 	{#each Object.keys(data) as key}
 		<div class={key == '_id' || key == 'uploadTime' ? 'hidden' : ''}>
-			{#if typeof data[key] === 'object'}
+			{#if typeof data[key] === 'object' && key !== 'labels'}
 				{#each Object.keys(data[key]) as _key}
 					<Label class="mb-2">{_key.toUpperCase()}</Label>
 					{#if typeof data[key][_key] === 'object'}
