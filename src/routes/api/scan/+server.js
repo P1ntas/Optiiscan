@@ -63,6 +63,7 @@ export async function POST({ request }) {
 							deleteScanFile(file);
 						});
 						res[0]['uploadTime'] = new Date().toISOString();
+						res[0]['labels'] = [];
 						_db.collection('products').insertOne(res[0]);
 
 						success += 1;

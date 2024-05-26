@@ -25,6 +25,7 @@ export async function GET() {
 export async function POST({ request }) {
 	const data = await request.json();
 	data['uploadTime'] = new Date().toISOString();
+	data['labels'] = [];
 	await (await db).collection('products').insertOne(data);
 	return json({ success: true, message: 'Document inserted successfully.' });
 }
