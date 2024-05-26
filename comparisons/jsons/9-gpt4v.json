@@ -1,0 +1,20 @@
+{
+	"name": "Pastéis de nata",
+	"brand": "Continente",
+	"code": "5601009117295",
+	"nutritional_table": {
+		"energy": { "per 100": "1434kJ/343kcal", "per portion": "669kJ/160kcal", "%DR": "8%" },
+		"fat": { "per 100": "22g", "per portion": "10g", "%DR": "14%" },
+		"saturates": { "per 100": "15g", "per portion": "7g", "%DR": "35%" },
+		"carbohydrate": { "per 100": "30g", "per portion": "14g", "%DR": "5%" },
+		"sugars": { "per 100": "10g", "per portion": "4.9g", "%DR": "5%" },
+		"fibre": { "per 100": "1.1g", "per portion": "0.5g", "%DR": null },
+		"protein": { "per 100": "5.6g", "per portion": "2.6g", "%DR": "5%" },
+		"salt": { "per 100": "0.41g", "per portion": "0.19g", "%DR": "3%" }
+	},
+	"ingredients": "Leite, açúcar, gordura vegetal (palma, coco), ovo, farinha de trigo, amido modificado, sal, aromas, corante (carotenos).",
+	"informative_text": {
+		"preparation": "Pré-aquecer o forno a 250-260ºC. Retirar os pastéis de nata da embalagem e colocá-los numa grelha a meio do forno. Cozer durante 16-20 minutos.",
+		"conservation": "Conservar a -18ºC. Uma vez descongelado, não voltar a congelar."
+	}
+}

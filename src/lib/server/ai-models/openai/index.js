@@ -2,23 +2,24 @@ import { OpenAIClient, AzureKeyCredential } from '@azure/openai';
 import { OPENAI_API_KEY } from '$env/static/private';
 import fs from 'fs-extra';
 
+const schema = JSON.stringify({
+	name: 'product name',
+	brand: 'brand name',
+	code: 'numeric code',
+	nutritional_table: { key: { 'per 100': 'value', 'per portion': 'value', '%DR': 'value' } },
+	ingredients: 'value',
+	informative_text: { key: 'value' }
+});
 const config = {
 	ENDPOINT: 'https://gpt4-vision-feup.openai.azure.com/',
 	DEPLOYMENT_NAME: 'GPT4-vision-feup',
-	SERVER_PROMPT:
-		'You are a helpful assistant designed with analyzing images and yielding their relevant information, \
-    outputting in JSON format, in a single-line without whitespaces and without markdown syntax.\
-	The images are from the boxes of frozen products. \
-	For each image, the JSON must include an object with \
-    the field "name" (name of the product), "brand", "barcode" (numerical code), "nutritional_table", which has several lines and is structured in a table format: The table has 3 columns: per 100, per portion and %DR, "ingredients" and "informative_text", which includes "preparation" and "conservation", if applicable. \
-	The lines of the table are energy, fat, saturates, carbohydrate, sugars, fibre, protein and salt. \
-	The nutritional table has multiple lines and columns, please make sure to include all the information. \
-	Make sure that, for each line of the table, the JSON object includes a key with the appropriate category, and its respective value must be separated in "per 100", "per portion" and "%DR".\
-	Please do  not invent values, use the information that is present in the image, if you do not understand a value mark it as null. Values vertically aligned are in the same column """ \
-	The object should also include the ingredients listed in the "INGREDIENTS" section of the image, as well as the preparation mode. \
-	Please extract icons from the image and derive their meaning as a "icons" attribute in the object. \
-	These icons should have a meaning associated. if you cant understand the meaning write it in json anyway and have meaning as null. \
-    Make sure the JSON objects are returned inside of a list, even when there is only one image.',
+	SERVER_PROMPT: `You are a helpful assistant designed with analyzing images and yielding their relevant information, outputting in JSON format, in a single-line without whitespaces. \
+    \nThe images are from the boxes of frozen products.\nFor each image, the respective JSON object must follow this schema: ${schema}, where 'key' is a placeholder that must be \
+    replaced by the appropriate key, which can include 'energy' (which must include measure both in kJ and kcal, separated by a slash), 'fat', 'saturates', 'fibre', 'carbohydrate', 'sugars', 'protein', 'salt', 'preparation' or 'conservation', if applicable. \
+    When reading the nutritional table, separate the values from 100, portion and %DR columns in the JSON object, for all keys related to the table, strictly following the JSON schema.\
+    The list can include more than one key. Make sure the JSON is valid, keep every key inside the same \
+    JSON object.\nThe informative text must be in portuguese. If you do not understand a value, mark it as null. \nMake sure the JSON objects are returned inside of a list, even when there is only one image.\
+	Do not include markdown syntax in your output.`,
 	USER_PROMPT:
 		"What's the relevant information, in portuguese, in this/these image(s)? You can't say I cannot assist you with the request",
 	TEMPERATURE: 0,

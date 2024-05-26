@@ -1,0 +1,24 @@
+{
+	"name": "Rissóis de Camarão",
+	"brand": "Continente",
+	"code": "5601312501701",
+	"nutritional_table": {
+		"energy": {
+			"per 100": "964 kJ / 230 kcal",
+			"per portion": "868 kJ / 207 kcal",
+			"%DR": "10%"
+		},
+		"fat": { "per 100": "9,8 g", "per portion": "8,8 g", "%DR": "13%" },
+		"saturates": { "per 100": "1,3 g", "per portion": "1,2 g", "%DR": "6%" },
+		"carbohydrate": { "per 100": "24 g", "per portion": "21,6 g", "%DR": "8%" },
+		"sugars": { "per 100": "1,9 g", "per portion": "1,7 g", "%DR": "2%" },
+		"fibre": { "per 100": "1,3 g", "per portion": "1,2 g", "%DR": "-" },
+		"protein": { "per 100": "8,9 g", "per portion": "8 g", "%DR": "16%" },
+		"salt": { "per 100": "1,3 g", "per portion": "1,17 g", "%DR": "20%" }
+	},
+	"ingredients": "Recheio (50%): água, camarão (crustáceos) (14%), farinha de trigo (glúten), cebola, margarina vegetal (óleos e gorduras vegetais (palma, soja), água, sal, emulsionante (E471), acidificante (ácido cítrico), conservante (sorbato de potássio), antioxidante (EDTA), aromas, corante (beta-caroteno)), amido modificado, sal, alho, especiarias, emulsionantes (E450, E452), estabilizador (E461), aroma (contém crustáceos), corante (caroteno). Massa (50%): farinha de trigo (glúten), água, margarina vegetal (óleos e gorduras vegetais (palma, soja), água, sal, emulsionante (E471), acidificante (ácido cítrico), conservante (sorbato de potássio), antioxidante (EDTA), aromas, corante (beta-caroteno)), ovo líquido pasteurizado, sal, corante (beta-caroteno).",
+	"informative_text": {
+		"preparation": "Forno: Pré-aquecer o forno a 220ºC. Colocar os rissóis ainda congelados numa travessa de ir ao forno e deixar cozinhar durante aproximadamente 15 minutos. Virar a meio do tempo. Fritar: Fritar em óleo bem quente (180ºC) durante aproximadamente 3 minutos.",
+		"conservation": "Conservar a -18ºC. Uma vez iniciado o processo de descongelação, não voltar a congelar."
+	}
+}

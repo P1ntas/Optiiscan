@@ -1,0 +1,20 @@
+{
+	"name": "Cebola Roxa Laminada",
+	"brand": "Continente",
+	"code": "5601312513551",
+	"nutritional_table": {
+		"energy": { "per 100": "123 kJ / 29 kcal", "per portion": "61 kJ / 15 kcal", "%DR": "1%" },
+		"fat": { "per 100": "<0,5 g", "per portion": "<0,5 g", "%DR": "<1%" },
+		"saturates": { "per 100": "<0,1 g", "per portion": "<0,1 g", "%DR": "<1%" },
+		"carbohydrate": { "per 100": "4,3 g", "per portion": "2,1 g", "%DR": "2%" },
+		"sugars": { "per 100": "4,2 g", "per portion": "2,1 g", "%DR": "2%" },
+		"fibre": { "per 100": "1,6 g", "per portion": "0,8 g", "%DR": null },
+		"protein": { "per 100": "1,6 g", "per portion": "0,8 g", "%DR": "2%" },
+		"salt": { "per 100": "0,03 g", "per portion": "0,02 g", "%DR": "<1%" }
+	},
+	"ingredients": "Cebola roxa laminada.",
+	"informative_text": {
+		"preparation": "Panela: Sem descongelar, coloque a quantidade desejada de produto num recipiente com água a ferver e adicione o sal. Espere que levante novamente fervura e mantenha em lume médio durante aproximadamente 5 minutos. Escorra o produto e use-o à sua conveniência. Frigideira: Sem descongelar, coloque a quantidade desejada de produto numa frigideira com 3-4 colheres de sopa de óleo quente. Refogue em lume médio durante 5 minutos, mexendo continuamente e tempere a gosto. Micro-ondas (800W): Sem descongelar, coloque a quantidade desejada de produto num recipiente próprio para micro-ondas, na potência máxima, durante aproximadamente 5 minutos*. Tempere a gosto. *O tempo de confeção deverá ser ajustado em função da potência do micro-ondas e da quantidade de produto utilizada.",
+		"conservation": "Conservar a -18°C até ao limite do prazo de validade indicado na embalagem. Uma vez iniciado o processo de descongelação, não volte a congelar."
+	}
+}

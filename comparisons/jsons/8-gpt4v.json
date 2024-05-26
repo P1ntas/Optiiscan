@@ -1,0 +1,24 @@
+{
+	"name": "Douradinhos de Pescada",
+	"brand": "Continente",
+	"code": "5601312073110",
+	"nutritional_table": {
+		"energy": {
+			"per 100": "770 kJ / 184 kcal",
+			"per portion": "693 kJ / 165 kcal",
+			"%DR": "8%"
+		},
+		"fat": { "per 100": "7,3 g", "per portion": "6,6 g", "%DR": "10%" },
+		"saturates": { "per 100": "0,9 g", "per portion": "0,81 g", "%DR": "5%" },
+		"carbohydrate": { "per 100": "18 g", "per portion": "16,2 g", "%DR": null },
+		"sugars": { "per 100": "1,8 g", "per portion": "1,62 g", "%DR": "2%" },
+		"fibre": { "per 100": "0,5 g", "per portion": null, "%DR": null },
+		"protein": { "per 100": "11 g", "per portion": "9,9 g", "%DR": null },
+		"salt": { "per 100": "1,1 g", "per portion": "0,99 g", "%DR": "14%" }
+	},
+	"ingredients": "Peixe (pescada) 65%, farinha de trigo, óleo de girassol, água, amido de trigo, sal, levedantes (difosfatos, carbonatos de sódio), dextrose, especiarias (contém mostarda), extrato de levedura, corante (curcumina).",
+	"informative_text": {
+		"preparation": "Frigideira: 7 minutos. Forno: 15 minutos a 220ºC.",
+		"conservation": "Conservar a -18ºC. Não recongelar após descongelação."
+	}
+}

@@ -14,3 +14,7 @@ vite.config.ts.timestamp-*
 !gemini/gemini_response.txt
 static/test/products/*
 !static/test/products/.gitkeep
+comparisons/images/*
+!comparisons/images/.gitkeep
+comparisons/output/*
+!comparisons/output/.gitkeep
