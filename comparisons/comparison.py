@@ -14,8 +14,8 @@ def save_json(data, file_path):
     with open(file_path, 'w', encoding='utf-8') as file:
         json.dump(data, file, indent=4)
 
+# Compare simple fields, nutritional table, ingredients and informative text
 def compare_jsons(json1, json2):
-    # Compare simple fields
     simple_fields = ["name", "brand", "code"]
     simple_comparison_scores = [
         1 if json1[field].lower() == json2[field].lower() else 0 for field in simple_fields
@@ -23,17 +23,22 @@ def compare_jsons(json1, json2):
     
     nutritional_table_fields = json1["nutritional_table"].keys()
     for field in nutritional_table_fields:
-        print(json1["nutritional_table"][field])
         fields1 = [str(value).replace(" ", "").replace("%", "").replace(".", ",").replace("None", "").replace("null", "").replace("-", "").replace("g", "") for value in json1["nutritional_table"][field].values()]
-        fields2 = [str(value).replace(" ", "").replace("%", "").replace(".", ",").replace("None", "").replace("null", "").replace("-", "").replace("g", "") for value in json2["nutritional_table"][field].values()]
-        for i in range(0, len(fields1)):
-            try:
-                if fields1[i] == fields2[i]:
-                    simple_comparison_scores.append(1)
-                else:
+        fields2 = []
+        if json2["nutritional_table"].get(field):
+            for value in json2["nutritional_table"][field].values():
+                fields2.append(str(value).replace(" ", "").replace("%", "").replace(".", ",").replace("None", "").replace("null", "").replace("-", "").replace("g", ""))
+            for i in range(0, len(fields1)):
+                try:
+                    if fields1[i] == fields2[i]:
+                        simple_comparison_scores.append(1)
+                    else:
+                        simple_comparison_scores.append(0)
+                except IndexError:
                     simple_comparison_scores.append(0)
-            except IndexError:
-                simple_comparison_scores.append(0)
+        else:
+            print("Field not present!")
+            simple_comparison_scores.extend([0]*len(json1["nutritional_table"][field].values()))
     
     print("Simple fields: ", simple_comparison_scores)
 
@@ -42,7 +47,6 @@ def compare_jsons(json1, json2):
     except KeyError:
         ingredients_score = 0
     
-    # Compare informative_text fields
     informative_text_fields = json1["informative_text"].keys()
     informative_text_scores = []
     for field in informative_text_fields:
@@ -51,12 +55,10 @@ def compare_jsons(json1, json2):
         except KeyError:
             informative_text_scores.append(0)
     
-    # Combine all scores
     all_scores = simple_comparison_scores + [ingredients_score] + informative_text_scores
     
     print("All scores: ", all_scores)
     
-    # Calculate the average score
     average_score = sum(all_scores) / len(all_scores)
     
     return average_score
@@ -74,7 +76,7 @@ def compare_files_in_folder(folder_path, model):
     comparison_count = 0
     results = {}
     
-    # Compare each file with the corresponding "true" file
+    # Compare each model output file with the corresponding "true" file, for each product
     for prefix, file_group in grouped_files.items():
         true_file = f"{prefix}-true.json"
         if true_file in file_group:
@@ -90,7 +92,6 @@ def compare_files_in_folder(folder_path, model):
                     result_path = os.path.join("output", f"{os.path.basename(file).split('.')[0]}_result.json")
                     save_json({file: score}, result_path)
     
-    # Calculate the average score of all comparisons
     if comparison_count > 0:
         average_score = total_score / comparison_count
     else:

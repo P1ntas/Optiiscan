@@ -1,0 +1,19 @@
+{
+	"name": "Lasanha Bolonhesa",
+	"brand": "Continente",
+	"code": "5601082031099",
+	"nutritional_table": {
+		"energy": {
+			"per 100": "606 kJ / 145 kcal",
+			"per portion": "1514 kJ / 362 kcal",
+			"%DR": "18%"
+		},
+		"fat": { "per 100": "7,5 g", "per portion": "18,4 g", "%DR": "26%" },
+		"saturates": { "per 100": "2,6 g", "per portion": "4,7 g", "%DR": "24%" },
+		"carbohydrate": { "per 100": "13,0 g", "per portion": "null", "%DR": "null" },
+		"protein": { "per 100": "6,8 g", "per portion": "null", "%DR": "null" },
+		"salt": { "per 100": "0,68 g", "per portion": "1,7 g", "%DR": "28%" }
+	},
+	"ingredients": "null",
+	"informative_text": { "preparation": "null", "conservation": "null" }
+}

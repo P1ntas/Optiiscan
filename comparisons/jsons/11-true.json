@@ -1,0 +1,52 @@
+{
+	"name": "Lasanha Bolonhesa com Carne de Porco",
+	"brand": "Continente",
+	"code": "5601312505419",
+	"nutritional_table": {
+		"energy": {
+			"per 100": "606 kJ / 145 kcal",
+			"per portion": "1514 kJ / 362 kcal",
+			"%DR": "18%"
+		},
+		"fat": {
+			"per 100": "7,4 g",
+			"per portion": "18,4 g",
+			"%DR": "26%"
+		},
+		"saturates": {
+			"per 100": "1,9 g",
+			"per portion": "4,7 g",
+			"%DR": "24%"
+		},
+		"carbohydrate": {
+			"per 100": "12,7 g",
+			"per portion": "31,7 g",
+			"%DR": "12%"
+		},
+		"sugars": {
+			"per 100": "3,0 g",
+			"per portion": "7,5 g",
+			"%DR": "8%"
+		},
+		"fibre": {
+			"per 100": "2,1 g",
+			"per portion": "5,3 g",
+			"%DR": ""
+		},
+		"protein": {
+			"per 100": "6,5 g",
+			"per portion": "16 g",
+			"%DR": "33%"
+		},
+		"salt": {
+			"per 100": "0,68 g",
+			"per portion": "1,7 g",
+			"%DR": "28%"
+		}
+	},
+	"ingredients": "Recheio (83%) [água, carne de porco (18%)*, tomate (14%)*, óleo de girassol, amido de milho modificado, farinha de trigo, queijo Emmental, cenoura, leite em pó desnatado, cebola, azeite, produtos lácteos (lactose (leite), gordura do leite, proteína do leite), sal, açúcar, amido de milho, especiarias, xarope de glicose-frutose, aroma, extrato de levedura, caldo de carne concentrado (gordura de coco, extrato de levedura, extrato de carne de vaca, água, sumo concentrado de beterraba, sal, xarope de açúcar caramelizado, concentrado de sumo de limão, maltodextrina), aroma natural], massa alimentícia (farinha de trigo, sémola de trigo, água). (*) Percentagem expressa em relação ao recheio. Pode conter vestígios de mostarda, soja, ovos, peixe, crustáceos, moluscos, frutos de casca rija e aipo.",
+	"informative_text": {
+		"preparation": "Instruções de preparação: Não é necessario descongelar. Forno: pré-aquecer forno até este atingir 220º. Retire o filme plástico e coloque a bandeja no forno a uma altura média. Aquecer durante 60 minutos. Necessita de cozedura completa antes do seu consumo. O tempo de confeção pode variar consoante o equipamento utilizado.",
+		"conservation": "Conservar a -18º até ao limite do prazo de validade indicado na embalagem. Uma vez iniciado o processo de descongelação, não volte a congelar."
+	}
+}

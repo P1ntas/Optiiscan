@@ -1,0 +1,24 @@
+{
+	"name": "Nuggets de Peito de Frango",
+	"brand": "Continente",
+	"code": "5601312509071",
+	"nutritional_table": {
+		"energy": {
+			"per 100": "861 kJ / 205 kcal",
+			"per portion": "861 kJ / 205 kcal",
+			"%DR": "10"
+		},
+		"fat": { "per 100": "8.3 g", "per portion": "8.3 g", "%DR": "12" },
+		"saturates": { "per 100": "2.5 g", "per portion": "2.5 g", "%DR": "13" },
+		"carbohydrate": { "per 100": "14 g", "per portion": "14 g", "%DR": "5" },
+		"sugars": { "per 100": "1.1 g", "per portion": "1.1 g", "%DR": "1" },
+		"fibre": { "per 100": "1.6 g", "per portion": "1.6 g", "%DR": "null" },
+		"protein": { "per 100": "16 g", "per portion": "16 g", "%DR": "35" },
+		"salt": { "per 100": "1.2 g", "per portion": "1.2 g", "%DR": "20" }
+	},
+	"ingredients": "Carne de peito de frango 67%, farinha de trigo, água, óleo de girassol, farinha de milho, sal, levedantes (difosfatos, carbonatos de sódio), dextrose, extrato de malte de cevada, especiarias (contém mostarda), extrato de levedura, açúcar, estabilizadores (difosfatos, trifosfatos), aroma natural de limão, antioxidante (ascorbato de sódio), fermentos (contém trigo).",
+	"informative_text": {
+		"preparation": "Preparação: No forno pré-aquecido a 200ºC, colocar os nuggets sem descongelar e cozinhar durante aproximadamente 10 minutos. Virar a meio do tempo de cozedura. No micro-ondas a 750 W, colocar os nuggets sem descongelar e cozinhar durante aproximadamente 7 minutos. Virar a meio do tempo de cozedura.",
+		"conservation": "Conservar a -18ºC. Após o início do processo de descongelação, não voltar a congelar."
+	}
+}
