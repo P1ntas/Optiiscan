@@ -3,7 +3,7 @@
 	import Nav from '../../components/Nav.svelte';
 	import SearchBar from '../../components/SearchBar.svelte';
 	import { Heading, Button } from 'flowbite-svelte';
-	import { DownloadSolid, EditOutline } from 'flowbite-svelte-icons';
+	import { DownloadSolid, EditOutline, SortOutline } from 'flowbite-svelte-icons';
 
 	import {
 		Table,
@@ -17,6 +17,7 @@
 	import NutritionTable from '../../components/NutritionTable.svelte';
 	import EditProduct from '../../components/EditProduct.svelte';
 	import InformativeText from '../../components/InformativeText.svelte';
+	import Ingredients from '../../components/Ingredients.svelte';
 
 	// Initialize selectedFilters with an empty array
 	let selectedFilters = [];
@@ -39,6 +40,12 @@
 		data: {}
 	};
 
+	let ingredientsModal = {
+		show: false,
+		product: '',
+		data: ''
+	};
+
 	let editModal = {
 		show: false,
 		product: '',
@@ -58,15 +65,31 @@
 
 		// Filter products based on selected labels or ingredients
 		const filteredProducts = products.filter((product) => {
-			const labelMatch =
-				product.labels &&
-				selectedFilters.every((filter) => product.labels.includes(filter));
-			const ingredientMatch =
-				product.ingredients &&
-				selectedFilters.every((filter) => product.ingredients.includes(filter));
-
-			// Include the product if it matches all selected labels or ingredients
-			return labelMatch || ingredientMatch;
+			if (selectedFilters.length === 0) {
+				return true; // Show all products if no filters are selected
+			} else if (selectedFilters.length === 1) {
+				const labelMatch =
+					product.labels &&
+					selectedFilters.every((filter) => product.labels.includes(filter));
+				const ingredientMatch =
+					product.ingredients &&
+					selectedFilters.every((filter) => product.ingredients.includes(filter));
+				const brandMatch =
+					product.brand &&
+					selectedFilters.every((filter) => product.brand.includes(filter));
+				// Include the product if it matches all selected labels or ingredients or brands
+				return labelMatch || ingredientMatch || brandMatch;
+			} else {
+				// Check if the product matches all selected filters
+				const matches = selectedFilters.every((filter) => {
+					const labelMatch = product.labels && product.labels.includes(filter);
+					const ingredientMatch =
+						product.ingredients && product.ingredients.includes(filter);
+					const brandMatch = product.brand && product.brand.includes(filter);
+					return labelMatch || ingredientMatch || brandMatch;
+				});
+				return matches;
+			}
 		});
 
 		// Update the displayed products
@@ -82,6 +105,7 @@
 		products = await fetchProducts();
 		labelFilters = fetchLabelFilters(products);
 		ingredientFilters = fetchIngredientFilters(products);
+		brandFilters = fetchBrandFilters(products);
 	});
 
 	function fetchLabelFilters(products) {
@@ -117,6 +141,16 @@
 			}
 		});
 		return ingredients;
+	}
+
+	function fetchBrandFilters(products) {
+		let brands = [];
+		products.forEach((product) => {
+			if (product.brand && !brands.includes(product.brand)) {
+				brands.push(product.brand);
+			}
+		});
+		return brands;
 	}
 
 	// Function to toggle the filter popup
@@ -232,13 +266,7 @@
 	}
 
 	async function downloadCSV() {
-		let selectedProductsCodes = [];
-		document.querySelectorAll('input[type=checkbox].lineCheckBox').forEach((checkbox) => {
-			if (checkbox.checked) {
-				const id = checkbox.id.substring(checkbox.id.indexOf('-') + 1);
-				selectedProductsCodes.push(id);
-			}
-		});
+		let selectedProductsCodes = getCheckedProducts();
 		console.log('SelectedProducts: ', selectedProductsCodes);
 		// TODO: Add here code to download CSV (dont forget to send the selected products)
 
@@ -255,16 +283,25 @@
 			return;
 		}
 
+		const uniqueProducts = products
+			.filter(
+				(product, index, self) => index === self.findIndex((t) => t.code === product.code)
+			)
+			.map((product) => product);
+
 		// Convert product data to CSV format
-		const csvData = convertToCSV(products);
+		const csvData = convertToCSV(uniqueProducts);
 
 		if (csvData === '') {
 			console.log('No data to create CSV.');
 			return;
 		}
 
-		// Create a Blob with CSV data
-		const csvBlob = new Blob([csvData], { type: 'text/csv' });
+		const bom = '\uFEFF'; // This represents the UTF-8 BOM
+		const csvWithBom = bom + csvData;
+
+		// Now create a Blob with the modified CSV data that includes the UTF-8 BOM
+		const csvBlob = new Blob([csvWithBom], { type: 'text/csv;charset=utf-8;' });
 
 		// Create a temporary anchor element to trigger download
 		const fileUrl = URL.createObjectURL(csvBlob); // Create a downloadable URL
@@ -284,9 +321,17 @@
 	// Function to toggle all checkboxes
 	let headerChecked = true;
 
+	function setCheckboxesByCode(codes) {
+		document.querySelectorAll('input[type=checkbox].lineCheckBox').forEach((checkbox) => {
+			const id = checkbox.id.substring(checkbox.id.indexOf('-') + 1);
+			console.log('check: ', codes, id, codes.includes(id));
+			checkbox.checked = codes.includes(id);
+		});
+	}
+
 	function toggleAll() {
 		headerChecked = !headerChecked;
-		document.querySelectorAll('.lineCheckBox').forEach((checkbox) => {
+		document.querySelectorAll('input[type=checkbox].lineCheckBox').forEach((checkbox) => {
 			checkbox.checked = headerChecked;
 		});
 	}
@@ -319,15 +364,65 @@
 	/**
 	 * @param {number} index
 	 */
+	function openIngredientsModal(index) {
+		ingredientsModal['product'] = products[index].name;
+		ingredientsModal['data'] = products[index].ingredients;
+		ingredientsModal['show'] = true;
+	}
+
+	/**
+	 * @param {number} index
+	 */
 	function openEditModal(index) {
 		editModal['product'] = products[index].name;
 		editModal['data'] = products[index];
 		editModal['show'] = true;
 	}
 
+	function getCheckedProducts() {
+		/**
+		 * @type {string[]}
+		 */
+		let selectedProductsCodes = [];
+		document.querySelectorAll('input[type=checkbox].lineCheckBox').forEach((checkbox) => {
+			if (checkbox.checked) {
+				const id = checkbox.id.substring(checkbox.id.indexOf('-') + 1);
+				selectedProductsCodes.push(id);
+			}
+		});
+		return selectedProductsCodes;
+	}
+
+	const sortFunctions = {
+		code: (a, b) => parseInt(a.code) - parseInt(b.code),
+		name: (a, b) => a.name < b.name,
+		brand: (a, b) => a.brand < b.brand
+	};
+
+	let recordsOrder = 0;
+	function sortRecords(func) {
+		console.log('Sorting records');
+		console.log(
+			Array.from(document.querySelectorAll('input[type=checkbox].lineCheckBox'), (a) => a.id)
+		);
+		const selectedProductsCodes = getCheckedProducts();
+		if (recordsOrder === 0) {
+			recordsOrder = 1;
+			products = products.sort(func);
+		} else {
+			recordsOrder = 0;
+			products = products.sort(func).reverse();
+		}
+		// Reordering products doesn't reorder checkboxes to match the products. This is a hotfix
+		setTimeout(() => {
+			setCheckboxesByCode(selectedProductsCodes);
+		}, 100);
+	}
+
 	// Default label and ingredient filters
 	let labelFilters = [];
 	let ingredientFilters = [];
+	let brandFilters = [];
 
 	// Context API to share data between components
 	setContext('selectedFilters', selectedFilters);
@@ -335,7 +430,7 @@
 
 <div class="flex-column flex">
 	<Nav page="records" />
-	<main class="flex-1 overflow-x-hidden p-10">
+	<main class="flex-1 p-10">
 		<SearchBar on:search={search} />
 		<hr class="my-7 h-px border-0 bg-black bg-opacity-10" />
 		<div class="flex flex-wrap">
@@ -397,103 +492,183 @@
 		</div>
 		<br />
 		<p>Showing <span class="font-bold">{products.length} products</span></p>
-		<Table hoverable={true} class="mt-10">
-			<TableHead class="text-neutral-600">
-				<TableHeadCell class="!p-3">
-					<Checkbox
-						on:click={toggleAll}
-						class="text-primary  focus:outline-primary"
-						bind:checked={headerChecked}
-					/>
-				</TableHeadCell>
-				<TableHeadCell class="font-medium">Code</TableHeadCell>
-				<TableHeadCell class="font-medium">Name</TableHeadCell>
-				<!--
-                <TableHeadCell class="font-medium">Description</TableHeadCell>
-				-->
-				<TableHeadCell class="font-medium">Brand</TableHeadCell>
-				<TableHeadCell class="font-medium">Nutrition Table</TableHeadCell>
-				<TableHeadCell class="font-medium">Ingredients</TableHeadCell>
-				<TableHeadCell class="font-medium">Others</TableHeadCell>
-				<TableHeadCell class="font-medium">Labels</TableHeadCell>
-				<TableHeadCell>
-					<span class="sr-only">
-						<EditOutline class="h-6 w-6" />
-					</span>
-				</TableHeadCell>
-			</TableHead>
-			<TableBody>
-				{#each products as product, index}
-					<TableBodyRow>
-						<TableBodyCell class="!p-3">
-							<Checkbox
-								checked={true}
-								on:click={toggleCheckbox}
-								id="checkbox-{product.code}"
-								class="lineCheckBox  text-primary focus:outline-primary"
-							/>
-						</TableBodyCell>
-						<TableBodyCell class="font-light">{product.code}</TableBodyCell>
-						<TableBodyCell class="text-wrap font-light">{product.name}</TableBodyCell>
-						<TableBodyCell class="font-light">
-							<div class="text-wrap">
-								{#if product.brand && product.brand.length > 0}
-									{product.brand}
-								{:else}
-									No brand available
-								{/if}
-							</div>
-						</TableBodyCell>
-						<TableBodyCell class="font-light">
-							<Button
-								class="text-black"
-								style="display: block;"
-								on:click={() => {
-									openNutritionTable(index);
-								}}>Show</Button
-							>
-						</TableBodyCell>
-						<TableBodyCell class="font-light">
-							<div class="text-wrap">
-								{#if product.ingredients && product.ingredients.length > 0}
-									{product.ingredients
-										? product.ingredients
-												.split(',')
-												.map((ingredient) => ingredient.trim())
-												.join(', ')
-										: '-'}
-								{:else}
-									No ingredients available
-								{/if}
-							</div>
-						</TableBodyCell>
 
-						<TableBodyCell class="font-light">
-							<Button
-								class="text-black"
-								style="display: block;"
-								on:click={() => {
-									openOthersModal(index);
-								}}>Show</Button
-							>
-						</TableBodyCell>
-						<TableBodyCell class="text-wrap font-light"
-							>{product.labels ? product.labels : '-'}</TableBodyCell
+		<div class="table-container" style="overflow-x: visible;">
+			<table class="mt-10 w-full text-left text-sm text-gray-500 dark:text-gray-400">
+				<thead
+					class="styled-thead"
+					style="background-color: #f8fafc; position: sticky; top: 0; z-index: 10;"
+				>
+					<tr>
+						<th
+							class="whitespace-nowrap !p-3 px-6 py-4 font-medium text-gray-900 dark:text-white"
+							style="border-bottom: 1px solid #d2d6dc;"
 						>
-						<TableBodyCell class="font-light">
-							<button
-								on:click={() => {
-									openEditModal(index);
-								}}
-								class="text-primary-600"
-							>
+							<Checkbox
+								on:click={toggleAll}
+								class="text-primary  focus:outline-primary"
+								bind:checked={headerChecked}
+							/>
+						</th>
+						<th
+							class="font-light; whitespace-nowrap px-6 py-4 text-gray-900 dark:text-white"
+							style="font-size: 0.75rem;font-weight: 500;color: #4b5563;text-transform: uppercase;border-bottom: 1px solid #d2d6dc;"
+						>
+							<div class="flex gap-2 align-middle">
+								Code
+								<button
+									type="button"
+									on:click={() => sortRecords(sortFunctions['code'])}
+								>
+									<SortOutline class="h-5 w-5" />
+								</button>
+							</div></th
+						>
+						<th
+							class="font-light; whitespace-nowrap px-6 py-4 text-gray-900 dark:text-white"
+							style="font-size: 0.75rem;font-weight: 500;color: #4b5563;text-transform: uppercase;border-bottom: 1px solid #d2d6dc;"
+						>
+							<div class="flex gap-2 align-middle">
+								Name
+								<button
+									type="button"
+									on:click={() => sortRecords(sortFunctions['name'])}
+								>
+									<SortOutline class="h-5 w-5" />
+								</button>
+							</div></th
+						>
+						<th
+							class="font-light; whitespace-nowrap px-6 py-4 text-gray-900 dark:text-white"
+							style="font-size: 0.75rem;font-weight: 500;color: #4b5563;text-transform: uppercase;border-bottom: 1px solid #d2d6dc;"
+						>
+							<div class="flex gap-2 align-middle">
+								Brand
+								<button
+									type="button"
+									on:click={() => sortRecords(sortFunctions['brand'])}
+								>
+									<SortOutline class="h-5 w-5" />
+								</button>
+							</div></th
+						>
+						<th
+							class="font-light; whitespace-nowrap px-6 py-4 text-gray-900 dark:text-white"
+							style="font-size: 0.75rem;font-weight: 500;color: #4b5563;text-transform: uppercase;border-bottom: 1px solid #d2d6dc;"
+							>Nutrition Table</th
+						>
+						<th
+							class="font-light; whitespace-nowrap px-6 py-4 text-gray-900 dark:text-white"
+							style="font-size: 0.75rem;font-weight: 500;color: #4b5563;text-transform: uppercase;border-bottom: 1px solid #d2d6dc;"
+							>Ingredients</th
+						>
+						<th
+							class="font-light; whitespace-nowrap px-6 py-4 text-gray-900 dark:text-white"
+							style="font-size: 0.75rem;font-weight: 500;color: #4b5563;text-transform: uppercase;border-bottom: 1px solid #d2d6dc;"
+							>Others</th
+						>
+						<th
+							class="font-light; whitespace-nowrap px-6 py-4 text-gray-900 dark:text-white"
+							style="font-size: 0.75rem;font-weight: 500;color: #4b5563;text-transform: uppercase;border-bottom: 1px solid #d2d6dc;"
+							>Labels</th
+						>
+						<th
+							class="font-light; whitespace-nowrap px-6 py-4 text-gray-900 dark:text-white"
+							style="font-size: 0.75rem;font-weight: 500;color: #4b5563;text-transform: uppercase;border-bottom: 1px solid #d2d6dc;"
+						>
+							<span class="sr-only">
 								<EditOutline class="h-6 w-6" />
-							</button>
-						</TableBodyCell>
-					</TableBodyRow>
-				{/each}
-			</TableBody>
-		</Table>
+							</span>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{#each products as product, index}
+						<tr
+							class="border-b bg-white last:border-b-0 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
+						>
+							<td
+								class="whitespace-nowrap !p-3 px-6 py-4 font-medium text-gray-900 dark:text-white"
+							>
+								<Checkbox
+									checked={true}
+									on:click={toggleCheckbox}
+									id="checkbox-{product.code}"
+									class="lineCheckBox  text-primary focus:outline-primary"
+								/>
+							</td>
+							<td
+								class="whitespace-nowrap px-6 py-4 font-light text-gray-900 dark:text-white"
+								>{product.code}</td
+							>
+							<td
+								class="whitespace-nowrap text-wrap px-6 py-4 font-light text-gray-900 dark:text-white"
+								>{product.name}</td
+							>
+							<td
+								class="whitespace-nowrap px-6 py-4 font-light text-gray-900 dark:text-white"
+							>
+								<div class="text-wrap">
+									{#if product.brand && product.brand.length > 0}
+										{product.brand}
+									{:else}
+										No brand available
+									{/if}
+								</div></td
+							>
+							<td
+								class="whitespace-nowrap px-6 py-4 font-light text-gray-900 dark:text-white"
+							>
+								<Button
+									class="text-black"
+									style="display: block;"
+									on:click={() => {
+										openNutritionTable(index);
+									}}>Show</Button
+								>
+							</td>
+							<td
+								class="whitespace-nowrap px-6 py-4 font-light text-gray-900 dark:text-white"
+							>
+								<Button
+									class="text-black"
+									style="display: block;"
+									on:click={() => {
+										openIngredientsModal(index);
+									}}>Show</Button
+								>
+							</td>
+							<td
+								class="whitespace-nowrap px-6 py-4 font-light text-gray-900 dark:text-white"
+							>
+								<Button
+									class="text-black"
+									style="display: block;"
+									on:click={() => {
+										openOthersModal(index);
+									}}>Show</Button
+								>
+							</td>
+							<td
+								class="whitespace-nowrap text-wrap px-6 py-4 font-light text-gray-900 dark:text-white"
+								>{product.labels ? product.labels : '-'}</td
+							>
+							<td
+								class="whitespace-nowrap px-6 py-4 font-light text-gray-900 dark:text-white"
+								><button
+									on:click={() => {
+										openEditModal(index);
+									}}
+									class="text-primary-600"
+								>
+									<EditOutline class="h-6 w-6" />
+								</button></td
+							>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		</div>
 
 		{#if !products.length}
 			<Heading tag="h5" class="w-100 mt-5 text-center">
@@ -511,6 +686,12 @@
 			bind:show={othersModal.show}
 			bind:product={othersModal.product}
 			bind:data={othersModal.data}
+		/>
+
+		<Ingredients
+			bind:show={ingredientsModal.show}
+			bind:product={ingredientsModal.product}
+			bind:data={ingredientsModal.data}
 		/>
 
 		<EditProduct
@@ -549,7 +730,6 @@
 				<div class="mb-4">
 					<h3 class="mb-2 text-lg font-bold">Ingredients</h3>
 					<div class="max-h-48 overflow-y-auto">
-						<!-- Add overflow and max height -->
 						{#each ingredientFilters as ingredient}
 							<label for={`filter-${ingredient}`} class="mr-4 flex items-center">
 								<Checkbox
@@ -563,6 +743,25 @@
 							</label>
 						{:else}
 							<p>No ingredients available</p>
+						{/each}
+					</div>
+				</div>
+				<div class="mb-4">
+					<h3 class="mb-2 text-lg font-bold">Brand</h3>
+					<div class="max-h-48 overflow-y-auto">
+						{#each brandFilters as brand}
+							<label for={`filter-${brand}`} class="mr-4 flex items-center">
+								<Checkbox
+									type="checkbox"
+									id={`filter-${brand}`}
+									class="mr-2 text-primary focus:outline-primary"
+									checked={selectedFilters.includes(brand)}
+									on:change={() => toggleFilter(brand)}
+								/>
+								{brand}
+							</label>
+						{:else}
+							<p>No brands available</p>
 						{/each}
 					</div>
 				</div>
