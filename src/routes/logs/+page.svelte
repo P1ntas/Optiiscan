@@ -49,15 +49,24 @@
 		document.body.style.overflow = '';
 	}
 
+	const sortFunctions = {
+		uploadTime: (a, b) => new Date(a.uploadDate) - new Date(b.uploadDate),
+		finishTime: (a, b) => new Date(a.finishDate) - new Date(b.finishDate),
+		elapsedTime: (a, b) =>
+			parseFloat(a.elapsedTime?.split(' ')[0] ?? 0) -
+			parseFloat(b.elapsedTime?.split(' ')[0] ?? 0),
+		numberImages: (a, b) => a.numImages - b.numImages
+	};
+
 	let logsOrder = 0;
-	function sortLogs() {
+	function sortLogs(func) {
 		console.log('Sorting logs');
 		if (logsOrder === 0) {
 			logsOrder = 1;
-			logs = logs.sort((a, b) => new Date(a.uploadDate) - new Date(b.uploadDate));
+			logs = logs.sort(func);
 		} else {
 			logsOrder = 0;
-			logs = logs.sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate));
+			logs = logs.sort(func).reverse();
 		}
 	}
 </script>
@@ -84,14 +93,47 @@
 						<th class="px-6 py-3 font-medium">
 							<div class="flex gap-2 align-middle">
 								Upload time
-								<button type="button" on:click={sortLogs}>
+								<button
+									type="button"
+									on:click={() => sortLogs(sortFunctions['uploadTime'])}
+								>
 									<SortOutline class="h-5 w-5" />
 								</button>
 							</div>
 						</th>
-						<th class="px-6 py-3 font-medium">Finish time</th>
-						<th class="px-6 py-3 font-medium">Elapsed time</th>
-						<th class="px-6 py-3 font-medium">Number images</th>
+						<th class="px-6 py-3 font-medium">
+							<div class="flex gap-2 align-middle">
+								Finish time
+								<button
+									type="button"
+									on:click={() => sortLogs(sortFunctions['finishTime'])}
+								>
+									<SortOutline class="h-5 w-5" />
+								</button>
+							</div>
+						</th>
+						<th class="px-6 py-3 font-medium">
+							<div class="flex gap-2 align-middle">
+								Elapsed time
+								<button
+									type="button"
+									on:click={() => sortLogs(sortFunctions['elapsedTime'])}
+								>
+									<SortOutline class="h-5 w-5" />
+								</button>
+							</div></th
+						>
+						<th class="px-6 py-3 font-medium">
+							<div class="flex gap-2 align-middle">
+								Number images
+								<button
+									type="button"
+									on:click={() => sortLogs(sortFunctions['numberImages'])}
+								>
+									<SortOutline class="h-5 w-5" />
+								</button>
+							</div></th
+						>
 						<th class="px-6 py-3 font-medium">Info</th>
 						<th class="px-6 py-3 font-medium">Status</th>
 					</tr>
