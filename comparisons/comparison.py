@@ -89,17 +89,15 @@ def compare_files_in_folder(folder_path, model):
                     total_score += score
                     comparison_count += 1
                     print(f'Comparison between {true_file} and {file}: {score}')
-                    result_path = os.path.join("output", f"{os.path.basename(file).split('.')[0]}_result.json")
-                    save_json({file: score}, result_path)
     
     if comparison_count > 0:
         average_score = total_score / comparison_count
     else:
         average_score = 0
-    
+    results["average_score"] = average_score
     print(f'Average similarity score of all comparisons: {average_score}')
     average_score_path = os.path.join("output", f"{model}_result.json")
-    save_json({"average_score": average_score}, average_score_path)
+    save_json(results, average_score_path)
     return results, average_score
 
 folder_path = 'jsons/'
