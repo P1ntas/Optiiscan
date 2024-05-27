@@ -3,7 +3,7 @@
 	import Nav from '../../components/Nav.svelte';
 	import SearchBar from '../../components/SearchBar.svelte';
 	import { Heading, Button } from 'flowbite-svelte';
-	import { DownloadSolid, EditOutline } from 'flowbite-svelte-icons';
+	import { DownloadSolid, EditOutline, SortOutline } from 'flowbite-svelte-icons';
 
 	import {
 		Table,
@@ -266,13 +266,7 @@
 	}
 
 	async function downloadCSV() {
-		let selectedProductsCodes = [];
-		document.querySelectorAll('input[type=checkbox].lineCheckBox').forEach((checkbox) => {
-			if (checkbox.checked) {
-				const id = checkbox.id.substring(checkbox.id.indexOf('-') + 1);
-				selectedProductsCodes.push(id);
-			}
-		});
+		let selectedProductsCodes = getCheckedProducts();
 		console.log('SelectedProducts: ', selectedProductsCodes);
 		// TODO: Add here code to download CSV (dont forget to send the selected products)
 
@@ -327,9 +321,17 @@
 	// Function to toggle all checkboxes
 	let headerChecked = true;
 
+	function setCheckboxesByCode(codes) {
+		document.querySelectorAll('input[type=checkbox].lineCheckBox').forEach((checkbox) => {
+			const id = checkbox.id.substring(checkbox.id.indexOf('-') + 1);
+			console.log('check: ', codes, id, codes.includes(id));
+			checkbox.checked = codes.includes(id);
+		});
+	}
+
 	function toggleAll() {
 		headerChecked = !headerChecked;
-		document.querySelectorAll('.lineCheckBox').forEach((checkbox) => {
+		document.querySelectorAll('input[type=checkbox].lineCheckBox').forEach((checkbox) => {
 			checkbox.checked = headerChecked;
 		});
 	}
@@ -375,6 +377,46 @@
 		editModal['product'] = products[index].name;
 		editModal['data'] = products[index];
 		editModal['show'] = true;
+	}
+
+	function getCheckedProducts() {
+		/**
+		 * @type {string[]}
+		 */
+		let selectedProductsCodes = [];
+		document.querySelectorAll('input[type=checkbox].lineCheckBox').forEach((checkbox) => {
+			if (checkbox.checked) {
+				const id = checkbox.id.substring(checkbox.id.indexOf('-') + 1);
+				selectedProductsCodes.push(id);
+			}
+		});
+		return selectedProductsCodes;
+	}
+
+	const sortFunctions = {
+		code: (a, b) => parseInt(a.code) - parseInt(b.code),
+		name: (a, b) => a.name < b.name,
+		brand: (a, b) => a.brand < b.brand
+	};
+
+	let recordsOrder = 0;
+	function sortRecords(func) {
+		console.log('Sorting records');
+		console.log(
+			Array.from(document.querySelectorAll('input[type=checkbox].lineCheckBox'), (a) => a.id)
+		);
+		const selectedProductsCodes = getCheckedProducts();
+		if (recordsOrder === 0) {
+			recordsOrder = 1;
+			products = products.sort(func);
+		} else {
+			recordsOrder = 0;
+			products = products.sort(func).reverse();
+		}
+		// Reordering products doesn't reorder checkboxes to match the products. This is a hotfix
+		setTimeout(() => {
+			setCheckboxesByCode(selectedProductsCodes);
+		}, 100);
 	}
 
 	// Default label and ingredient filters
@@ -471,17 +513,44 @@
 						<th
 							class="font-light; whitespace-nowrap px-6 py-4 text-gray-900 dark:text-white"
 							style="font-size: 0.75rem;font-weight: 500;color: #4b5563;text-transform: uppercase;border-bottom: 1px solid #d2d6dc;"
-							>Code</th
+						>
+							<div class="flex gap-2 align-middle">
+								Code
+								<button
+									type="button"
+									on:click={() => sortRecords(sortFunctions['code'])}
+								>
+									<SortOutline class="h-5 w-5" />
+								</button>
+							</div></th
 						>
 						<th
 							class="font-light; whitespace-nowrap px-6 py-4 text-gray-900 dark:text-white"
 							style="font-size: 0.75rem;font-weight: 500;color: #4b5563;text-transform: uppercase;border-bottom: 1px solid #d2d6dc;"
-							>Name</th
+						>
+							<div class="flex gap-2 align-middle">
+								Name
+								<button
+									type="button"
+									on:click={() => sortRecords(sortFunctions['name'])}
+								>
+									<SortOutline class="h-5 w-5" />
+								</button>
+							</div></th
 						>
 						<th
 							class="font-light; whitespace-nowrap px-6 py-4 text-gray-900 dark:text-white"
 							style="font-size: 0.75rem;font-weight: 500;color: #4b5563;text-transform: uppercase;border-bottom: 1px solid #d2d6dc;"
-							>Brand</th
+						>
+							<div class="flex gap-2 align-middle">
+								Brand
+								<button
+									type="button"
+									on:click={() => sortRecords(sortFunctions['brand'])}
+								>
+									<SortOutline class="h-5 w-5" />
+								</button>
+							</div></th
 						>
 						<th
 							class="font-light; whitespace-nowrap px-6 py-4 text-gray-900 dark:text-white"
