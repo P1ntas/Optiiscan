@@ -81,24 +81,14 @@
 				return labelMatch || ingredientMatch || brandMatch;
 			} else {
 				// Check if the product matches all selected filters
-				const match = selectedFilters.every((filter) => {
-					// Check if the filter matches the product's labels, ingredients, or brand
-					const labelMatch = !product.labels || product.labels.includes(filter);
+				const matches = selectedFilters.every((filter) => {
+					const labelMatch = product.labels && product.labels.includes(filter);
 					const ingredientMatch =
-						!product.ingredients || product.ingredients.includes(filter);
-					const brandMatch = !product.brand || product.brand.includes(filter);
-
-					// Return true if the product matches the current filter
+						product.ingredients && product.ingredients.includes(filter);
+					const brandMatch = product.brand && product.brand.includes(filter);
 					return labelMatch || ingredientMatch || brandMatch;
 				});
-
-				// Check if the product matches both brand and ingredient filters
-				const brandFilterApplied = selectedFilters.includes(product.brand);
-				const ingredientFilterApplied = selectedFilters.some((filter) =>
-					product.ingredients.includes(filter)
-				);
-
-				return match && brandFilterApplied && ingredientFilterApplied;
+				return matches;
 			}
 		});
 
