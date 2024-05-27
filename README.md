@@ -42,15 +42,15 @@ Generative AI tool to automate the extraction of a product's information based o
 
 ### Workload estimate: 46
 
--Bug fixes related to download in CSV
--Show button in the ingredients 
--Clicking the Logo redirects to the home page
--Header of the Products table sticky to the top when scroll down
--Header of the Logs table sticky to the top when scroll down
--Sort the Products table
--Sort the Logs table
--Added Brand to the Filters
--Bug fixes related to the filters
--Added option to add Labels to the products
--Prompt tweaks
--Option to choose Gemini or GPT-4
+- Bug fixes related to download in CSV
+- Show button in the ingredients
+- Clicking the Logo redirects to the home page
+- Header of the Products table sticky to the top when scroll down
+- Header of the Logs table sticky to the top when scroll down
+- Sort the Products table
+- Sort the Logs table
+- Added Brand to the Filters
+- Bug fixes related to the filters
+- Added option to add Labels to the products
+- Prompt tweaks
+- Option to choose Gemini or GPT-4
