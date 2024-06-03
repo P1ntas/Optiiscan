@@ -11,13 +11,14 @@
 		"fat": { "per 100": "9.8g", "per portion": "8.8g", "%DR": "13" },
 		"saturates": { "per 100": "1.3g", "per portion": "1.2g", "%DR": "6" },
 		"carbohydrate": { "per 100": "29g", "per portion": "26", "%DR": "10" },
+		"sugars": { "per 100": "1,9 g", "per portion": "1,7 g", "%DR": "2%" },
 		"fibre": { "per 100": "1.9g", "per portion": "1.7g", "%DR": "null" },
 		"protein": { "per 100": "5.5g", "per portion": "5.0g", "%DR": "10" },
 		"salt": { "per 100": "1.30g", "per portion": "1.17g", "%DR": "20" }
 	},
-	"ingredients": "Massa (52%): água, farinha de trigo, gordura de suíno, aroma de limão e sal. Recheio (40%): camarão (30%) (contém crustáceos), água, farinha de trigo, leite em pó, cebola (contém sulfitos), óleo vegetal de girassol, tomate, sal, salsa, azeite e especiarias. Panagem (8%): pão ralado (farinha de trigo, água, açucar, levedura e sal), água, farinha de trigo, soro lácteo, regulador de acidez (E500) e sal.",
+	"ingredients": "Massa (52%): água, farinha de trigo, gordura de suíno, aroma de limão e sal. Recheio (40%): camarão (30%) (contém crustáceos), água, farinha de trigo, leite em pó, cebola (contém sulfitos), óleo vegetal de girassol, tomate, sal, salsa, azeite e especiarias. Panagem (8%): pão ralado (farinha de trigo, água, açúcar, levedura e sal), água, farinha de trigo, soro lácteo, regulador de acidez (E500) e sal.",
 	"informative_text": {
-		"preparation": "Sem descongelar, em forno pré-aquecido (180-190ºC), colocar o produto em tabuleiros e levar ao forno aproxidamente 5-7 minutos até ficarem douradinhos. Deve ser garantida a temperatura de 75ºC no centro térmico do produto.",
+		"preparation": "Sem descongelar, em forno pré-aquecido (180-190ºC), colocar o produto em tabuleiros e levar ao forno aproximadamente 5-7 minutos até ficarem douradinhos. Deve ser garantida a temperatura de 75ºC no centro térmico do produto.",
 		"conservation": "null"
 	}
 }
