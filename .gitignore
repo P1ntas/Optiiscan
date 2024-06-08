@@ -16,5 +16,3 @@ static/test/products/*
 !static/test/products/.gitkeep
 comparisons/images/*
 !comparisons/images/.gitkeep
-comparisons/output/*
-!comparisons/output/.gitkeep
