@@ -1,0 +1,23 @@
+{
+	"name": "Lasanha Bolonhesa com Carne de Porco",
+	"brand": "Continente",
+	"code": "5601312505419",
+	"nutritional_table": {
+		"energy": {
+			"per 100": "606 kJ / 145 kcal",
+			"per portion": "1514 kJ / 362 kcal",
+			"%DR": "18%"
+		},
+		"fat": { "per 100": "7,4 g", "per portion": "18,4 g", "%DR": "26%" },
+		"saturates": { "per 100": "1,9 g", "per portion": "4,7 g", "%DR": "24%" },
+		"carbohydrate": { "per 100": "12,7 g", "per portion": "31,7 g", "%DR": "12%" },
+		"sugars": { "per 100": "3,0 g", "per portion": "7,5 g", "%DR": "8%" },
+		"protein": { "per 100": "6,5 g", "per portion": "16 g", "%DR": "33%" },
+		"salt": { "per 100": "0,68 g", "per portion": "1,7 g", "%DR": "28%" }
+	},
+	"ingredients": "Recheio (83%) [\u00e1gua, carne de porco (18%)*, tomate (14%)*, \u00f3leo de girassol, amido de milho modificado, farinha de trigo, queijo Emmental, cenoura, leite em p\u00f3 desnatado, cebola, azeite, produtos l\u00e1cteos (lactose (leite), gordura do leite, prote\u00edna do leite), sal, a\u00e7\u00facar, amido de milho, especiarias, xarope de glicose - frutose, aroma, extrato de levedura, caldo de carne concentrado (gordura de coco, extrato de levedura, extrato de carne de vaca, \u00e1gua, sumo concentrado de beterraba, sal, xarope de a\u00e7\u00facar caramelizado, concentrado de sumo de lim\u00e3o, maltodextrina), aroma natural], massa aliment\u00edcia (farinha de trigo, s\u00e9mola de trigo, \u00e1gua). (*) Percentagem expressa em rela\u00e7\u00e3o ao recheio. Pode conter vest\u00edgios de mostarda, soja, ovos, peixe, crust\u00e1ceos, moluscos, frutos de casca rija e aipo.",
+	"informative_text": {
+		"preparation": "Instru\u00e7\u00f5es de prepara\u00e7\u00e3o: N\u00e3o \u00e9 necessario descongelar. Forno: pr\u00e9-aquecer forno at\u00e9 este atingir 220\u00baC. Retire o filme pl\u00e1stico e coloque a bandeja no forno a uma altura m\u00e9dia. Aquecer durante 60 minutos. Necessita de cozedura completa antes do seu consumo. O tempo de confe\u00e7\u00e3o pode variar consoante o equipamento utilizado.",
+		"conservation": "Conservar a -18 \u00baC at\u00e9 ao limite do prazo de validade indicado na embalagem. Uma vez iniciado o processo de descongela\u00e7\u00e3o, n\u00e3o volte a congelar."
+	}
+}

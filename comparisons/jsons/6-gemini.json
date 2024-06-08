@@ -1,0 +1,20 @@
+{
+	"name": "Mini Magnífico Delight Sandwich Stracciatella",
+	"brand": "Continente",
+	"code": "5601312506812",
+	"nutritional_table": {
+		"energy": { "per 100": "1436kJ/344kcal", "per portion": "775kJ/186kcal", "%DR": "9" },
+		"fat": { "per 100": "19g", "per portion": "10g", "%DR": "14" },
+		"saturates": { "per 100": "12g", "per portion": "6,7g", "%DR": "34" },
+		"carbohydrate": { "per 100": "39g", "per portion": "21g", "%DR": "8" },
+		"sugars": { "per 100": "26g", "per portion": "14g", "%DR": "16" },
+		"fibre": { "per 100": "1,9g", "per portion": "1,0g" },
+		"protein": { "per 100": "3,8g", "per portion": "2,0g", "%DR": "4" },
+		"salt": { "per 100": "0,13g", "per portion": "0,07g", "%DR": "1" }
+	},
+	"ingredients": "LEITE magro em pó reconstituído, bolachas (21%) [farinha de trigo, açúcar, gordura de palma, cacau magro, xarope de glucose, xarope de glucose-frutose, levedantes (E500, E503), leite magro em pó, extrato de malte de cevada, emulsionante (lecitina de girassol), aroma natural, sal], cobertura com cacau (12%) [gorduras e óleos vegetais (coco, palma, girassol) em proporções variáveis, açúcar, cacau magro (10%), emulsionante (lecitina de soja), aroma natural de baunilha], açúcar, pedaços de chocolate preto (6%) [açúcar, pasta de cacau, manteiga de cacau, emulsionante (lecitina de soja)], gorduras vegetais (coco e palma), xarope de glucose, lactose (contém leite) e proteínas do leite, pedaços de bolacha (1%) [açúcar, farinha de arroz e amido de arroz, margarina (óleos vegetais: palma e girassol), leite magro em pó, xarope de glucose, sal, aroma natural], pedaços de avelã caramelizada (0,4%) [avelã, açúcar], emulsionante (E471), estabilizadores (E410, E412, E407), aroma natural. Pode conter vestígios de ovo e outros frutos de casca rija.",
+	"informative_text": {
+		"preparation": "Conservar a -18°C até ao limite do prazo de validade indicado na embalagem. Uma vez iniciado o processo de descongelação, não volte a congelar.",
+		"conservation": "Consumir de preferência antes do fim de: (ver lateral da embalagem)"
+	}
+}

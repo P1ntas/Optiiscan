@@ -1,0 +1,412 @@
+{
+    "1-gemini.json": {
+        "average_score": 0.9761904761904763,
+        "details": {
+            "name_score": 1,
+            "brand_score": 1,
+            "code_score": 1,
+            "energy_score": 1.0,
+            "fat_score": 1.0,
+            "saturates_score": 1.0,
+            "carbohydrate_score": 0.6666666666666666,
+            "sugars_score": 1.0,
+            "fibre_score": 1.0,
+            "protein_score": 1.0,
+            "salt_score": 1.0,
+            "ingredients_score": 1.0,
+            "ingredients_diff": [],
+            "preparation_score": 1.0,
+            "conservation_score": 1.0,
+            "preparation_diff": [],
+            "conservation_diff": []
+        }
+    },
+    "10-gemini.json": {
+        "average_score": 0.9923489930060118,
+        "details": {
+            "name_score": 1,
+            "brand_score": 1,
+            "code_score": 1,
+            "energy_score": 1.0,
+            "fat_score": 1.0,
+            "saturates_score": 1.0,
+            "carbohydrate_score": 1.0,
+            "sugars_score": 1.0,
+            "fibre_score": 1.0,
+            "protein_score": 1.0,
+            "salt_score": 1.0,
+            "ingredients_score": 0.9988465974625144,
+            "ingredients_diff": [
+                "- ovo].",
+                "+ ovo]"
+            ],
+            "preparation_score": 0.9689578713968958,
+            "conservation_score": 0.9250814332247557,
+            "preparation_diff": [
+                "+ Modo",
+                "+ de",
+                "+ preparação:",
+                "- pré-aqueça",
+                "+ Pré-aqueça",
+                "- 200ºC.",
+                "+ 200°C.",
+                "- frite",
+                "+ Frite",
+                "- 180ºC,",
+                "+ 180°C,"
+            ],
+            "conservation_diff": [
+                "+ Modo",
+                "+ de",
+                "+ conservação:",
+                "- -18ºC",
+                "+ -18°C"
+            ]
+        }
+    },
+    "11-gemini.json": {
+        "average_score": 0.9278723591518291,
+        "details": {
+            "name_score": 1,
+            "brand_score": 1,
+            "code_score": 1,
+            "energy_score": 1.0,
+            "fat_score": 1.0,
+            "saturates_score": 1.0,
+            "carbohydrate_score": 1.0,
+            "sugars_score": 1.0,
+            "fibre_score": 0,
+            "protein_score": 1.0,
+            "salt_score": 1.0,
+            "ingredients_score": 0.9987468671679198,
+            "ingredients_diff": [
+                "- glicose-frutose,",
+                "+ glicose",
+                "+ -",
+                "+ frutose,"
+            ],
+            "preparation_score": 0.9984591679506933,
+            "conservation_score": 0.993006993006993,
+            "preparation_diff": [
+                "- 220º.",
+                "+ 220ºC."
+            ],
+            "conservation_diff": [
+                "- -18º",
+                "+ -18",
+                "+ ºC"
+            ]
+        }
+    },
+    "2-gemini.json": {
+        "average_score": 0.6190476190476192,
+        "details": {
+            "name_score": 1,
+            "brand_score": 1,
+            "code_score": 1,
+            "energy_score": 1.0,
+            "fat_score": 1.0,
+            "saturates_score": 0.6666666666666666,
+            "carbohydrate_score": 0.6666666666666666,
+            "sugars_score": 0.6666666666666666,
+            "fibre_score": 0.3333333333333333,
+            "protein_score": 0.3333333333333333,
+            "salt_score": 1.0,
+            "ingredients_score": 0,
+            "ingredients_diff": [
+                "KeyError"
+            ],
+            "preparation_score": 0,
+            "conservation_score": 0,
+            "preparation_diff": [
+                "KeyError"
+            ],
+            "conservation_diff": [
+                "KeyError"
+            ]
+        }
+    },
+    "3-gemini.json": {
+        "average_score": 0.9995004995004996,
+        "details": {
+            "name_score": 1,
+            "brand_score": 1,
+            "code_score": 1,
+            "energy_score": 1.0,
+            "fat_score": 1.0,
+            "saturates_score": 1.0,
+            "carbohydrate_score": 1.0,
+            "sugars_score": 1.0,
+            "fibre_score": 1.0,
+            "protein_score": 1.0,
+            "salt_score": 1.0,
+            "ingredients_score": 1.0,
+            "ingredients_diff": [],
+            "preparation_score": 1.0,
+            "conservation_score": 0.993006993006993,
+            "preparation_diff": [],
+            "conservation_diff": [
+                "- de",
+                "+ do"
+            ]
+        }
+    },
+    "4-gemini.json": {
+        "average_score": 0.999806426635695,
+        "details": {
+            "name_score": 1,
+            "brand_score": 1,
+            "code_score": 1,
+            "energy_score": 1.0,
+            "fat_score": 1.0,
+            "saturates_score": 1.0,
+            "carbohydrate_score": 1.0,
+            "sugars_score": 1.0,
+            "fibre_score": 1.0,
+            "protein_score": 1.0,
+            "salt_score": 1.0,
+            "ingredients_score": 1.0,
+            "ingredients_diff": [],
+            "preparation_score": 0.997289972899729,
+            "conservation_score": 1.0,
+            "preparation_diff": [
+                "- a"
+            ],
+            "conservation_diff": []
+        }
+    },
+    "5-gemini.json": {
+        "average_score": 1.0,
+        "details": {
+            "name_score": 1,
+            "brand_score": 1,
+            "code_score": 1,
+            "energy_score": 1.0,
+            "fat_score": 1.0,
+            "saturates_score": 1.0,
+            "carbohydrate_score": 1.0,
+            "sugars_score": 1.0,
+            "fibre_score": 1.0,
+            "protein_score": 1.0,
+            "salt_score": 1.0,
+            "ingredients_score": 1.0,
+            "ingredients_diff": [],
+            "preparation_score": 1.0,
+            "conservation_score": 1.0,
+            "preparation_diff": [],
+            "conservation_diff": []
+        }
+    },
+    "6-gemini.json": {
+        "average_score": 0.8542892848201756,
+        "details": {
+            "name_score": 1,
+            "brand_score": 1,
+            "code_score": 1,
+            "energy_score": 1.0,
+            "fat_score": 1.0,
+            "saturates_score": 1.0,
+            "carbohydrate_score": 1.0,
+            "sugars_score": 1.0,
+            "fibre_score": 0.6666666666666666,
+            "protein_score": 1.0,
+            "salt_score": 1.0,
+            "ingredients_score": 0.9793962625778629,
+            "ingredients_diff": [
+                "- Leite",
+                "+ LEITE",
+                "- glicose-fructose,",
+                "+ glucose-frutose,",
+                "- revestimento",
+                "+ cobertura",
+                "- (gorduras",
+                "+ [gorduras",
+                "+ de",
+                "+ arroz"
+            ],
+            "preparation_score": 0.04081632653061224,
+            "conservation_score": 0.2731707317073171,
+            "preparation_diff": [
+                "- null",
+                "+ Conservar",
+                "+ a",
+                "+ -18°C",
+                "+ até",
+                "+ ao",
+                "+ limite",
+                "+ do",
+                "+ prazo",
+                "+ de",
+                "+ validade",
+                "+ indicado",
+                "+ na",
+                "+ embalagem.",
+                "+ Uma",
+                "+ vez",
+                "+ iniciado",
+                "+ o",
+                "+ processo",
+                "+ de",
+                "+ descongelação,",
+                "+ não",
+                "+ volte",
+                "+ a",
+                "+ congelar."
+            ],
+            "conservation_diff": [
+                "+ Consumir",
+                "- Conservar",
+                "- a",
+                "- -18ºC",
+                "- até",
+                "- à",
+                "- data",
+                "- limite",
+                "- validade",
+                "- indicado",
+                "- na",
+                "+ preferência",
+                "+ antes",
+                "+ do",
+                "+ fim",
+                "+ de:",
+                "+ (ver",
+                "+ lateral",
+                "+ da",
+                "- embalagem.",
+                "+ embalagem)",
+                "- Uma",
+                "- vez",
+                "- iniciado",
+                "- o",
+                "- processo",
+                "- de",
+                "- descongelação,",
+                "- não",
+                "- volte",
+                "- a",
+                "- congelar."
+            ]
+        }
+    },
+    "7-gemini.json": {
+        "average_score": 0.8597211497211497,
+        "details": {
+            "name_score": 1,
+            "brand_score": 1,
+            "code_score": 0,
+            "energy_score": 1.0,
+            "fat_score": 1.0,
+            "saturates_score": 1.0,
+            "carbohydrate_score": 1.0,
+            "sugars_score": 1.0,
+            "fibre_score": 1.0,
+            "protein_score": 1.0,
+            "salt_score": 1.0,
+            "ingredients_score": 1.0,
+            "ingredients_diff": [],
+            "preparation_score": 0.9955555555555555,
+            "conservation_score": 0.04054054054054054,
+            "preparation_diff": [
+                "- (180-190ºC),",
+                "+ (180-190",
+                "+ ºC),",
+                "- 75ºC",
+                "+ 75",
+                "+ ºC"
+            ],
+            "conservation_diff": [
+                "- null",
+                "+ Conservar",
+                "+ a",
+                "+ -18",
+                "+ ºC",
+                "+ até",
+                "+ ao",
+                "+ limite",
+                "+ do",
+                "+ prazo",
+                "+ de",
+                "+ validade",
+                "+ indicado",
+                "+ na",
+                "+ embalagem.",
+                "+ Uma",
+                "+ vez",
+                "+ iniciado",
+                "+ o",
+                "+ processo",
+                "+ de",
+                "+ descongelação,",
+                "+ não",
+                "+ volte",
+                "+ a",
+                "+ congelar."
+            ]
+        }
+    },
+    "8-gemini.json": {
+        "average_score": 0.9284665408013426,
+        "details": {
+            "name_score": 1,
+            "brand_score": 1,
+            "code_score": 0,
+            "energy_score": 1.0,
+            "fat_score": 1.0,
+            "saturates_score": 1.0,
+            "carbohydrate_score": 1.0,
+            "sugars_score": 1.0,
+            "fibre_score": 1.0,
+            "protein_score": 1.0,
+            "salt_score": 1.0,
+            "ingredients_score": 1.0,
+            "ingredients_diff": [],
+            "preparation_score": 0.9985315712187959,
+            "conservation_score": 1.0,
+            "preparation_diff": [
+                "- regularmente,",
+                "+ regularmente"
+            ],
+            "conservation_diff": []
+        }
+    },
+    "9-gemini.json": {
+        "average_score": 0.9046296296296298,
+        "details": {
+            "name_score": 1,
+            "brand_score": 1,
+            "code_score": 0,
+            "energy_score": 1.0,
+            "fat_score": 1.0,
+            "saturates_score": 1.0,
+            "carbohydrate_score": 1.0,
+            "sugars_score": 1.0,
+            "fibre_score": 0.6666666666666666,
+            "protein_score": 1.0,
+            "salt_score": 1.0,
+            "ingredients_score": 0.9981481481481481,
+            "ingredients_diff": [],
+            "preparation_score": 1.0,
+            "conservation_score": 1.0,
+            "preparation_diff": [],
+            "conservation_diff": []
+        }
+    },
+    "total_average_score": 0.9147157253185846,
+    "total_label_accuracies": {
+        "name": 1.0,
+        "brand": 1.0,
+        "code": 0.7272727272727273,
+        "energy": 1.0,
+        "fat": 1.0,
+        "saturates": 0.9696969696969696,
+        "carbohydrate": 0.9393939393939393,
+        "sugars": 0.9696969696969696,
+        "fibre": 0.7878787878787878,
+        "protein": 0.9393939393939394,
+        "salt": 1.0,
+        "ingredients": 0.906830715941495,
+        "preparation": 0.8181464059592983,
+        "conservation": 0.7477096992260545
+    }
+}

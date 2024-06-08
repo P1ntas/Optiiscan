@@ -1,0 +1,17 @@
+{
+	"name": "Mini Magnífico Delight",
+	"brand": "Continente",
+	"code": "5601009117396",
+	"nutritional_table": {
+		"energy": { "per 100": "1471kJ/351kcal", "per portion": "791kJ/189kcal", "%DR": "9%" },
+		"fat": { "per 100": "19g", "per portion": "10g", "%DR": "14%" },
+		"saturates": { "per 100": "14g", "per portion": "7.6g", "%DR": "38%" },
+		"carbohydrate": { "per 100": "40g", "per portion": "22g", "%DR": "8%" },
+		"sugars": { "per 100": "27g", "per portion": "15g", "%DR": "17%" },
+		"fibre": { "per 100": "1.4g", "per portion": "0.8g", "%DR": null },
+		"protein": { "per 100": "4.0g", "per portion": "2.2g", "%DR": "4%" },
+		"salt": { "per 100": "0.07g", "per portion": "0.04g", "%DR": "1%" }
+	},
+	"ingredients": "Leite magro reconstituído, cobertura de cacau magro (25%), açúcar, gordura de coco, xarope de glucose-frutose, farinha de trigo, pedaços de cacau magro (1,5%), manteiga concentrada, lactose e proteínas do leite, cacau magro em pó, emulsionantes (lecitinas (soja), E471), estabilizadores (farinha de semente de alfarroba, goma guar, carragenina), sal, aroma natural de baunilha, aroma natural, agente de tratamento da farinha (ácido ascórbico). Pode conter frutos de casca rija e ovo.",
+	"informative_text": { "preparation": "null", "conservation": "Conservar a -18ºC." }
+}

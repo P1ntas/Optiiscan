@@ -1,0 +1,20 @@
+{
+	"name": "Batatas Steakhouse",
+	"brand": "Continente",
+	"code": "5601312078104",
+	"nutritional_table": {
+		"energy": { "per 100": "504 kJ/120 kcal", "per portion": "756 kJ/179 kcal", "%DR": "9" },
+		"fat": { "per 100": "2.5g", "per portion": "3.8g", "%DR": "5" },
+		"saturates": { "per 100": "0.3g", "per portion": "0.5g", "%DR": "2" },
+		"carbohydrate": { "per 100": "21g", "per portion": "31g", "%DR": "12" },
+		"sugars": { "per 100": "0.2g", "per portion": "0.3g", "%DR": "<1" },
+		"fibre": { "per 100": "1.9g", "per portion": "2.9g", "%DR": "-" },
+		"protein": { "per 100": "2.3g", "per portion": "3.5g", "%DR": "7" },
+		"salt": { "per 100": "0.04g", "per portion": "0.06g", "%DR": "1" }
+	},
+	"ingredients": "Batatas (97%), óleo de girassol (3%)",
+	"informative_text": {
+		"preparation": "Frite as batatas fritas congeladas em óleo quente (175ºC) durante 3-5 minutos até dourarem e ficarem crocantes. Os tempos ideais de fritura variam de acordo com a quantidade e a crocância desejadas. Tempere a gosto.",
+		"conservation": "Conservar a -18ºC até ao limite do prazo de validade indicado na embalagem. Uma vez iniciado o processo de descongelação, não volte a congelar. Após descongelação consumir imediatamente, não refreeze. Conservar a 1ºC/3ºC até à data limite indicada para o consumo."
+	}
+}

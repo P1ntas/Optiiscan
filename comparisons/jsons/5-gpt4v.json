@@ -1,0 +1,20 @@
+{
+	"name": "Mix Exótico Ananás, Papaia e Manga",
+	"brand": "Continente",
+	"code": "5601312505938",
+	"nutritional_table": {
+		"energy": { "per 100": "234kJ/55kcal", "per portion": "351kJ/83kcal", "%DR": "4" },
+		"fat": { "per 100": "<0.5g", "per portion": "<0.5g", "%DR": "<1" },
+		"saturates": { "per 100": "<0.1g", "per portion": "<0.1g", "%DR": "1" },
+		"carbohydrate": { "per 100": "11g", "per portion": "17g", "%DR": "7" },
+		"sugars": { "per 100": "11g", "per portion": "17g", "%DR": "19" },
+		"fibre": { "per 100": "1.5g", "per portion": "2.2g", "%DR": "2" },
+		"protein": { "per 100": "0.5g", "per portion": "0.8g", "%DR": "1" },
+		"salt": { "per 100": "<0.01g", "per portion": "<0.01g", "%DR": "<1" }
+	},
+	"ingredients": "Ananás (41.3%), Papaia (29.2%), Manga (29.2%)",
+	"informative_text": {
+		"preparation": "Adicione a fruta (150g) e desenquicie com 150ml de sumo, leite ou iogurte. Misture durante 1 minuto.",
+		"conservation": "Conservar a -18°C até ao limite do prazo de validade indicado na embalagem. Uma vez iniciado o processo de descongelação, não volte a congelar."
+	}
+}

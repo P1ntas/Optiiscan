@@ -1,0 +1,15 @@
+{
+	"name": "Espinafres em Folha",
+	"brand": "Continente",
+	"code": "5601312133940",
+	"nutritional_table": {
+		"energy": { "per 100": "117kJ/28kcal", "per portion": "93kJ/22kcal", "%DR": "1%" },
+		"fat": { "per 100": "0,6g", "per portion": "0,5g", "%DR": "1%" },
+		"saturates": { "per 100": "0,1g", "per portion": "0,1g", "%DR": "4%" },
+		"carbohydrate": { "per 100": "2,0g", "per portion": "1,6g", "%DR": "<1%" },
+		"sugars": { "per 100": "0g", "per portion": "0g", "%DR": "0%" },
+		"fibre": { "per 100": "3,3g", "per portion": "2,6g", "%DR": null },
+		"protein": { "per 100": "2,0g", "per portion": "1,6g", "%DR": "3%" },
+		"salt": { "per 100": "0,09g", "per portion": "0,07g", "%DR": "1%" }
+	}
+}

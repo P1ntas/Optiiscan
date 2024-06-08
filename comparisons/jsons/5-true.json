@@ -1,0 +1,20 @@
+{
+    "name":"Mix Exótico",
+    "brand":"Continente",
+    "code":"5601312505938",
+    "nutritional_table":{
+        "energy":{"per 100":"224kJ/53kcal","per portion":"336kJ/79kcal","%DR":"4"},
+        "fat":{"per 100":"<0,5g","per portion":"<0,5g","%DR":"<1"},
+        "saturates":{"per 100":"<0,1g","per portion":"<0,1g","%DR":"<1"},
+        "carbohydrate":{"per 100":"11g","per portion":"17g","%DR":"7"},
+        "sugars":{"per 100":"11g","per portion":"17g","%DR":"19"},
+        "fibre":{"per 100":"1,6g","per portion":"2,4g"},
+        "protein":{"per 100":"0,5g","per portion":"0,8g","%DR":"2"},
+        "salt":{"per 100":"<0,01g","per portion":"<0,01g","%DR":"<1"}
+    },
+    "ingredients":"Ananás (41,6%), papaia (29,2%), manga (29,2%)",
+    "informative_text":{
+        "preparation":"No liquidificador, coloque 150 ml de sumo de fruta, leite ou iogurte. Adicione a fruta (150g), sem descongelar (no caso de utilizar batedeira: descongele 150 g de fruta no microondas durante 1 min, ou, à temperatura ambiente, 30 min). Misture até a consistência desejada. Dica: Pode utilizar as frutas como topping do seu iogurte.",
+        "conservation":"Conservar a -18°C até ao limite do prazo de validade indicado na embalagem. Uma vez iniciado o processo de descongelação, não volte a congelar."
+    }
+}

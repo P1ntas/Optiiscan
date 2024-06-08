@@ -1,0 +1,24 @@
+{
+	"name": "Pastéis de nata",
+	"brand": "Continente",
+	"code": "5601312502425",
+	"nutritional_table": {
+		"energy": {
+			"per 100": "1092 kJ/260 kcal",
+			"per portion": "600 kJ/143 kcal",
+			"%DR": "7"
+		},
+		"fat": { "per 100": "12g", "per portion": "6.6g", "%DR": "9" },
+		"saturates": { "per 100": "6.0g", "per portion": "3.3g", "%DR": "17" },
+		"carbohydrate": { "per 100": "34g", "per portion": "19g", "%DR": "7" },
+		"sugars": { "per 100": "17g", "per portion": "9.4g", "%DR": "10" },
+		"fibre": { "per 100": "0.2g", "per portion": "0.1g", "%DR": "null" },
+		"protein": { "per 100": "4.0g", "per portion": "2.2g", "%DR": "4" },
+		"salt": { "per 100": "0.50g", "per portion": "0.28g", "%DR": "5" }
+	},
+	"ingredients": "Recheio (60%): leite em pó reconstituído, açúcar, gema de ovo pasteurizada, creme de pasteleiro, farinha de trigo, natas (contém leite) (0,5%), amido de milho modificado, pau de canela, casca de limão. Massa Folhada (40%): farinha de trigo, margarina [óleos e matérias gordas vegetais (gordura de palma parcialmente hidrogenada, gordura de palma, óleo de colza, gordura de carité) em proporções variáveis, água, sal, emulsionante (E322, E471, E475), antioxidante (E320, E310), aroma, regulador de acidez (E330), corante (E160a)], água, sal.",
+	"informative_text": {
+		"preparation": "Aqueça o forno à temperatura de 250ºC. Retire o produto da embalagem e coloque, com as formas, no tabuleiro do forno. Deixe cozer (16 a 20 minutos) até alourar. Retire o produto do forno, retire as formas e coloque os pastéis em cima de papel absorvente.",
+		"conservation": "Conservar a -18ºC até ao limite do prazo de validade indicado na embalagem. Uma vez iniciado o processo de descongelação, não volte a congelar."
+	}
+}

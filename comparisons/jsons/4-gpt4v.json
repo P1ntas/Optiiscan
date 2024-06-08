@@ -1,0 +1,20 @@
+{
+	"name": "Abóbora aos Pedaços",
+	"brand": "Continente",
+	"code": "5601312136842",
+	"nutritional_table": {
+		"energy": { "per 100": "66kJ/16kcal", "per portion": "53kJ/13kcal", "%DR": "1" },
+		"fat": { "per 100": "0.2g", "per portion": "0.2g", "%DR": "<1" },
+		"saturates": { "per 100": "0.1g", "per portion": "0.1g", "%DR": "<1" },
+		"carbohydrate": { "per 100": "2.2g", "per portion": "1.8g", "%DR": "1" },
+		"sugars": { "per 100": "1.7g", "per portion": "1.4g", "%DR": "2" },
+		"fibre": { "per 100": "1.0g", "per portion": "0.8g", "%DR": "null" },
+		"protein": { "per 100": "0.6g", "per portion": "0.5g", "%DR": "1" },
+		"salt": { "per 100": "0.01g", "per portion": "0.00g", "%DR": "0" }
+	},
+	"ingredients": "Abóbora.",
+	"informative_text": {
+		"preparation": "Prepare o produto, sem descongelar, em água a ferver como se tratasse de um produto fresco.",
+		"conservation": "Conservar a -18°C até ao limite do prazo de validade indicado na embalagem. Uma vez iniciado o processo de descongelação, não volte a congelar."
+	}
+}

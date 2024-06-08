@@ -1,0 +1,24 @@
+{
+	"name": "Douradinhos de Pescada",
+	"brand": "Continente",
+	"code": "450",
+	"nutritional_table": {
+		"energy": {
+			"per 100": "770 kJ / 184 kcal",
+			"per portion": "693 kJ / 165 kcal",
+			"%DR": "8"
+		},
+		"fat": { "per 100": "8,1 g", "per portion": "7,3 g", "%DR": "10" },
+		"saturates": { "per 100": "1,1 g", "per portion": "0,9 g", "%DR": "5" },
+		"carbohydrate": { "per 100": "16,0 g", "per portion": "14,4 g", "%DR": "6" },
+		"sugars": { "per 100": "2,0 g", "per portion": "1,8 g", "%DR": "2" },
+		"fibre": { "per 100": "0,6 g", "per portion": "0,5 g", "%DR": null },
+		"protein": { "per 100": "11 g", "per portion": "10 g", "%DR": "21" },
+		"salt": { "per 100": "0,90 g", "per portion": "0,81 g", "%DR": "14" }
+	},
+	"ingredients": "Filetes de pescada (Merluccius Productus) (65%), farinha de trigo, óleo de girassol, água, amido de batata, sal, fermento, especiarias (paprica e pimenta branca).",
+	"informative_text": {
+		"preparation": "Frigideira: Frite o produto, sem o descongelar, em óleo bem quente, durante 6 a 8 minutos. Vire-os regularmente até estarem dourados e estaladiços. Forno: Pré-aqueça o forno a 220°C. Sem descongelar, coloque o produto no forno durante aproximadamente 15 a 17 minutos. Se forno convencional, durante 13 a 15 minutos. Vire-os após 10 minutos.",
+		"conservation": "Conservar a -18°C até ao limite do prazo de validade indicado na embalagem. Uma vez iniciado o processo de descongelação, não volte a congelar."
+	}
+}

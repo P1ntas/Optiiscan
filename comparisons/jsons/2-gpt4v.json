@@ -1,0 +1,20 @@
+{
+	"name": "Espinafres em Folha",
+	"brand": "Continente",
+	"code": "5601312133840",
+	"nutritional_table": {
+		"energy": { "per 100": "117kJ/28kcal", "per portion": "93kJ/22kcal", "%DR": "1" },
+		"fat": { "per 100": "0.6g", "per portion": "0.5g", "%DR": "1" },
+		"saturates": { "per 100": "0.1g", "per portion": "0.1g", "%DR": "1" },
+		"carbohydrate": { "per 100": "2.0g", "per portion": "1.6g", "%DR": "1" },
+		"sugars": { "per 100": "0.3g", "per portion": "0g", "%DR": "0" },
+		"fibre": { "per 100": "3.3g", "per portion": "2.6g", "%DR": "3" },
+		"protein": { "per 100": "2.9g", "per portion": "2.3g", "%DR": "1" },
+		"salt": { "per 100": "0.09g", "per portion": "0.07g", "%DR": "1" }
+	},
+	"ingredients": "Espinafres em Folha.",
+	"informative_text": {
+		"preparation": "Coloque 250g de produto num recipiente próprio para micro-ondas com um pouco de água (3 colheres de sopa) e deixe ferver coberto durante 3 minutos. Retire do micro-ondas, mexa o produto, coloque novamente no micro-ondas e deixe ferver durante mais 3 minutos.",
+		"conservation": "Conservar a -18°C até ao limite do prazo de validade indicado na embalagem. Uma vez iniciado o processo de descongelação, não volte a congelar."
+	}
+}

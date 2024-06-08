@@ -1,0 +1,24 @@
+{
+	"name": "Nuggets de Peito de Frango",
+	"brand": "Continente",
+	"code": "5601312509707",
+	"nutritional_table": {
+		"energy": {
+			"per 100": "861 kJ / 205 kcal",
+			"per portion": "861 kJ / 205 kcal",
+			"%DR": "10%"
+		},
+		"fat": { "per 100": "8,3 g", "per portion": "8,3 g", "%DR": "12%" },
+		"saturates": { "per 100": "2,5 g", "per portion": "2,5 g", "%DR": "13%" },
+		"sugars": { "per 100": "1,1 g", "per portion": "1,1 g", "%DR": "1%" },
+		"salt": { "per 100": "1,20 g", "per portion": "1,20 g", "%DR": "20%" },
+		"fibre": { "per 100": "1,6 g", "per portion": "1,6 g", "%DR": null },
+		"carbohydrate": { "per 100": "14 g", "per portion": "14 g", "%DR": "5%" },
+		"protein": { "per 100": "18 g", "per portion": "18 g", "%DR": "35%" }
+	},
+	"ingredients": "Recheio (85%) [peito de frango (87%), água, alho, proteína de ervilha, cebola, açúcar, especiarias, sal, glicose, aroma natural de limão, estabilizante (E452), espessante (E415), antioxidante (E330)] e panagem (15%) [farinha de trigo e milho, levedura, sal, dextrose, especiarias, amido modificado de milho, albumina de ovo] Produto pré-frito em óleo de girassol (7%). Pode conter vestígios de soja, sulfitos, leite, aipo e mostarda.",
+	"informative_text": {
+		"preparation": "Modo de preparação: Não necessita de descongelar o produto antes da sua preparação. Forno: Pré-aqueça o forno a 200°C. Coloque os nuggets, sem descongelar, no forno durante aproximadamente 10 minutos. Fritadeira ou frigideira: Frite os nuggets, sem descongelar, em óleo pré-aquecido a 180°C, durante aproximadamente 6 a 7 minutos, até que estejam dourados de ambos os lados. Escorra-os antes de servir. O produto necessita de cozedura completa antes do consumo.",
+		"conservation": "Modo de conservação: Conservar a -18°C até ao limite do prazo de validade indicado na embalagem. Uma vez iniciado o processo de descongelação, não volte a congelar."
+	}
+}
