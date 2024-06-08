@@ -1,4 +1,4 @@
-FROM google/cloud-sdk:latest
+FROM node:21
 
 WORKDIR /app
 
@@ -14,13 +14,20 @@ RUN apt-get update && \
     graphicsmagick \
     ghostscript
 
-RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - && \
-    apt-get install -y nodejs \
-    build-essential && \
-    node --version && \
-    npm --version
+RUN curl -sSL https://sdk.cloud.google.com | bash
+
+ENV PATH $PATH:/root/google-cloud-sdk/bin
+
+ENV PORT=3000
 
 RUN npm ci
+
+RUN npm run build
+
+# Change this for prod (https://mydomain.com)
+ENV ORIGIN=http://localhost:3000
+
+ENV BODY_SIZE_LIMIT=Infinity
 
 ENV GOOGLE_APPLICATION_CREDENTIALS=/app/gemini/project_config.json
 
@@ -28,4 +35,4 @@ EXPOSE 8080
 
 RUN gcloud auth activate-service-account 322850774257-compute@developer.gserviceaccount.com --key-file=$GOOGLE_APPLICATION_CREDENTIALS
 
-CMD ["npm", "run", "dev"]
+CMD ["node", "build"]
