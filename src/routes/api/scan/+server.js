@@ -1,6 +1,8 @@
 import { pdfToPng, deleteScanFile } from '$lib/server/utils';
-import { scanPrompt } from '$lib/server/ai-models/gemini';
+import { scanPrompt as geminiScan } from '$lib/server/ai-models/gemini';
+import { scanPrompt as gptScan } from '$lib/server/ai-models/openai';
 import db from '$lib/server/db/db';
+import path from 'path';
 
 /**
  * @param {number} numImages
@@ -38,15 +40,30 @@ export async function POST({ request }) {
 	)
 		.then(async (filepaths) => {
 			console.log('after promise: ', filepaths);
+			console.log('chosen model: ', params.activeModel);
 			/**@type {Array<ScanObject>}*/
 			let response = [];
+			const scanFunc = params.activeModel === 'Gemini' ? geminiScan : gptScan;
 			for (let i = 0; i < filepaths.length; i++) {
 				try {
-					await scanPrompt(filepaths[i]).then(async (res) => {
+					await scanFunc(filepaths[i]).then(async (res) => {
 						if (!res) throw TypeError('Response is null');
 						console.log(res);
-						deleteScanFile(filepaths[i]);
+						const ext = path.extname(filepaths[i]);
+						const filesToDelete =
+							params.activeModel === 'Gemini'
+								? [filepaths[i]]
+								: [
+										filepaths[i],
+										filepaths[i].replace(ext, `_1${ext}`),
+										filepaths[i].replace(ext, `_2${ext}`),
+										filepaths[i].replace(ext, `_3${ext}`)
+									];
+						filesToDelete.map(async (file) => {
+							deleteScanFile(file);
+						});
 						res[0]['uploadTime'] = new Date().toISOString();
+						res[0]['labels'] = [];
 						_db.collection('products').insertOne(res[0]);
 
 						success += 1;

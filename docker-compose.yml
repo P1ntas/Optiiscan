@@ -3,20 +3,20 @@ version: "3"
 services:
   optiiscan:
     container_name: optiiscan
-    image: optiiscan
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - ./src:/app/src
       - ./static:/app/static
       - ./tailwind.config.js:/app/tailwind.config.js
-    build:
-      dockerfile: Dockerfile
     ports:
       - 3000:3000
-      
+
   mongo:
-    image: mongo
+    image: mongo:latest
     ports:
-      - 27017:27017
+      - 27018:27017  # Maps host port 27018 to container port 27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: user
       MONGO_INITDB_ROOT_PASSWORD: password
@@ -26,7 +26,7 @@ services:
       - ./src/lib/server/db/init:/docker-entrypoint-initdb.d
 
   mongo-express:
-    image: mongo-express
+    image: mongo-express:latest
     restart: always
     ports:
       - 8081:8081

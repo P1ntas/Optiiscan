@@ -25,6 +25,7 @@ export async function GET() {
 export async function POST({ request }) {
 	const data = await request.json();
 	data['uploadTime'] = new Date().toISOString();
+	data['labels'] = [];
 	await (await db).collection('products').insertOne(data);
 	return json({ success: true, message: 'Document inserted successfully.' });
 }
@@ -41,8 +42,12 @@ export async function PATCH({ request }) {
 		return json({ success: false, message: 'Product not found.' }, 404);
 	}
 
-	if ('nutritional_table' in data)
+	if ('nutritional_table' in data) {
 		data['nutritional_table'] = JSON.parse(data['nutritional_table']);
+		Object.keys(data['nutritional_table']).forEach((k) => {
+			data['nutritional_table'][k] = JSON.parse(data['nutritional_table'][k]);
+		});
+	}
 	if ('informative_text' in data) data['informative_text'] = JSON.parse(data['informative_text']);
 
 	delete data['_id'];
