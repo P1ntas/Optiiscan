@@ -3,7 +3,6 @@ FROM node:21
 WORKDIR /app
 
 COPY . .
-COPY ./gemini/application_default_credentials.json /root/.config/gcloud/application_default_credentials.json
 
 RUN apt-get update && \
     apt-get install -yq --no-install-recommends \
@@ -33,6 +32,6 @@ ENV GOOGLE_APPLICATION_CREDENTIALS=/app/gemini/project_config.json
 
 EXPOSE 8080
 
-RUN gcloud auth activate-service-account 322850774257-compute@developer.gserviceaccount.com --key-file=$GOOGLE_APPLICATION_CREDENTIALS
+RUN gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
 
 CMD ["node", "build"]
