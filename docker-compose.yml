@@ -22,8 +22,9 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password
       MONGO_INITDB_DATABASE: optiiscan
     command: --quiet
-    volumes:
-      - ./src/lib/server/db/init:/docker-entrypoint-initdb.d
+#   For dev environment only: populate records and logs with mock data
+#   volumes:
+#     - ./src/lib/server/db/init:/docker-entrypoint-initdb.d
 
   mongo-express:
     image: mongo-express:latest
