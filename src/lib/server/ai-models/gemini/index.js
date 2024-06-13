@@ -1,11 +1,11 @@
 import fs from 'fs-extra';
 import { VertexAI } from '@google-cloud/vertexai';
+import { GCLOUD_PROJECT_ID } from '$env/static/private';
 
-const project = 'engaged-hash-420315';
 const location = 'us-central1';
 const model = 'gemini-1.0-pro-vision-001';
 
-const vertexAI = new VertexAI({ project: project, location: location });
+const vertexAI = new VertexAI({ project: GCLOUD_PROJECT_ID, location: location });
 
 const generativeVisionModel = vertexAI.getGenerativeModel({
 	model: model
