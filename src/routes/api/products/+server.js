@@ -61,8 +61,8 @@ export async function PATCH({ request }) {
 }
 
 export async function DELETE({ request }) {
-	const ids = await request.json();
-	if (!ids) {
+	const ids = (await request.json()).toString();
+	if (ids.length === 0) {
 		return json({ success: false, message: 'No product IDs provided for deletion.' }, 400);
 	}
 

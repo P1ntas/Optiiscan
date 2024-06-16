@@ -49,19 +49,6 @@ export async function POST({ request }) {
 					await scanFunc(filepaths[i]).then(async (res) => {
 						if (!res) throw TypeError('Response is null');
 						console.log(res);
-						const ext = path.extname(filepaths[i]);
-						const filesToDelete =
-							params.activeModel === 'Gemini'
-								? [filepaths[i]]
-								: [
-										filepaths[i],
-										filepaths[i].replace(ext, `_1${ext}`),
-										filepaths[i].replace(ext, `_2${ext}`),
-										filepaths[i].replace(ext, `_3${ext}`)
-									];
-						filesToDelete.map(async (file) => {
-							deleteScanFile(file);
-						});
 						res[0]['uploadTime'] = new Date().toISOString();
 						res[0]['labels'] = [];
 						_db.collection('products').insertOne(res[0]);
@@ -72,10 +59,27 @@ export async function POST({ request }) {
 						);
 						response.push(...res);
 					});
-				} catch {
-					messages.push(`${new Date().toLocaleTimeString()} - ${filepaths[i]} failed`);
+				} catch (e) {
+					console.log(e);
+					messages.push(
+						`${new Date().toLocaleTimeString()} - ${filepaths[i]} failed. ${e}`
+					);
 					error += 1;
 				}
+
+				const ext = path.extname(filepaths[i]);
+				const filesToDelete =
+					params.activeModel === 'Gemini'
+						? [filepaths[i]]
+						: [
+								filepaths[i],
+								filepaths[i].replace(ext, `_1${ext}`),
+								filepaths[i].replace(ext, `_2${ext}`),
+								filepaths[i].replace(ext, `_3${ext}`)
+							];
+				filesToDelete.map(async (file) => {
+					deleteScanFile(file);
+				});
 
 				_db.collection('logs').updateOne(
 					{ _id: log },
@@ -92,7 +96,7 @@ export async function POST({ request }) {
 				{ _id: log },
 				{
 					$set: {
-						status: 'completed',
+						status: error === params.filePaths.length ? 'aborted' : 'completed',
 						finishDate: new Date().toISOString(),
 						elapsedTime:
 							((new Date().getTime() - startTime) / 1e3 / 60).toFixed(2) + ' minutes'
