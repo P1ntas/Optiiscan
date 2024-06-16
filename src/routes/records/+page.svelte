@@ -3,7 +3,12 @@
 	import Nav from '../../components/Nav.svelte';
 	import SearchBar from '../../components/SearchBar.svelte';
 	import { Heading, Button } from 'flowbite-svelte';
-	import { DownloadSolid, EditOutline, SortOutline } from 'flowbite-svelte-icons';
+	import {
+		DownloadSolid,
+		EditOutline,
+		SortOutline,
+		TrashBinOutline
+	} from 'flowbite-svelte-icons';
 
 	import {
 		Table,
@@ -18,6 +23,7 @@
 	import EditProduct from '../../components/EditProduct.svelte';
 	import InformativeText from '../../components/InformativeText.svelte';
 	import Ingredients from '../../components/Ingredients.svelte';
+	import { error, success } from '../../toasts';
 
 	// Initialize selectedFilters with an empty array
 	let selectedFilters = [];
@@ -379,6 +385,32 @@
 		editModal['show'] = true;
 	}
 
+	/**
+	 *
+	 * @param {number} index
+	 */
+	async function deleteProduct(index) {
+		console.log(JSON.stringify(index));
+		const options = {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(products[index]._id)
+		};
+		try {
+			const response = await fetch('/api/products', options);
+			await response.json().then(async (res) => {
+				console.log(res);
+				if (res.success) success('Record deleted succesfully.');
+				else error('An error occurred deleting the record.');
+				products = await fetchProducts();
+			});
+		} catch {
+			error('Something went wrong!');
+		}
+	}
+
 	function getCheckedProducts() {
 		/**
 		 * @type {string[]}
@@ -662,6 +694,17 @@
 									class="text-primary-600"
 								>
 									<EditOutline class="h-6 w-6" />
+								</button></td
+							>
+							<td
+								class="whitespace-nowrap px-6 py-4 font-light text-gray-900 dark:text-white"
+								><button
+									on:click={() => {
+										deleteProduct(index);
+									}}
+									class="text-primary-600"
+								>
+									<TrashBinOutline class="h-6 w-6 text-secondary" />
 								</button></td
 							>
 						</tr>
